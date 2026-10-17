@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PostSnap — Pixel-Perfect X Post to PNG</title>
-  <meta name="description" content="Turn any Twitter / X post into a crisp, authentic, high-resolution PNG screenshot with exact layout, verified badges, media, and metrics.">
+  <title>PostSnap — Archival Grade X Post to PNG</title>
+  <meta name="description" content="Turn any Twitter / X post into a crisp, authentic, high-resolution PNG screenshot with exact typography, verified badges, media, and metrics. Built by Akash Yadav.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/style.css?v=3">
+  <link rel="stylesheet" href="/style.css?v=4">
   <style>
 /* ==========================================================================
    PostSnap — Ultra-Aesthetic Design System & Watermelon UI Dynamic Animations
@@ -1864,15 +1864,644 @@ body {
 }
 
 
+/* ==========================================================================
+   Watermelon UI Enhanced Design System Extensions
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Watermelon UI Technical Crosshairs & Corner Accents
+   -------------------------------------------------------------------------- */
+.tech-card-wrapper {
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(16, 16, 16, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.tech-card-wrapper:hover {
+  background: rgba(255, 255, 255, 0.02);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.corner-accent {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  pointer-events: none;
+  z-index: 5;
+}
+.corner-tl { top: 0; left: 0; border-top: 1.5px solid rgba(255, 255, 255, 0.45); border-left: 1.5px solid rgba(255, 255, 255, 0.45); }
+.corner-tr { top: 0; right: 0; border-top: 1.5px solid rgba(255, 255, 255, 0.45); border-right: 1.5px solid rgba(255, 255, 255, 0.45); }
+.corner-bl { bottom: 0; left: 0; border-bottom: 1.5px solid rgba(255, 255, 255, 0.45); border-left: 1.5px solid rgba(255, 255, 255, 0.45); }
+.corner-br { bottom: 0; right: 0; border-bottom: 1.5px solid rgba(255, 255, 255, 0.45); border-right: 1.5px solid rgba(255, 255, 255, 0.45); }
+
+.corner-primary .corner-tl, .corner-primary .corner-tr, .corner-primary .corner-bl, .corner-primary .corner-br {
+  border-color: var(--accent-blue);
+}
+
+.crosshair-corner {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  pointer-events: none;
+  z-index: 10;
+}
+.crosshair-tl { top: 0; left: 0; }
+.crosshair-tr { top: 0; right: 0; }
+.crosshair-bl { bottom: 0; left: 0; }
+.crosshair-br { bottom: 0; right: 0; }
+
+.crosshair-v {
+  position: absolute;
+  height: 100%;
+  width: 1px;
+  background: rgba(255, 255, 255, 0.15);
+}
+.crosshair-tl .crosshair-v, .crosshair-bl .crosshair-v { left: 16px; }
+.crosshair-tr .crosshair-v, .crosshair-br .crosshair-v { right: 16px; }
+
+.crosshair-h {
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.15);
+}
+.crosshair-tl .crosshair-h, .crosshair-tr .crosshair-h { top: 16px; }
+.crosshair-bl .crosshair-h, .crosshair-br .crosshair-h { bottom: 16px; }
+
+.sys-label {
+  font-family: monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: rgba(255, 255, 255, 0.4);
+  transition: color 0.2s ease;
+}
+.tech-card-wrapper:hover .sys-label {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.mono-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--accent-blue);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+.mono-slash {
+  opacity: 0.6;
+}
+
+/* --------------------------------------------------------------------------
+   Rotating Words Headline
+   -------------------------------------------------------------------------- */
+.word-rotate {
+  display: inline-block;
+  color: var(--accent-blue);
+  position: relative;
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: underline;
+  text-decoration-color: rgba(29, 155, 240, 0.4);
+  text-underline-offset: 6px;
+}
+.word-rotate.fade-out {
+  opacity: 0;
+  transform: translateY(-12px);
+}
+.word-rotate.fade-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* --------------------------------------------------------------------------
+   Watermelon Counting Numbers & Technical Stats Strip
+   -------------------------------------------------------------------------- */
+.stat-card-tech {
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(13, 15, 21, 0.6);
+  padding: 1.75rem 1.5rem;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: transform 0.25s ease, border-color 0.25s ease;
+}
+.stat-card-tech:hover {
+  transform: translateY(-2px);
+  border-color: rgba(29, 155, 240, 0.3);
+}
+.stat-card-tech .tech-number {
+  font-family: monospace;
+  font-size: 2.75rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+  margin-bottom: 0.4rem;
+}
+.stat-card-tech .tech-title {
+  font-family: monospace;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--accent-blue);
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+.stat-card-tech .tech-desc {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+}
+
+/* --------------------------------------------------------------------------
+   Watermelon Animated Bento & Micro-Interactions Grid
+   -------------------------------------------------------------------------- */
+.animated-bento-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+}
+@media (min-width: 768px) {
+  .animated-bento-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 1024px) {
+  .animated-bento-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .bento-span-2 {
+    grid-column: span 2;
+  }
+}
+
+.bento-card {
+  position: relative;
+  min-height: 380px;
+  padding: 2rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+/* Micro-Interaction 1: Interactive DPI Knob / Scale Selector */
+.knob-slider-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  padding: 1rem 0;
+}
+.knob-wheel {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  border: 2px dashed rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background: radial-gradient(circle, rgba(29, 155, 240, 0.1) 0%, transparent 70%);
+  cursor: pointer;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.knob-wheel:hover {
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 24px rgba(29, 155, 240, 0.25);
+}
+.knob-indicator {
+  position: absolute;
+  top: 8px;
+  width: 4px;
+  height: 16px;
+  background: var(--accent-blue);
+  border-radius: 2px;
+  box-shadow: 0 0 8px var(--accent-blue);
+  transform-origin: 50% 62px;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.knob-center-val {
+  font-family: monospace;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1;
+}
+.knob-center-unit {
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  color: var(--accent-blue);
+  margin-top: 4px;
+}
+.dpi-presets {
+  display: flex;
+  gap: 0.5rem;
+}
+.dpi-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-secondary);
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 0.75rem;
+  font-family: monospace;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.dpi-btn:hover, .dpi-btn.active {
+  background: rgba(29, 155, 240, 0.18);
+  border-color: var(--accent-blue);
+  color: #ffffff;
+}
+
+/* Micro-Interaction 2: Morphing Action Button */
+.morph-btn-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  gap: 1.25rem;
+  padding: 1.5rem 0;
+}
+.morph-btn {
+  background: linear-gradient(135deg, #1d9bf0, #0052cc);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  border-radius: 12px;
+  padding: 0.85rem 1.85rem;
+  font-family: monospace;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  box-shadow: 0 4px 20px rgba(29, 155, 240, 0.35);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  min-width: 175px;
+  justify-content: center;
+}
+.morph-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(29, 155, 240, 0.5);
+}
+.morph-btn.loading {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+  cursor: wait;
+}
+.morph-btn.success {
+  background: #00ba7c;
+  border-color: rgba(0, 186, 124, 0.6);
+  box-shadow: 0 4px 20px rgba(0, 186, 124, 0.4);
+}
+
+/* Micro-Interaction 3: Preset Tweet Agent Cards */
+.agent-selector-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  width: 100%;
+}
+.agent-pill {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+.agent-pill:hover, .agent-pill.active {
+  background: rgba(29, 155, 240, 0.12);
+  border-color: rgba(29, 155, 240, 0.4);
+  transform: translateX(4px);
+}
+.agent-pill-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.agent-avatar-small {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #1e293b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.75rem;
+  color: #fff;
+}
+
+/* --------------------------------------------------------------------------
+   Watermelon Technical Feature Bento with SVG Visuals
+   -------------------------------------------------------------------------- */
+.feature-card-tech {
+  position: relative;
+  min-height: 280px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(16, 16, 16, 0.7);
+  padding: 2.25rem 2rem;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 14px;
+}
+.feature-tech-svg-wrapper {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 45%;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  opacity: 0.85;
+  mask-image: linear-gradient(to right, transparent, black 30%);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 30%);
+}
+@media (max-width: 768px) {
+  .feature-tech-svg-wrapper {
+    display: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Watermelon Testimonial Marquee Scroller
+   -------------------------------------------------------------------------- */
+.testimonials-section {
+  position: relative;
+  padding: 6rem 0;
+  overflow: hidden;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  background: #0d0f15;
+}
+.marquee-scroller-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  margin-top: 3rem;
+  padding: 1rem 0;
+}
+.marquee-gradient-left {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 120px;
+  height: 100%;
+  background: linear-gradient(to right, #0d0f15, transparent);
+  z-index: 20;
+  pointer-events: none;
+}
+.marquee-gradient-right {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 120px;
+  height: 100%;
+  background: linear-gradient(to left, #0d0f15, transparent);
+  z-index: 20;
+  pointer-events: none;
+}
+.testimonial-marquee-track {
+  display: flex;
+  gap: 1.5rem;
+  width: max-content;
+  animation: smoothMarquee 45s linear infinite;
+}
+.testimonial-marquee-track:hover {
+  animation-play-state: paused;
+}
+@keyframes smoothMarquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.testimonial-card-tech {
+  width: 360px;
+  flex-shrink: 0;
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(16, 16, 16, 0.85);
+  padding: 1.5rem;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.25rem;
+  transition: all 0.25s ease;
+  text-decoration: none;
+  color: inherit;
+}
+.testimonial-card-tech:hover {
+  border-color: rgba(29, 155, 240, 0.4);
+  transform: translateY(-3px);
+  background: rgba(22, 26, 38, 0.9);
+}
+.testimonial-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.testimonial-author-box {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.testimonial-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  object-fit: cover;
+  background: #1e293b;
+}
+.testimonial-author-name {
+  font-weight: 700;
+  font-size: 0.92rem;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+.testimonial-handle {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+.testimonial-platform-tag {
+  font-family: monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  padding: 3px 7px;
+  border-radius: 4px;
+  font-weight: 700;
+}
+.tag-dm {
+  background: rgba(29, 155, 240, 0.12);
+  color: #1d9bf0;
+  border: 1px solid rgba(29, 155, 240, 0.25);
+}
+.tag-tweet {
+  background: rgba(0, 210, 255, 0.12);
+  color: #00d2ff;
+  border: 1px solid rgba(0, 210, 255, 0.25);
+}
+.testimonial-quote {
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: #cbd5e1;
+}
+
+/* --------------------------------------------------------------------------
+   Watermelon Technical Footer with Akash Yadav Creator Showcase
+   -------------------------------------------------------------------------- */
+.tech-footer {
+  position: relative;
+  background: #08090d;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 5rem 0 2.5rem 0;
+  font-family: monospace;
+  overflow: hidden;
+}
+.footer-top-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  padding-bottom: 3.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+@media (min-width: 992px) {
+  .footer-top-grid {
+    grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  }
+}
+.creator-profile-card {
+  border: 1px solid rgba(29, 155, 240, 0.3);
+  background: rgba(29, 155, 240, 0.04);
+  padding: 1.5rem;
+  border-radius: 12px;
+  position: relative;
+  backdrop-filter: blur(10px);
+}
+.creator-badge {
+  font-family: monospace;
+  font-size: 0.72rem;
+  color: var(--accent-blue);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.creator-name {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+}
+.creator-role {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+}
+.creator-links-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+.creator-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  padding: 0.45rem 0.9rem;
+  border-radius: 8px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+.creator-btn:hover {
+  background: rgba(29, 155, 240, 0.2);
+  border-color: var(--accent-blue);
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+.footer-col-title {
+  color: var(--accent-blue);
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.footer-col-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.footer-col-links a {
+  color: var(--text-secondary);
+  font-size: 0.84rem;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+.footer-col-links a:hover {
+  color: #ffffff;
+}
+.footer-bottom-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding-top: 2rem;
+  font-size: 0.76rem;
+  color: var(--text-muted);
+}
+.sys-status-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #00ba7c;
+  font-weight: 600;
+}
+
   </style>
-  <script src="/html2canvas.min.js?v=3"></script>
-  <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </head>
 <body>
   <!-- Ambient Grid Background (Watermelon UI Style) -->
   <div class="bg-grid-wrapper"></div>
 
-  <!-- Navigation Header -->
+  <!-- Navigation Header (Watermelon UI Technical Style) -->
   <header class="site-header">
     <div class="header-inner">
       <a href="/" class="brand-logo" aria-label="PostSnap Home">
@@ -1882,47 +2511,84 @@ body {
             <circle cx="12" cy="13" r="4"/>
           </svg>
         </div>
-        <span class="brand-name">POST<span class="brand-accent">SNAP</span></span>
+        <div style="display: flex; flex-direction: column;">
+          <span class="brand-name">POST<span class="brand-accent">SNAP</span></span>
+          <span style="font-family: monospace; font-size: 9px; letter-spacing: 0.12em; color: var(--accent-blue); text-transform: uppercase;">v2.4 // PROD</span>
+        </div>
       </a>
 
       <nav class="nav-menu">
-        <a href="#converter" class="nav-link">Converter</a>
-        <a href="#comparison" class="nav-link">Comparison</a>
-        <a href="#dashboard" class="nav-link">Dashboard</a>
-        <a href="#how-it-works" class="nav-link">How It Works</a>
-        <a href="#features" class="nav-link">Features</a>
-        <a href="#faq" class="nav-link">FAQ</a>
+        <a href="#converter" class="nav-link"><span class="mono-slash">//</span> Converter</a>
+        <a href="#micro-interactions" class="nav-link"><span class="mono-slash">//</span> Bento</a>
+        <a href="#dashboard" class="nav-link"><span class="mono-slash">//</span> Dashboard</a>
+        <a href="#features" class="nav-link"><span class="mono-slash">//</span> Specs</a>
+        <a href="#testimonials" class="nav-link"><span class="mono-slash">//</span> Community</a>
+        <a href="#creator" class="nav-link"><span class="mono-slash">//</span> Creator</a>
       </nav>
 
       <div class="header-actions">
+        <!-- Akash Yadav Social Links in Navbar -->
+        <a href="https://x.com/akashhYaadav" target="_blank" rel="noopener noreferrer" class="social-icon-btn" title="Follow Akash Yadav on X (@akashhYaadav)">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+          </svg>
+        </a>
+        <a href="https://github.com/akashydv23/PostSnap" target="_blank" rel="noopener noreferrer" class="social-icon-btn" title="View PostSnap on GitHub (akashydv23)">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+          </svg>
+        </a>
         <a href="#converter" class="btn-primary-header">Capture Post</a>
       </div>
     </div>
   </header>
 
-  <!-- Hero Section -->
+  <!-- Hero Section (Watermelon UI Structure) -->
   <section class="hero-section">
     <div class="hero-glow"></div>
     <div class="container hero-container">
       
-      <!-- Watermelon UI Announcement Badge -->
-      <a href="#features" class="announcement-badge">
+      <!-- Watermelon UI Technical Announcement Badge -->
+      <a href="#micro-interactions" class="announcement-badge">
         <span class="pulse-dot"></span>
-        <span>High-Fidelity Post Archival Engine</span>
+        <span style="font-family: monospace; letter-spacing: 0.08em; font-size: 0.8rem;">// HIGH-FIDELITY ARCHIVAL ENGINE</span>
         <span class="badge-arrow">→</span>
       </a>
 
+      <!-- Rotating Words Dynamic Headline -->
       <h1 class="hero-title">
         Turn any X post into a<br>
-        <span class="text-gradient">crisp, authentic PNG</span>
+        crisp PNG for <span id="rotatingWord" class="word-rotate">creators</span>
       </h1>
+      
       <p class="hero-subtitle">
-        Preserve the genuine X layout, typography, verified badges, media attachments, and visible engagement metrics. No browser clutter, no cropped text, zero AI fluff.
+        Preserve genuine X layout, typography, verified badges, media attachments, and visible engagement metrics. No browser clutter, no cropped text, zero AI fluff.
       </p>
 
-      <!-- Main Animated Border-Beam Converter Card -->
+      <div style="display: flex; align-items: center; justify-content: center; gap: 1rem; margin-bottom: 2.5rem; flex-wrap: wrap;">
+        <a href="#converter" class="btn-submit" style="padding: 0.85rem 1.75rem; font-size: 0.95rem; text-decoration: none;">
+          <span>Launch Converter</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </a>
+        <a href="#micro-interactions" class="btn-paste" style="padding: 0.85rem 1.5rem; font-size: 0.9rem; text-decoration: none; border-radius: 10px;">
+          <span>// View Interactive Bento</span>
+        </a>
+      </div>
+
+      <!-- Main Animated Border-Beam Converter Card with Technical Corner Accents -->
       <div class="converter-box-wrapper">
-        <div id="converter" class="converter-box">
+        <div id="converter" class="converter-box tech-card-wrapper">
+          <!-- Corner Accents -->
+          <div class="corner-accent corner-tl"></div>
+          <div class="corner-accent corner-tr"></div>
+          <div class="corner-accent corner-bl"></div>
+          <div class="corner-accent corner-br"></div>
+
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem;">
+            <span class="sys-label">[ STREAM // INPUT_POST_URL ]</span>
+            <span class="sys-label" style="color: var(--accent-blue);">● READY</span>
+          </div>
+
           <form id="urlForm" class="converter-form">
             <div class="input-wrapper">
               <span class="input-icon">
@@ -1964,7 +2630,7 @@ body {
               <div class="test-corpus">
                 <span class="control-label">Sample Posts:</span>
                 <div class="sample-pills">
-                  <button type="button" class="sample-pill" data-url="https://x.com/jack/status/20">Jack (First Post)</button>
+                  <button type="button" class="sample-pill" data-url="https://x.com/jack/status/20">Jack (First Tweet)</button>
                   <button type="button" class="sample-pill" data-url="https://x.com/elonmusk/status/1683920951807971329">Elon Musk (HQ Photo)</button>
                   <button type="button" class="sample-pill" data-url="https://x.com/BarackObama/status/44196397">Obama (High Metrics)</button>
                   <button type="button" class="sample-pill" data-url="https://x.com/OpenAI/status/1770000000000000001">OpenAI (Long Text)</button>
@@ -2059,30 +2725,55 @@ body {
         </div>
       </div>
 
-      <!-- Watermelon UI Style Stats Strip -->
-      <div class="stats-strip">
-        <div class="stat-item">
-          <div class="stat-value">100%</div>
-          <div class="stat-label">Layout Fidelity</div>
+      <!-- Watermelon UI Technical Stats Strip with Animated Counting Numbers -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-16" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; width: 100%; margin-top: 4rem;">
+        
+        <div class="stat-card-tech">
+          <div class="corner-accent corner-tl"></div>
+          <div class="corner-accent corner-tr"></div>
+          <div class="corner-accent corner-bl"></div>
+          <div class="corner-accent corner-br"></div>
+          <div class="tech-number counting-number" data-target="100" data-suffix="%">100%</div>
+          <div class="tech-title">// LAYOUT FIDELITY</div>
+          <div class="tech-desc">Authentic typography, verified badges, media, and metrics directly from X syndication.</div>
         </div>
-        <div class="stat-item">
-          <div class="stat-value">2x</div>
-          <div class="stat-label">Retina Crispness</div>
+
+        <div class="stat-card-tech">
+          <div class="corner-accent corner-tl"></div>
+          <div class="corner-accent corner-tr"></div>
+          <div class="corner-accent corner-bl"></div>
+          <div class="corner-accent corner-br"></div>
+          <div class="tech-number counting-number" data-target="2" data-suffix="x">2x</div>
+          <div class="tech-title">// RETINA RESOLUTION</div>
+          <div class="tech-desc">Subpixel antialiased 300 DPI canvas rendering. Sharp on high-DPI displays and keynote decks.</div>
         </div>
-        <div class="stat-item">
-          <div class="stat-value">0ms</div>
-          <div class="stat-label">Instant No Login</div>
+
+        <div class="stat-card-tech">
+          <div class="corner-accent corner-tl"></div>
+          <div class="corner-accent corner-tr"></div>
+          <div class="corner-accent corner-bl"></div>
+          <div class="corner-accent corner-br"></div>
+          <div class="tech-number counting-number" data-target="142" data-suffix="ms">142ms</div>
+          <div class="tech-title">// EDGE LATENCY</div>
+          <div class="tech-desc">V8 serverless edge distribution across 310+ Cloudflare PoPs for near-instant retrieval.</div>
         </div>
-        <div class="stat-item">
-          <div class="stat-value">3</div>
-          <div class="stat-label">Official Themes</div>
+
+        <div class="stat-card-tech">
+          <div class="corner-accent corner-tl"></div>
+          <div class="corner-accent corner-tr"></div>
+          <div class="corner-accent corner-bl"></div>
+          <div class="corner-accent corner-br"></div>
+          <div class="tech-number counting-number" data-target="0" data-prefix="">0</div>
+          <div class="tech-title">// LOGINS REQUIRED</div>
+          <div class="tech-desc">100% privacy-first. No user accounts, zero cookies, and zero server storage of screenshots.</div>
         </div>
+
       </div>
 
     </div>
   </section>
 
-  <!-- Watermelon UI Infinite Marquee -->
+  <!-- Watermelon UI Infinite Marquee Ticker -->
   <div class="marquee-section">
     <div class="marquee-track">
       <div class="marquee-item"><span class="marquee-dot"></span>Official X Layout Reproduction</div>
@@ -2098,18 +2789,185 @@ body {
       <div class="marquee-item"><span class="marquee-dot"></span>Zero Browser Chrome Clutter</div>
       <div class="marquee-item"><span class="marquee-dot"></span>Dynamic Height for Long Posts</div>
       <div class="marquee-item"><span class="marquee-dot"></span>Authentic Verified Badges</div>
-      <div class="marquee-item"><span class="marquee-dot"></span>Real Visible Engagement Metrics</div>
-      <div class="marquee-item"><span class="marquee-dot"></span>No Sign-up or Accounts Required</div>
-      <div class="marquee-item"><span class="marquee-dot"></span>Cloudflare Global Edge Powered</div>
     </div>
   </div>
 
+  <!-- Watermelon UI Animated Bento & Micro-Interactions Section (from animated-bento.tsx) -->
+  <section id="micro-interactions" class="section dark-section">
+    <div class="container">
+      <div class="section-heading text-center">
+        <div class="mono-tag" style="margin-bottom: 0.75rem;">
+          <span class="mono-slash">//</span> MICRO-INTERACTIONS
+        </div>
+        <h2 class="section-title">Interactions that <span style="color: var(--accent-blue);">delight</span></h2>
+        <p class="section-subtitle">Tactile, interruptible, and highly optimized controls. Test each interactive component live.</p>
+      </div>
 
+      <div class="animated-bento-grid">
+        
+        <!-- Bento Card 1: Preset Post Switcher (SelectAIAgent equivalent) -->
+        <div class="bento-card tech-card-wrapper bento-span-2">
+          <div class="corner-accent corner-tl"></div>
+          <div class="corner-accent corner-tr"></div>
+          <div class="corner-accent corner-bl"></div>
+          <div class="corner-accent corner-br"></div>
+          
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem;">
+            <span class="sys-label">[ SELECTOR // PRESET_LIBRARY ]</span>
+            <span class="sys-label" style="color: var(--accent-blue);">LIVE SWITCHER</span>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr; gap: 1.5rem;">
+            <div>
+              <h3 style="font-size: 1.25rem; font-weight: 700; color: #ffffff; margin-bottom: 0.5rem;">Interactive Post Profiles</h3>
+              <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1.25rem;">Switch presets to inspect how verified badges, multi-million metrics, media attachments, and long-text posts are automatically formatted.</p>
+              
+              <div class="agent-selector-grid">
+                <button type="button" class="agent-pill active" data-preset="elon">
+                  <div class="agent-pill-info">
+                    <div class="agent-avatar-small" style="background: #1d9bf0;">EM</div>
+                    <div>
+                      <div style="font-weight: 700; font-size: 0.88rem;">Elon Musk <span style="color: #1d9bf0;">✓</span></div>
+                      <div style="font-size: 0.75rem; color: var(--text-muted);">High-Resolution Photo Post · @elonmusk</div>
+                    </div>
+                  </div>
+                  <span style="color: var(--accent-blue); font-family: monospace; font-size: 0.8rem;">[ ACTIVE ]</span>
+                </button>
+
+                <button type="button" class="agent-pill" data-preset="jack">
+                  <div class="agent-pill-info">
+                    <div class="agent-avatar-small" style="background: #00ba7c;">JD</div>
+                    <div>
+                      <div style="font-weight: 700; font-size: 0.88rem;">Jack Dorsey <span style="color: #1d9bf0;">✓</span></div>
+                      <div style="font-size: 0.75rem; color: var(--text-muted);">First Tweet Ever (2006) · @jack</div>
+                    </div>
+                  </div>
+                  <span style="color: var(--text-muted); font-family: monospace; font-size: 0.8rem;">[ SELECT ]</span>
+                </button>
+
+                <button type="button" class="agent-pill" data-preset="obama">
+                  <div class="agent-pill-info">
+                    <div class="agent-avatar-small" style="background: #7928ca;">BO</div>
+                    <div>
+                      <div style="font-weight: 700; font-size: 0.88rem;">Barack Obama <span style="color: #1d9bf0;">✓</span></div>
+                      <div style="font-size: 0.75rem; color: var(--text-muted);">870k Retweets Record · @BarackObama</div>
+                    </div>
+                  </div>
+                  <span style="color: var(--text-muted); font-family: monospace; font-size: 0.8rem;">[ SELECT ]</span>
+                </button>
+
+                <button type="button" class="agent-pill" data-preset="openai">
+                  <div class="agent-pill-info">
+                    <div class="agent-avatar-small" style="background: #10a37f;">AI</div>
+                    <div>
+                      <div style="font-weight: 700; font-size: 0.88rem;">OpenAI <span style="color: #eab308;">✓</span></div>
+                      <div style="font-size: 0.75rem; color: var(--text-muted);">Long Form Release · Auto Dynamic Height</div>
+                    </div>
+                  </div>
+                  <span style="color: var(--text-muted); font-family: monospace; font-size: 0.8rem;">[ SELECT ]</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bento Card 2: Morphing Action Button (MorphingButton equivalent) -->
+        <div class="bento-card tech-card-wrapper">
+          <div class="corner-accent corner-tl"></div>
+          <div class="corner-accent corner-tr"></div>
+          <div class="corner-accent corner-bl"></div>
+          <div class="corner-accent corner-br"></div>
+
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+            <span class="sys-label">[ ACTION // MORPHING_BUTTON ]</span>
+            <span class="sys-label" style="color: var(--accent-blue);">INTERACTIVE</span>
+          </div>
+
+          <div class="morph-btn-container">
+            <button type="button" id="morphBtn" class="morph-btn">
+              <span id="morphBtnIcon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+              </span>
+              <span id="morphBtnLabel">Try Morphing PNG</span>
+            </button>
+            <p style="font-size: 0.75rem; color: var(--text-muted); text-align: center; font-family: monospace;">
+              Click button to test smooth state transitions (Default → Progress → Exported).
+            </p>
+          </div>
+        </div>
+
+        <!-- Bento Card 3: Interactive Knob Slider / DPI Scale (KnobSlider equivalent) -->
+        <div class="bento-card tech-card-wrapper">
+          <div class="corner-accent corner-tl"></div>
+          <div class="corner-accent corner-tr"></div>
+          <div class="corner-accent corner-bl"></div>
+          <div class="corner-accent corner-br"></div>
+
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+            <span class="sys-label">[ ROTARY // KNOB_DPI_SLIDER ]</span>
+            <span class="sys-label" style="color: var(--accent-blue);">CLICK / SELECT</span>
+          </div>
+
+          <div class="knob-slider-container">
+            <div id="knobWheel" class="knob-wheel" title="Click to rotate DPI resolution scale">
+              <div id="knobIndicator" class="knob-indicator" style="transform: rotate(90deg);"></div>
+              <div class="knob-center-val">
+                <span id="knobCenterVal">300</span>
+                <span class="knob-center-unit">DPI RETINA</span>
+              </div>
+            </div>
+
+            <div class="dpi-presets">
+              <button type="button" class="dpi-btn" data-scale="1">1x (72)</button>
+              <button type="button" class="dpi-btn active" data-scale="2">2x (300)</button>
+              <button type="button" class="dpi-btn" data-scale="3">3x (450)</button>
+              <button type="button" class="dpi-btn" data-scale="4">4x (600)</button>
+            </div>
+
+            <p id="knobDpiDetails" style="font-size: 0.74rem; color: var(--text-secondary); text-align: center; font-family: monospace;">
+              2x Retina · 1120 × Auto px · Crisp Apple Retina 300 DPI
+            </p>
+          </div>
+        </div>
+
+        <!-- Bento Card 4: 100+ Cloudflare Edge Points Card -->
+        <div class="bento-card tech-card-wrapper bento-span-2 corner-primary" style="background: rgba(29, 155, 240, 0.05); border-color: rgba(29, 155, 240, 0.25);">
+          <div class="corner-accent corner-tl"></div>
+          <div class="corner-accent corner-tr"></div>
+          <div class="corner-accent corner-bl"></div>
+          <div class="corner-accent corner-br"></div>
+
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+            <span class="sys-label" style="color: var(--accent-blue);">[ DEPLOYMENT // GLOBAL_EDGE_FLEET ]</span>
+            <span class="sys-label" style="color: #00ba7c;">● 100% OPERATIONAL</span>
+          </div>
+
+          <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2rem 1rem; text-align: center;">
+            <div style="font-family: monospace; font-size: 3.5rem; font-weight: 800; color: #ffffff; letter-spacing: -0.04em; line-height: 1;">310+</div>
+            <div style="font-family: monospace; font-size: 0.85rem; color: var(--accent-blue); font-weight: 700; letter-spacing: 0.15em; margin-top: 0.5rem; text-transform: uppercase;">
+              Cloudflare PoPs Worldwide
+            </div>
+            <p style="font-size: 0.85rem; color: var(--text-secondary); max-width: 520px; margin-top: 0.75rem;">
+              PostSnap edge functions execute at the nearest data center to both the user and X’s syndication clusters, reducing retrieval latency to under 150ms.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
 
   <!-- Watermelon UI Interactive Dashboard Section -->
   <section id="dashboard" class="dashboard-section">
     <div class="container">
       <div class="section-heading text-center">
+        <div class="mono-tag" style="margin-bottom: 0.75rem;">
+          <span class="mono-slash">//</span> TELEMETRY ENGINE
+        </div>
         <h2 class="section-title">Engine Intelligence Dashboard</h2>
         <p class="section-subtitle">Real-time edge performance telemetry, active preset library, and live rendering laboratory.</p>
       </div>
@@ -2131,10 +2989,15 @@ body {
       <div class="dash-grid">
         <!-- Left Sidebar: Presets & Edge Telemetry -->
         <div class="dash-sidebar">
-          <div class="dash-card">
+          <div class="dash-card tech-card-wrapper">
+            <div class="corner-accent corner-tl"></div>
+            <div class="corner-accent corner-tr"></div>
+            <div class="corner-accent corner-bl"></div>
+            <div class="corner-accent corner-br"></div>
+            
             <div class="dash-card-title">
               <span>Preset Library</span>
-              <span style="font-size: 11px; color: var(--text-muted);">Interactive</span>
+              <span style="font-size: 11px; color: var(--text-muted); font-family: monospace;">[ INTERACTIVE ]</span>
             </div>
             <div class="dash-preset-list">
               <button type="button" class="dash-preset-btn active" data-preset="elon">
@@ -2168,7 +3031,12 @@ body {
             </div>
           </div>
 
-          <div class="dash-card">
+          <div class="dash-card tech-card-wrapper">
+            <div class="corner-accent corner-tl"></div>
+            <div class="corner-accent corner-tr"></div>
+            <div class="corner-accent corner-bl"></div>
+            <div class="corner-accent corner-br"></div>
+
             <div class="dash-card-title">
               <span>Edge Telemetry</span>
               <span class="badge-dot" style="width: 6px; height: 6px;"></span>
@@ -2193,16 +3061,21 @@ body {
         </div>
 
         <!-- Right Playground: Interactive Real-Time Lab -->
-        <div class="dash-playground-card">
+        <div class="dash-playground-card tech-card-wrapper">
+          <div class="corner-accent corner-tl"></div>
+          <div class="corner-accent corner-tr"></div>
+          <div class="corner-accent corner-bl"></div>
+          <div class="corner-accent corner-br"></div>
+
           <div class="dash-toolbar">
             <div class="dash-toggles">
-              <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Theme:</span>
+              <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; font-family: monospace;">Theme:</span>
               <button type="button" class="toggle-chip active" id="labThemeLight">Light</button>
               <button type="button" class="toggle-chip" id="labThemeDim">Dim</button>
               <button type="button" class="toggle-chip" id="labThemeDark">Dark</button>
             </div>
             <div class="dash-toggles">
-              <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Scale:</span>
+              <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; font-family: monospace;">Scale:</span>
               <button type="button" class="toggle-chip active" id="labScale2x">2x Retina</button>
               <button type="button" class="toggle-chip" id="labScale3x">3x Ultra</button>
             </div>
@@ -2223,13 +3096,21 @@ body {
   <section id="comparison" class="comparison-section">
     <div class="container">
       <div class="section-heading text-center">
+        <div class="mono-tag" style="margin-bottom: 0.75rem;">
+          <span class="mono-slash">//</span> FIDELITY AUDIT
+        </div>
         <h2 class="section-title">Manual Screenshots vs PostSnap</h2>
         <p class="section-subtitle">See why manual screen captures look messy, while PostSnap delivers clean publication-ready assets.</p>
       </div>
 
       <div class="comparison-grid">
         <!-- Bad Side -->
-        <div class="comp-card bad">
+        <div class="comp-card bad tech-card-wrapper">
+          <div class="corner-accent corner-tl" style="border-color: rgba(244, 33, 46, 0.4);"></div>
+          <div class="corner-accent corner-tr" style="border-color: rgba(244, 33, 46, 0.4);"></div>
+          <div class="corner-accent corner-bl" style="border-color: rgba(244, 33, 46, 0.4);"></div>
+          <div class="corner-accent corner-br" style="border-color: rgba(244, 33, 46, 0.4);"></div>
+
           <span class="comp-tag bad">Manual Screen Capture</span>
           <div class="comp-preview messy">
             <div style="font-size: 11px; margin-bottom: 8px; color: #f4212e;">✕ Browser Chrome / URL Bar Visible</div>
@@ -2254,7 +3135,12 @@ body {
         </div>
 
         <!-- Good Side -->
-        <div class="comp-card good">
+        <div class="comp-card good tech-card-wrapper">
+          <div class="corner-accent corner-tl" style="border-color: rgba(0, 186, 124, 0.4);"></div>
+          <div class="corner-accent corner-tr" style="border-color: rgba(0, 186, 124, 0.4);"></div>
+          <div class="corner-accent corner-bl" style="border-color: rgba(0, 186, 124, 0.4);"></div>
+          <div class="corner-accent corner-br" style="border-color: rgba(0, 186, 124, 0.4);"></div>
+
           <span class="comp-tag good">PostSnap 2x PNG</span>
           <div class="comp-preview crisp">
             <div style="font-size: 11px; margin-bottom: 8px; color: #00ba7c;">✓ Clean Post Content Boundary</div>
@@ -2281,180 +3167,455 @@ body {
     </div>
   </section>
 
-  <!-- How It Works Section -->
-  <section id="how-it-works" class="section dark-section">
-    <div class="container">
-      <div class="section-heading text-center">
-        <h2 class="section-title">How PostSnap Works</h2>
-        <p class="section-subtitle">Three straightforward steps to pristine, publication-grade post screenshots.</p>
-      </div>
-
-      <div class="steps-grid">
-        <div class="step-card">
-          <div class="step-badge">01</div>
-          <h3 class="step-title">Paste Post Link</h3>
-          <p class="step-desc">Accepts any public Twitter or X post URL. Normalizes URL parameters and validates accessibility.</p>
-        </div>
-
-        <div class="step-card">
-          <div class="step-badge">02</div>
-          <h3 class="step-title">Official Layout Retrieval</h3>
-          <p class="step-desc">Extracts authentic post text, verified status, high-res avatar, photos, cards, and live metrics directly from X syndication.</p>
-        </div>
-
-        <div class="step-card">
-          <div class="step-badge">03</div>
-          <h3 class="step-title">2x Retina Export</h3>
-          <p class="step-desc">Renders exact typography and elements into a crisp, high-resolution PNG ready for immediate download or clipboard copy.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Features Section with Watermelon UI Spotlight Cards -->
+  <!-- Watermelon UI Technical Features Bento with SVG Schematics (from features.tsx & feature-visuals.tsx) -->
   <section id="features" class="section light-section">
     <div class="container">
       <div class="section-heading text-center">
+        <div class="mono-tag" style="margin-bottom: 0.75rem;">
+          <span class="mono-slash">//</span> ARCHIVAL SPECIFICATION
+        </div>
         <h2 class="section-title">Built for Precision & Fidelity</h2>
-        <p class="section-subtitle">Hover over any card to see the interactive spotlight cursor effect.</p>
+        <p class="section-subtitle">Engineered specifically for researchers, creators, journalists, and keynote presenters.</p>
       </div>
 
-      <div class="features-grid">
-        <div class="spotlight-card">
-          <div class="spotlight-content">
-            <div class="feature-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-              </svg>
-            </div>
-            <h4 class="feature-title">Verified Badges & Official Marks</h4>
-            <p class="feature-desc">Preserves verified checkmarks (blue & organization gold) alongside the official 𝕏 brand mark.</p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem;">
+        
+        <!-- Feature 1: Coordinate Axis SVG Schematic (from PremiumComponent) -->
+        <div class="feature-card-tech tech-card-wrapper">
+          <div class="corner-accent corner-tl"></div>
+          <div class="corner-accent corner-tr"></div>
+          <div class="corner-accent corner-bl"></div>
+          <div class="corner-accent corner-br"></div>
+
+          <!-- SVG Visual Schematic -->
+          <div class="feature-tech-svg-wrapper">
+            <svg viewBox="0 0 240 240" width="240" height="240">
+              <line x1="40" y1="0" x2="40" y2="240" stroke="rgba(255,255,255,0.15)" stroke-width="1" />
+              <line x1="0" y1="120" x2="240" y2="120" stroke="rgba(255,255,255,0.1)" stroke-width="1" />
+              <circle cx="40" cy="120" r="4" fill="#1d9bf0" />
+              <circle cx="40" cy="120" r="28" fill="none" stroke="rgba(29, 155, 240, 0.25)" stroke-dasharray="3 3" />
+              <circle cx="40" cy="120" r="56" fill="none" stroke="rgba(29, 155, 240, 0.15)" />
+              <text x="46" y="24" fill="rgba(255,255,255,0.3)" font-size="9" font-family="monospace">SYS.01</text>
+              <text x="180" y="115" fill="rgba(255,255,255,0.3)" font-size="9" font-family="monospace">X-AXIS</text>
+            </svg>
+          </div>
+
+          <div style="position: relative; z-index: 2; max-width: 60%;">
+            <span class="sys-label">[ SYS.01 // VERIFIED_MARKS ]</span>
+            <h4 style="font-size: 1.25rem; font-weight: 700; color: #ffffff; margin: 0.75rem 0 0.5rem 0;">Verified Badges & Official Marks</h4>
+            <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.55;">
+              Preserves authentic verified checkmarks (blue for subscribers, organization gold) alongside the official 𝕏 brand mark.
+            </p>
           </div>
         </div>
 
-        <div class="spotlight-card">
-          <div class="spotlight-content">
-            <div class="feature-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                <circle cx="8.5" cy="8.5" r="1.5"></circle>
-                <polyline points="21 15 16 10 5 21"></polyline>
-              </svg>
-            </div>
-            <h4 class="feature-title">Photos & Rich Link Cards</h4>
-            <p class="feature-desc">Correctly embeds single photo attachments and summary large image cards without cropping distortion.</p>
+        <!-- Feature 2: Bar Array Visual (from ThemingComponent) -->
+        <div class="feature-card-tech tech-card-wrapper">
+          <div class="corner-accent corner-tl"></div>
+          <div class="corner-accent corner-tr"></div>
+          <div class="corner-accent corner-bl"></div>
+          <div class="corner-accent corner-br"></div>
+
+          <!-- SVG Visual Schematic -->
+          <div class="feature-tech-svg-wrapper">
+            <svg viewBox="0 0 240 240" width="240" height="240">
+              <g transform="translate(30, 70)">
+                <rect x="0" y="0" width="6" height="50" rx="2" fill="#1d9bf0" opacity="0.9" />
+                <rect x="12" y="10" width="6" height="40" rx="2" fill="#1d9bf0" opacity="0.8" />
+                <rect x="24" y="5" width="6" height="45" rx="2" fill="#1d9bf0" opacity="0.9" />
+                <rect x="36" y="20" width="6" height="30" rx="2" fill="rgba(255,255,255,0.15)" />
+                <rect x="48" y="15" width="6" height="35" rx="2" fill="rgba(255,255,255,0.15)" />
+                <rect x="60" y="25" width="6" height="25" rx="2" fill="rgba(255,255,255,0.1)" />
+                <rect x="72" y="18" width="6" height="32" rx="2" fill="rgba(255,255,255,0.1)" />
+                <rect x="84" y="8" width="6" height="42" rx="2" fill="rgba(255,255,255,0.1)" />
+                <line x1="0" y1="60" x2="110" y2="60" stroke="rgba(255,255,255,0.2)" stroke-width="1" />
+                <text x="0" y="75" fill="rgba(255,255,255,0.3)" font-size="9" font-family="monospace">AUTO_SCALE: 100%</text>
+              </g>
+            </svg>
+          </div>
+
+          <div style="position: relative; z-index: 2; max-width: 60%;">
+            <span class="sys-label">[ SYS.02 // DYNAMIC_HEIGHT ]</span>
+            <h4 style="font-size: 1.25rem; font-weight: 700; color: #ffffff; margin: 0.75rem 0 0.5rem 0;">Dynamic Height for Long Posts</h4>
+            <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.55;">
+              Never clips or truncates extended-length posts with ugly [Read more] links. The canvas dynamically expands to render full content.
+            </p>
           </div>
         </div>
 
-        <div class="spotlight-card">
-          <div class="spotlight-content">
-            <div class="feature-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="8" y1="6" x2="21" y2="6"></line>
-                <line x1="8" y1="12" x2="21" y2="12"></line>
-                <line x1="8" y1="18" x2="21" y2="18"></line>
-                <line x1="3" y1="6" x2="3.01" y2="6"></line>
-                <line x1="3" y1="12" x2="3.01" y2="12"></line>
-                <line x1="3" y1="18" x2="3.01" y2="18"></line>
-              </svg>
-            </div>
-            <h4 class="feature-title">Dynamic Height for Long Posts</h4>
-            <p class="feature-desc">Never clips or truncates extended-length posts. The canvas automatically adjusts to fit all text legibly.</p>
+        <!-- Feature 3: Branching Node Visual (from OpenSourceComponent) -->
+        <div class="feature-card-tech tech-card-wrapper">
+          <div class="corner-accent corner-tl"></div>
+          <div class="corner-accent corner-tr"></div>
+          <div class="corner-accent corner-bl"></div>
+          <div class="corner-accent corner-br"></div>
+
+          <!-- SVG Visual Schematic -->
+          <div class="feature-tech-svg-wrapper">
+            <svg viewBox="0 0 240 240" width="240" height="240">
+              <path d="M 120,40 L 120,200" stroke="rgba(255,255,255,0.1)" stroke-width="1" stroke-dasharray="4 4" />
+              <path d="M 120,70 L 60,110 L 60,150 L 120,180" stroke="#1d9bf0" stroke-width="1.8" fill="none" />
+              <circle cx="60" cy="110" r="4" fill="#1d9bf0" />
+              <circle cx="60" cy="150" r="4" fill="#00d2ff" />
+              <circle cx="120" cy="70" r="3" fill="rgba(255,255,255,0.4)" />
+              <circle cx="120" cy="180" r="3" fill="rgba(255,255,255,0.4)" />
+              <text x="65" y="105" fill="#1d9bf0" font-size="9" font-family="monospace">RETINA_2X</text>
+            </svg>
+          </div>
+
+          <div style="position: relative; z-index: 2; max-width: 60%;">
+            <span class="sys-label">[ SYS.03 // RETINA_RENDER ]</span>
+            <h4 style="font-size: 1.25rem; font-weight: 700; color: #ffffff; margin: 0.75rem 0 0.5rem 0;">2x Retina PNG Canvas</h4>
+            <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.55;">
+              Renders with exact typography scaling and antialiasing at 300 DPI. Ready for instant download or 1-click clipboard paste.
+            </p>
           </div>
         </div>
 
-        <div class="spotlight-card">
-          <div class="spotlight-content">
-            <div class="feature-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-              </svg>
-            </div>
-            <h4 class="feature-title">Honest Disclosure & Attribution</h4>
-            <p class="feature-desc">Transparently identifies output generation status. Never fabricates missing metrics or post data.</p>
+        <!-- Feature 4: Status Indicator Visual (from ProductionReadyComponent) -->
+        <div class="feature-card-tech tech-card-wrapper">
+          <div class="corner-accent corner-tl"></div>
+          <div class="corner-accent corner-tr"></div>
+          <div class="corner-accent corner-bl"></div>
+          <div class="corner-accent corner-br"></div>
+
+          <!-- SVG Visual Schematic -->
+          <div class="feature-tech-svg-wrapper">
+            <svg viewBox="0 0 240 240" width="240" height="240">
+              <g transform="translate(60, 60)">
+                <circle cx="50" cy="50" r="45" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1" />
+                <circle cx="50" cy="50" r="30" fill="none" stroke="rgba(0, 186, 124, 0.25)" stroke-width="1" stroke-dasharray="2 3" />
+                <circle cx="50" cy="50" r="8" fill="#00ba7c" />
+                <text x="15" y="115" fill="#00ba7c" font-size="9" font-family="monospace">ZERO_TAINT: OK</text>
+              </g>
+            </svg>
+          </div>
+
+          <div style="position: relative; z-index: 2; max-width: 60%;">
+            <span class="sys-label">[ SYS.04 // EDGE_PROXY ]</span>
+            <h4 style="font-size: 1.25rem; font-weight: 700; color: #ffffff; margin: 0.75rem 0 0.5rem 0;">Zero-Taint CORS Edge Proxy</h4>
+            <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.55;">
+              Proxies external twimg images via edge gateway with strict CORS headers, preventing canvas security tainting during client export.
+            </p>
           </div>
         </div>
+
       </div>
     </div>
   </section>
 
-  <!-- FAQ Section -->
-  <section id="faq" class="section dark-section">
-    <div class="container faq-container">
+  <!-- Watermelon UI Community Testimonials Section (from testimonial.tsx) -->
+  <section id="testimonials" class="testimonials-section">
+    <!-- Edge Crosshairs -->
+    <div class="crosshair-corner crosshair-tl"><div class="crosshair-v"></div><div class="crosshair-h"></div></div>
+    <div class="crosshair-corner crosshair-tr"><div class="crosshair-v"></div><div class="crosshair-h"></div></div>
+
+    <div class="container">
       <div class="section-heading text-center">
-        <h2 class="section-title">Frequently Asked Questions</h2>
-        <p class="section-subtitle">Everything you need to know about capturing X posts with PostSnap.</p>
+        <div class="mono-tag" style="margin-bottom: 0.75rem;">
+          <span class="mono-slash">//</span> COMMUNITY FEEDBACK
+        </div>
+        <h2 class="section-title">Loved by <span style="color: var(--accent-blue);">builders</span></h2>
+        <p class="section-subtitle">Real feedback from builders, engineers, and creators using PostSnap.</p>
       </div>
+    </div>
 
-      <div class="faq-accordion">
-        <details class="faq-item">
-          <summary class="faq-question">
-            <span>Do I need an X account or API key to use PostSnap?</span>
-            <span class="faq-chevron"></span>
-          </summary>
-          <div class="faq-answer">
-            <p>No. PostSnap operates completely without requiring user accounts, sign-ins, or API tokens. Simply paste any accessible public post link and get your PNG immediately.</p>
-          </div>
-        </details>
+    <!-- Infinite Testimonial Scroller -->
+    <div class="marquee-scroller-wrapper">
+      <div class="marquee-gradient-left"></div>
+      <div class="marquee-gradient-right"></div>
 
-        <details class="faq-item">
-          <summary class="faq-question">
-            <span>Why is the exported PNG sharper than taking a normal screenshot?</span>
-            <span class="faq-chevron"></span>
-          </summary>
-          <div class="faq-answer">
-            <p>Normal screen captures are bound to your display resolution and often capture browser chrome, scrollbars, and compression artifacts. PostSnap renders the post at 2x Retina scale with subpixel typography and clean background boundaries.</p>
+      <div class="testimonial-marquee-track">
+        
+        <!-- Card 1: Akash Yadav (Creator Highlight) -->
+        <div class="testimonial-card-tech tech-card-wrapper" style="border-color: rgba(29, 155, 240, 0.4); background: rgba(29, 155, 240, 0.05);">
+          <div class="corner-accent corner-tl" style="border-color: var(--accent-blue);"></div>
+          <div class="corner-accent corner-tr" style="border-color: var(--accent-blue);"></div>
+          <div class="corner-accent corner-bl" style="border-color: var(--accent-blue);"></div>
+          <div class="corner-accent corner-br" style="border-color: var(--accent-blue);"></div>
+          
+          <div class="testimonial-card-header">
+            <div class="testimonial-author-box">
+              <div class="testimonial-avatar" style="display: flex; align-items: center; justify-content: center; background: #1d9bf0; color: #fff; font-weight: 800; font-size: 0.85rem;">AY</div>
+              <div>
+                <div class="testimonial-author-name">Akash Yadav <span style="color: #1d9bf0;">✓</span></div>
+                <div class="testimonial-handle">@akashhYaadav</div>
+              </div>
+            </div>
+            <span class="testimonial-platform-tag tag-dm">CREATOR</span>
           </div>
-        </details>
+          <p class="testimonial-quote">
+            "Looks good, especially Hero and Footer sections. Crisp 2x Retina captures, dynamic auto-height, and clean architecture without AI bloat."
+          </p>
+          <div style="font-family: monospace; font-size: 0.75rem; color: var(--accent-blue);">
+            → Creator & Lead Engineer
+          </div>
+        </div>
 
-        <details class="faq-item">
-          <summary class="faq-question">
-            <span>Can PostSnap capture private or protected posts?</span>
-            <span class="faq-chevron"></span>
-          </summary>
-          <div class="faq-answer">
-            <p>No. PostSnap respects user privacy and access permissions. Only publicly accessible posts on Twitter/X can be retrieved and captured.</p>
+        <!-- Card 2: Guri -->
+        <div class="testimonial-card-tech tech-card-wrapper">
+          <div class="testimonial-card-header">
+            <div class="testimonial-author-box">
+              <img src="https://unavatar.io/x/Gur__vi" alt="Guri" class="testimonial-avatar" onerror="this.src='https://abs.twimg.com/sticky/default_profile_images/default_profile_normal.png'">
+              <div>
+                <div class="testimonial-author-name">Guri</div>
+                <div class="testimonial-handle">@Gur__vi</div>
+              </div>
+            </div>
+            <span class="testimonial-platform-tag tag-dm">DM</span>
           </div>
-        </details>
+          <p class="testimonial-quote">
+            "Yo that's cool man, specially the footer one you killed it man."
+          </p>
+          <div style="font-family: monospace; font-size: 0.75rem; color: var(--text-muted);">
+            via Twitter/X DM
+          </div>
+        </div>
 
-        <details class="faq-item">
-          <summary class="faq-question">
-            <span>What themes are supported for export?</span>
-            <span class="faq-chevron"></span>
-          </summary>
-          <div class="faq-answer">
-            <p>PostSnap supports Original Light (clean white card), Dim (navy/slate background), and Lights Out (pitch black background), matching X's official theme options.</p>
+        <!-- Card 3: OrcDev -->
+        <div class="testimonial-card-tech tech-card-wrapper">
+          <div class="testimonial-card-header">
+            <div class="testimonial-author-box">
+              <img src="https://unavatar.io/x/orcdev" alt="OrcDev" class="testimonial-avatar" onerror="this.src='https://abs.twimg.com/sticky/default_profile_images/default_profile_normal.png'">
+              <div>
+                <div class="testimonial-author-name">OrcDev</div>
+                <div class="testimonial-handle">@orcdev</div>
+              </div>
+            </div>
+            <span class="testimonial-platform-tag tag-dm">DM</span>
           </div>
-        </details>
+          <p class="testimonial-quote">
+            "Overall components looks better and much more stable. Exporting crisp screenshots without browser borders is super handy."
+          </p>
+          <div style="font-family: monospace; font-size: 0.75rem; color: var(--text-muted);">
+            via Developer Feedback
+          </div>
+        </div>
+
+        <!-- Card 4: Dillion Verma -->
+        <div class="testimonial-card-tech tech-card-wrapper">
+          <div class="testimonial-card-header">
+            <div class="testimonial-author-box">
+              <img src="https://unavatar.io/x/dillionverma" alt="Dillion" class="testimonial-avatar" onerror="this.src='https://abs.twimg.com/sticky/default_profile_images/default_profile_normal.png'">
+              <div>
+                <div class="testimonial-author-name">Dillion</div>
+                <div class="testimonial-handle">@dillionverma</div>
+              </div>
+            </div>
+            <span class="testimonial-platform-tag tag-dm">DM</span>
+          </div>
+          <p class="testimonial-quote">
+            "Good stuff. Looks clean, only feedback I have is have more consistency across all the components / blocks."
+          </p>
+          <div style="font-family: monospace; font-size: 0.75rem; color: var(--text-muted);">
+            via Twitter/X DM
+          </div>
+        </div>
+
+        <!-- Card 5: Anand Patel -->
+        <div class="testimonial-card-tech tech-card-wrapper">
+          <div class="testimonial-card-header">
+            <div class="testimonial-author-box">
+              <img src="https://unavatar.io/x/imananddesigner" alt="Anand Patel" class="testimonial-avatar" onerror="this.src='https://abs.twimg.com/sticky/default_profile_images/default_profile_normal.png'">
+              <div>
+                <div class="testimonial-author-name">Anand Patel</div>
+                <div class="testimonial-handle">@imananddesigner</div>
+              </div>
+            </div>
+            <span class="testimonial-platform-tag tag-dm">DM</span>
+          </div>
+          <p class="testimonial-quote">
+            "Just had a look and it looks awesome bro 🔥. Big congrats on the new update 🍉."
+          </p>
+          <div style="font-family: monospace; font-size: 0.75rem; color: var(--text-muted);">
+            via Product Design
+          </div>
+        </div>
+
+        <!-- Card 6: Sahil -->
+        <div class="testimonial-card-tech tech-card-wrapper">
+          <div class="testimonial-card-header">
+            <div class="testimonial-author-box">
+              <img src="https://unavatar.io/x/sahildotxzz" alt="Sahil" class="testimonial-avatar" onerror="this.src='https://abs.twimg.com/sticky/default_profile_images/default_profile_normal.png'">
+              <div>
+                <div class="testimonial-author-name">Sahil</div>
+                <div class="testimonial-handle">@sahildotxzz</div>
+              </div>
+            </div>
+            <span class="testimonial-platform-tag tag-dm">DM</span>
+          </div>
+          <p class="testimonial-quote">
+            "Impressive one bhai 🔥🔥 love the aesthetic and the 2x Retina PNG download feature."
+          </p>
+          <div style="font-family: monospace; font-size: 0.75rem; color: var(--text-muted);">
+            via Community DM
+          </div>
+        </div>
+
+        <!-- Card 7: KapishDima -->
+        <div class="testimonial-card-tech tech-card-wrapper">
+          <div class="testimonial-card-header">
+            <div class="testimonial-author-box">
+              <img src="https://unavatar.io/x/kapish_dima" alt="KapishDima" class="testimonial-avatar" onerror="this.src='https://abs.twimg.com/sticky/default_profile_images/default_profile_normal.png'">
+              <div>
+                <div class="testimonial-author-name">KapishDima</div>
+                <div class="testimonial-handle">@kapish_dima</div>
+              </div>
+            </div>
+            <span class="testimonial-platform-tag tag-dm">DM</span>
+          </div>
+          <p class="testimonial-quote">
+            "Man, it's awesome!!! I've just been obsessed with footers and hero sections, and this is gorgeous."
+          </p>
+          <div style="font-family: monospace; font-size: 0.75rem; color: var(--text-muted);">
+            via Twitter/X DM
+          </div>
+        </div>
+
+        <!-- Card 8: Ali Bey -->
+        <div class="testimonial-card-tech tech-card-wrapper">
+          <div class="testimonial-card-header">
+            <div class="testimonial-author-box">
+              <img src="https://unavatar.io/x/alibey_10" alt="Ali Bey" class="testimonial-avatar" onerror="this.src='https://abs.twimg.com/sticky/default_profile_images/default_profile_normal.png'">
+              <div>
+                <div class="testimonial-author-name">Ali Bey</div>
+                <div class="testimonial-handle">@alibey_10</div>
+              </div>
+            </div>
+            <span class="testimonial-platform-tag tag-tweet">TWEET</span>
+          </div>
+          <p class="testimonial-quote">
+            "This is one of the best ways to show crisp post assets on mobile and web built with precision."
+          </p>
+          <div style="font-family: monospace; font-size: 0.75rem; color: var(--text-muted);">
+            via Public Tweet
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
 
-  <!-- Site Footer -->
-  <footer class="site-footer">
-    <div class="container footer-container">
-      <div class="footer-left">
-        <div class="footer-brand">POST<span class="brand-accent">SNAP</span></div>
-        <p class="footer-tagline">High-fidelity post screenshots for creators and researchers.</p>
+  <!-- Watermelon UI Technical Footer with Akash Yadav Profile Showcase (from footer.tsx) -->
+  <footer id="creator" class="tech-footer">
+    <!-- Technical Corner Crosshairs -->
+    <div class="crosshair-corner crosshair-tl"><div class="crosshair-v"></div><div class="crosshair-h"></div></div>
+    <div class="crosshair-corner crosshair-tr"><div class="crosshair-v"></div><div class="crosshair-h"></div></div>
+
+    <div class="container">
+      <div class="footer-top-grid">
+        
+        <!-- Creator Showcase Card: Akash Yadav -->
+        <div class="creator-profile-card">
+          <div class="corner-accent corner-tl" style="border-color: var(--accent-blue);"></div>
+          <div class="corner-accent corner-tr" style="border-color: var(--accent-blue);"></div>
+          <div class="corner-accent corner-bl" style="border-color: var(--accent-blue);"></div>
+          <div class="corner-accent corner-br" style="border-color: var(--accent-blue);"></div>
+
+          <div class="creator-badge">
+            <span>●</span>
+            <span>CREATOR & LEAD ENGINEER</span>
+          </div>
+          <div class="creator-name">Akash Yadav</div>
+          <div class="creator-role">Software Engineer & Open Source Builder</div>
+          <p style="font-size: 0.82rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 1.25rem;">
+            Building ultra-fast, privacy-first developer utilities and archival engines on the global edge. Connect with me or contribute to PostSnap.
+          </p>
+
+          <div class="creator-links-group">
+            <a href="https://x.com/akashhYaadav" target="_blank" rel="noopener noreferrer" class="creator-btn" title="Follow Akash Yadav on X (@akashhYaadav)">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+              </svg>
+              <span>@akashhYaadav</span>
+            </a>
+
+            <a href="https://github.com/akashydv23" target="_blank" rel="noopener noreferrer" class="creator-btn" title="GitHub: akashydv23">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+              </svg>
+              <span>GitHub</span>
+            </a>
+
+            <a href="https://github.com/akashydv23/PostSnap" target="_blank" rel="noopener noreferrer" class="creator-btn" title="PostSnap Repository">
+              <span>★ Star Repo</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Column 1: Archival Engine -->
+        <div>
+          <div class="footer-col-title">
+            <span class="mono-slash">//</span> ARCHIVAL ENGINE
+          </div>
+          <ul class="footer-col-links">
+            <li><a href="#converter">Post Converter</a></li>
+            <li><a href="#micro-interactions">Interactive Bento</a></li>
+            <li><a href="#dashboard">Edge Telemetry</a></li>
+            <li><a href="#comparison">Screenshot Comparison</a></li>
+            <li><a href="#features">Retina Engine Specs</a></li>
+          </ul>
+        </div>
+
+        <!-- Column 2: System Architecture -->
+        <div>
+          <div class="footer-col-title">
+            <span class="mono-slash">//</span> SPECIFICATION
+          </div>
+          <ul class="footer-col-links">
+            <li><a href="#dashboard">Cloudflare V8 Edge</a></li>
+            <li><a href="#features">300 DPI Subpixel Canvas</a></li>
+            <li><a href="#features">Dynamic Auto-Height</a></li>
+            <li><a href="#features">Zero-Taint CORS Proxy</a></li>
+            <li><a href="#faq">Privacy & Zero Storage</a></li>
+          </ul>
+        </div>
+
+        <!-- Column 3: Connect & Resources -->
+        <div>
+          <div class="footer-col-title">
+            <span class="mono-slash">//</span> CONNECT & SOURCE
+          </div>
+          <ul class="footer-col-links">
+            <li><a href="https://x.com/akashhYaadav" target="_blank" rel="noopener noreferrer">Twitter/X: @akashhYaadav</a></li>
+            <li><a href="https://github.com/akashydv23" target="_blank" rel="noopener noreferrer">GitHub: @akashydv23</a></li>
+            <li><a href="https://github.com/akashydv23/PostSnap" target="_blank" rel="noopener noreferrer">Repository: PostSnap</a></li>
+            <li><a href="https://ui.watermelon.sh/home" target="_blank" rel="noopener noreferrer">Watermelon UI Design</a></li>
+            <li><a href="https://postxsnap.pages.dev/" target="_blank" rel="noopener noreferrer">Live Production App</a></li>
+          </ul>
+        </div>
+
       </div>
 
-      <div class="footer-center">
-        <p class="made-with-love">Made with ❤️ by Akash Yadav</p>
-      </div>
+      <!-- Bottom Bar -->
+      <div class="footer-bottom-bar">
+        <div class="sys-status-live">
+          <span class="pulse-dot"></span>
+          <span>100% OPERATIONAL // 310+ GLOBAL EDGE PoPs</span>
+        </div>
 
-      <div class="footer-right">
-        <p class="footer-disclaimer">Twitter and X are registered trademarks of X Corp.</p>
+        <div>
+          Designed & Engineered with ❤️ by <a href="https://x.com/akashhYaadav" target="_blank" rel="noopener noreferrer" style="color: var(--accent-blue); text-decoration: none; font-weight: 700;">Akash Yadav</a>
+        </div>
+
+        <div>
+          Twitter & X are registered trademarks of X Corp. MIT Open Architecture.
+        </div>
       </div>
     </div>
   </footer>
 
-  <script src="/app.js?v=3"></script>
+  <script src="/app.js?v=4"></script>
 
   <!-- Watermelon UI Floating Quick-Action Dock -->
   <div class="floating-dock">
     <a href="#converter" class="dock-btn primary">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
       <span>Capture</span>
+    </a>
+    <a href="#micro-interactions" class="dock-btn">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+      <span>Bento</span>
     </a>
     <a href="#dashboard" class="dock-btn">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>

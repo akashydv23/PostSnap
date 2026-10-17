@@ -628,6 +628,157 @@ document.addEventListener('DOMContentLoaded', () => {
   // Initial Lab Render
   renderLabCard('elon');
 
+  // -------------------------------------------------------------------------
+  // Watermelon UI: Rotating Words Headline
+  // -------------------------------------------------------------------------
+  const rotatingWords = ['creators', 'researchers', 'developers', 'archivists', 'journalists', 'designers'];
+  let currentWordIdx = 0;
+  const wordEl = document.getElementById('rotatingWord');
+  if (wordEl) {
+    setInterval(() => {
+      wordEl.classList.add('fade-out');
+      setTimeout(() => {
+        currentWordIdx = (currentWordIdx + 1) % rotatingWords.length;
+        wordEl.textContent = rotatingWords[currentWordIdx];
+        wordEl.classList.remove('fade-out');
+        wordEl.classList.add('fade-in');
+        setTimeout(() => wordEl.classList.remove('fade-in'), 300);
+      }, 300);
+    }, 2500);
+  }
+
+  // -------------------------------------------------------------------------
+  // Watermelon UI: Counting Numbers Animation
+  // -------------------------------------------------------------------------
+  const countingElements = document.querySelectorAll('.counting-number');
+  if ('IntersectionObserver' in window && countingElements.length > 0) {
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          const target = parseFloat(el.dataset.target);
+          const prefix = el.dataset.prefix || '';
+          const suffix = el.dataset.suffix || '';
+          const isFloat = el.dataset.target.includes('.');
+          const duration = 1200;
+          const startTime = performance.now();
+
+          function updateCounter(now) {
+            const elapsed = now - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const ease = 1 - (1 - progress) * (1 - progress);
+            const currentVal = isFloat ? (ease * target).toFixed(1) : Math.floor(ease * target);
+            el.textContent = `${prefix}${currentVal}${suffix}`;
+            if (progress < 1) {
+              requestAnimationFrame(updateCounter);
+            } else {
+              el.textContent = `${prefix}${target}${suffix}`;
+            }
+          }
+          requestAnimationFrame(updateCounter);
+          counterObserver.unobserve(el);
+        }
+      });
+    }, { threshold: 0.2 });
+
+    countingElements.forEach(el => counterObserver.observe(el));
+  }
+
+  // -------------------------------------------------------------------------
+  // Watermelon UI: Micro-Interaction 1 - Knob Slider / Scale Selector
+  // -------------------------------------------------------------------------
+  const knobWheel = document.getElementById('knobWheel');
+  const knobIndicator = document.getElementById('knobIndicator');
+  const knobCenterVal = document.getElementById('knobCenterVal');
+  const dpiBtns = document.querySelectorAll('.dpi-btn');
+  const knobDpiDetails = document.getElementById('knobDpiDetails');
+
+  const DPI_MODES = {
+    '1': { dpi: 72, label: '1x Web', deg: 0, res: '560 × Auto px', note: 'Standard web screen density' },
+    '2': { dpi: 300, label: '2x Retina', deg: 90, res: '1120 × Auto px', note: 'Crisp Apple Retina 300 DPI' },
+    '3': { dpi: 450, label: '3x Ultra', deg: 180, res: '1680 × Auto px', note: 'Ultra HD presentation scale' },
+    '4': { dpi: 600, label: '4x Print', deg: 270, res: '2240 × Auto px', note: 'Maximum vector print fidelity' },
+  };
+
+  function setKnobMode(scaleKey) {
+    const mode = DPI_MODES[scaleKey] || DPI_MODES['2'];
+    if (knobIndicator) knobIndicator.style.transform = `rotate(${mode.deg}deg)`;
+    if (knobCenterVal) knobCenterVal.textContent = `${mode.dpi}`;
+    if (knobDpiDetails) {
+      knobDpiDetails.textContent = `${mode.label} · ${mode.res} · ${mode.note}`;
+    }
+    dpiBtns.forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.scale === scaleKey);
+    });
+  }
+
+  dpiBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      setKnobMode(btn.dataset.scale);
+    });
+  });
+
+  if (knobWheel) {
+    let currentScaleKeys = ['1', '2', '3', '4'];
+    let currentScaleIdx = 1;
+    knobWheel.addEventListener('click', () => {
+      currentScaleIdx = (currentScaleIdx + 1) % currentScaleKeys.length;
+      setKnobMode(currentScaleKeys[currentScaleIdx]);
+    });
+  }
+
+  // -------------------------------------------------------------------------
+  // Watermelon UI: Micro-Interaction 2 - Morphing Action Button
+  // -------------------------------------------------------------------------
+  const morphBtn = document.getElementById('morphBtn');
+  const morphBtnLabel = document.getElementById('morphBtnLabel');
+  const morphBtnIcon = document.getElementById('morphBtnIcon');
+
+  if (morphBtn) {
+    morphBtn.addEventListener('click', () => {
+      if (morphBtn.classList.contains('loading') || morphBtn.classList.contains('success')) return;
+
+      morphBtn.classList.add('loading');
+      if (morphBtnLabel) morphBtnLabel.textContent = 'Rendering 2x...';
+      if (morphBtnIcon) {
+        morphBtnIcon.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>`;
+      }
+
+      setTimeout(() => {
+        morphBtn.classList.remove('loading');
+        morphBtn.classList.add('success');
+        if (morphBtnLabel) morphBtnLabel.textContent = 'Exported PNG!';
+        if (morphBtnIcon) {
+          morphBtnIcon.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
+        }
+
+        setTimeout(() => {
+          morphBtn.classList.remove('success');
+          if (morphBtnLabel) morphBtnLabel.textContent = 'Try Morphing PNG';
+          if (morphBtnIcon) {
+            morphBtnIcon.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>`;
+          }
+        }, 2200);
+      }, 1000);
+    });
+  }
+
+  // -------------------------------------------------------------------------
+  // Watermelon UI: Micro-Interaction 3 - Preset Agent Selector in Bento
+  // -------------------------------------------------------------------------
+  const bentoAgentPills = document.querySelectorAll('.agent-pill');
+  bentoAgentPills.forEach(pill => {
+    pill.addEventListener('click', () => {
+      bentoAgentPills.forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+      const preset = pill.dataset.preset;
+      renderLabCard(preset);
+      document.querySelectorAll('.dash-preset-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.preset === preset);
+      });
+    });
+  });
+
   function showError(msg) {
     if (msg) {
       errorMessage.innerText = msg;
