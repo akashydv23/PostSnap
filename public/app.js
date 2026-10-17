@@ -424,6 +424,17 @@ document.addEventListener('DOMContentLoaded', () => {
     urlInput.focus();
   });
 
+  // Watermelon UI: Dynamic Spotlight Mouse Cursor Tracking
+  document.querySelectorAll('.spotlight-card').forEach((card) => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      card.style.setProperty('--mouse-x', `${x}px`);
+      card.style.setProperty('--mouse-y', `${y}px`);
+    });
+  });
+
   function showError(msg) {
     if (msg) {
       errorMessage.innerText = msg;
