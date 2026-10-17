@@ -435,6 +435,199 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // -------------------------------------------------------------------------
+  // Watermelon UI: Smooth Glowing Cursor Follower
+  // -------------------------------------------------------------------------
+  const cursorDot = document.getElementById('cursorDot');
+  const cursorRing = document.getElementById('cursorRing');
+
+  if (cursorDot && cursorRing && window.matchMedia('(hover: hover)').matches) {
+    let mouseX = -100, mouseY = -100;
+    let ringX = -100, ringY = -100;
+
+    window.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      cursorDot.style.opacity = '1';
+      cursorRing.style.opacity = '1';
+      cursorDot.style.left = `${mouseX}px`;
+      cursorDot.style.top = `${mouseY}px`;
+    });
+
+    document.addEventListener('mouseleave', () => {
+      cursorDot.style.opacity = '0';
+      cursorRing.style.opacity = '0';
+    });
+
+    function animateCursor() {
+      ringX += (mouseX - ringX) * 0.18;
+      ringY += (mouseY - ringY) * 0.18;
+      cursorRing.style.left = `${ringX}px`;
+      cursorRing.style.top = `${ringY}px`;
+      requestAnimationFrame(animateCursor);
+    }
+    requestAnimationFrame(animateCursor);
+
+    // Expand cursor ring on interactive elements
+    const interactiveSelectors = 'a, button, input, .spotlight-card, .sample-pill, .dash-preset-btn, .toggle-chip, .dock-btn';
+    document.querySelectorAll(interactiveSelectors).forEach((el) => {
+      el.addEventListener('mouseenter', () => cursorRing.classList.add('active'));
+      el.addEventListener('mouseleave', () => cursorRing.classList.remove('active'));
+    });
+  }
+
+  // -------------------------------------------------------------------------
+  // Watermelon UI: Interactive Engine Intelligence Dashboard
+  // -------------------------------------------------------------------------
+  const labTweetCard = document.getElementById('labTweetCard');
+  let labCurrentTheme = 'light';
+  let labCurrentPreset = 'elon';
+
+  const PRESET_DATA = {
+    elon: {
+      name: 'Elon Musk',
+      username: 'elonmusk',
+      verified: true,
+      text: 'Our headquarters in San Francisco tonight',
+      avatarUrl: 'https://pbs.twimg.com/profile_images/1892429462215286784/uA6mR7b9_400x400.jpg',
+      createdAt: 'Jul 29, 2023 · 5:48 AM UTC',
+      media: { url: 'https://pbs.twimg.com/media/F2NDiA9WwAAyH3_.jpg' },
+      metrics: { likes: 420000, retweets: 45000, replies: 22000 },
+    },
+    jack: {
+      name: 'jack',
+      username: 'jack',
+      verified: true,
+      text: 'just setting up my twttr',
+      avatarUrl: 'https://abs.twimg.com/sticky/default_profile_images/default_profile_bigger.png',
+      createdAt: 'Mar 21, 2006 · 8:50 PM UTC',
+      metrics: { likes: 185000, retweets: 120000, replies: 8500 },
+    },
+    obama: {
+      name: 'Barack Obama',
+      username: 'BarackObama',
+      verified: true,
+      text: 'Four more years.',
+      avatarUrl: 'https://pbs.twimg.com/profile_images/1329647526807543809/2DzsAfd__400x400.jpg',
+      createdAt: 'Nov 7, 2012 · 4:16 AM UTC',
+      metrics: { likes: 640000, retweets: 870000, replies: 45000 },
+    },
+    openai: {
+      name: 'OpenAI',
+      username: 'OpenAI',
+      verified: true,
+      text: 'We are introducing a series of updates to our frontier models designed to dramatically improve reasoning, coding comprehension, and multi-modal alignment across standard benchmarks.',
+      avatarUrl: 'https://pbs.twimg.com/profile_images/1634097683261685761/th-bQ_XU_400x400.jpg',
+      createdAt: 'Mar 19, 2024 · 5:00 PM UTC',
+      metrics: { likes: 89000, retweets: 12000, replies: 3400 },
+      isLongText: true,
+    },
+  };
+
+  function renderLabCard(presetKey) {
+    if (!labTweetCard) return;
+    const tweet = PRESET_DATA[presetKey] || PRESET_DATA.elon;
+    const author = tweet;
+
+    let avatarHtml = `<div class="tc-avatar"><img src="/api/proxy-image?url=${encodeURIComponent(author.avatarUrl)}" alt="${author.name}" crossorigin="anonymous" onerror="this.parentElement.innerHTML='${author.name.charAt(0)}'"></div>`;
+    
+    let metricsHtml = `
+      <div class="tc-metrics-row">
+        <div class="tc-metric-item"><span class="tc-metric-icon">${ICONS.reply}</span><span class="tc-metric-val">${formatMetric(tweet.metrics.replies)}</span></div>
+        <div class="tc-metric-item"><span class="tc-metric-icon">${ICONS.retweet}</span><span class="tc-metric-val">${formatMetric(tweet.metrics.retweets)}</span></div>
+        <div class="tc-metric-item"><span class="tc-metric-icon">${ICONS.heart}</span><span class="tc-metric-val">${formatMetric(tweet.metrics.likes)}</span></div>
+        <div class="tc-metric-item"><span class="tc-metric-icon">${ICONS.bookmark}</span></div>
+      </div>
+    `;
+
+    labTweetCard.className = `tweet-card-root theme-${labCurrentTheme}`;
+    labTweetCard.innerHTML = `
+      <div class="tc-header">
+        <div class="tc-author-row">
+          ${avatarHtml}
+          <div class="tc-author-info">
+            <div class="tc-name-line">
+              <span class="tc-author-name">${author.name}</span>
+              ${author.verified ? ICONS.verifiedBlue : ''}
+            </div>
+            <span class="tc-author-handle">@${author.username}</span>
+          </div>
+        </div>
+        ${ICONS.xLogo}
+      </div>
+      <div class="tc-text ${tweet.isLongText ? 'long-text' : ''}">${formatTweetText(tweet.text)}</div>
+      <div class="tc-meta">${tweet.createdAt}</div>
+      <hr class="tc-divider">
+      ${metricsHtml}
+      <div class="tc-disclosure">Interactive Engine Preview · PostSnap</div>
+    `;
+  }
+
+  // Preset Buttons in Dashboard
+  document.querySelectorAll('.dash-preset-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.dash-preset-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      labCurrentPreset = btn.dataset.preset;
+      renderLabCard(labCurrentPreset);
+    });
+  });
+
+  // Theme Toggles in Dashboard
+  const themeMap = {
+    labThemeLight: 'light',
+    labThemeDim: 'dim',
+    labThemeDark: 'dark',
+  };
+  Object.keys(themeMap).forEach((id) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.addEventListener('click', () => {
+        ['labThemeLight', 'labThemeDim', 'labThemeDark'].forEach(k => {
+          const btn = document.getElementById(k);
+          if (btn) btn.classList.remove('active');
+        });
+        el.classList.add('active');
+        labCurrentTheme = themeMap[id];
+        renderLabCard(labCurrentPreset);
+      });
+    }
+  });
+
+  // Scale Toggles in Dashboard
+  ['labScale2x', 'labScale3x'].forEach((id) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.addEventListener('click', () => {
+        ['labScale2x', 'labScale3x'].forEach(k => document.getElementById(k)?.classList.remove('active'));
+        el.classList.add('active');
+      });
+    }
+  });
+
+  // Floating Dock Theme Toggle
+  const dockThemeToggle = document.getElementById('dockThemeToggle');
+  if (dockThemeToggle) {
+    const themes = ['light', 'dim', 'dark'];
+    dockThemeToggle.addEventListener('click', () => {
+      const nextIdx = (themes.indexOf(currentTheme) + 1) % themes.length;
+      currentTheme = themes[nextIdx];
+      
+      // Update theme buttons
+      document.querySelectorAll('.theme-btn').forEach(b => {
+        b.classList.toggle('active', b.dataset.theme === currentTheme);
+      });
+
+      if (activeTweetData) {
+        tweetCard.className = `tweet-card-root theme-${currentTheme}`;
+        renderOfficialEmbed(activeTweetId);
+      }
+    });
+  }
+
+  // Initial Lab Render
+  renderLabCard('elon');
+
   function showError(msg) {
     if (msg) {
       errorMessage.innerText = msg;
@@ -444,3 +637,4 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 });
+
