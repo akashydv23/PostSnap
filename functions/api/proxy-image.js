@@ -20,8 +20,9 @@ export async function onRequestGet(context) {
     return new Response("Invalid URL", { status: 400 });
   }
 
-  const allowedHosts = ["pbs.twimg.com", "abs.twimg.com", "ton.twimg.com"];
-  if (!allowedHosts.includes(parsed.hostname.toLowerCase())) {
+  const allowedHosts = ["pbs.twimg.com", "abs.twimg.com", "ton.twimg.com", "video.twimg.com", "media.twimg.com", "unavatar.io"];
+  const isTwimg = parsed.hostname.toLowerCase().endsWith(".twimg.com");
+  if (!allowedHosts.includes(parsed.hostname.toLowerCase()) && !isTwimg) {
     return new Response("Forbidden domain", { status: 403 });
   }
 

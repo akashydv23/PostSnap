@@ -3605,7 +3605,15 @@ body {
     </div>
   </footer>
 
-  <script src="/app.js?v=4"></script>
+  <!-- Core Canvas Export Engine & Twitter Widgets -->
+  <script src="/html2canvas.min.js"></script>
+  <script>
+    if (typeof html2canvas === 'undefined') {
+      document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"><\/script>');
+    }
+  </script>
+  <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+  <script src="/app.js?v=5"></script>
 
   <!-- Watermelon UI Floating Quick-Action Dock -->
   <div class="floating-dock">

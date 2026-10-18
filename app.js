@@ -287,32 +287,121 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // -------------------------------------------------------------------------
+  // -------------------------------------------------------------------------
+  // Dynamic Library Loader & Wait Helpers
+  // -------------------------------------------------------------------------
+  async function ensureHtml2Canvas() {
+    if (typeof window.html2canvas !== 'undefined') {
+      return window.html2canvas;
+    }
+
+    return new Promise((resolve, reject) => {
+      // 1. Try local vendored file first
+      const script = document.createElement('script');
+      script.src = '/html2canvas.min.js';
+      script.onload = () => {
+        if (typeof window.html2canvas !== 'undefined') resolve(window.html2canvas);
+        else loadCdnFallback();
+      };
+      script.onerror = loadCdnFallback;
+
+      function loadCdnFallback() {
+        const cdnScript = document.createElement('script');
+        cdnScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
+        cdnScript.onload = () => {
+          if (typeof window.html2canvas !== 'undefined') resolve(window.html2canvas);
+          else reject(new Error('html2canvas library failed to initialize.'));
+        };
+        cdnScript.onerror = () => reject(new Error('Failed to load html2canvas library from local and CDN.'));
+        document.head.appendChild(cdnScript);
+      }
+
+      document.head.appendChild(script);
+    });
+  }
+
+  async function waitForImages(container) {
+    const images = Array.from(container.querySelectorAll('img'));
+    if (images.length === 0) return;
+
+    await Promise.all(images.map((img) => {
+      if (img.complete && img.naturalWidth !== 0) return Promise.resolve();
+      return new Promise((res) => {
+        img.addEventListener('load', res, { once: true });
+        img.addEventListener('error', res, { once: true });
+        setTimeout(res, 2500); // 2.5s safety timeout
+      });
+    }));
+  }
+
+  // -------------------------------------------------------------------------
   // Capture Card to High-Res 2x PNG
   // -------------------------------------------------------------------------
   async function generatePngBlob() {
-    if (!window.html2canvas) {
-      throw new Error('html2canvas screenshot library not loaded.');
-    }
+    const h2c = await ensureHtml2Canvas();
+    await waitForImages(tweetCard);
 
     const bg = currentTheme === 'dark' ? '#000000' : (currentTheme === 'dim' ? '#15202b' : '#ffffff');
 
-    const canvas = await window.html2canvas(tweetCard, {
-      scale: 2, // 2x Retina Resolution
-      useCORS: true,
-      allowTaint: false,
-      backgroundColor: bg,
-      logging: false,
-      scrollX: 0,
-      scrollY: 0,
-    });
+    let canvas;
+    try {
+      canvas = await h2c(tweetCard, {
+        scale: 2, // 2x Retina Resolution
+        useCORS: true,
+        allowTaint: false,
+        backgroundColor: bg,
+        logging: false,
+        scrollX: 0,
+        scrollY: 0,
+        imageTimeout: 10000,
+      });
+    } catch (firstErr) {
+      console.warn('html2canvas first attempt failed, retrying with allowTaint: true', firstErr);
+      canvas = await h2c(tweetCard, {
+        scale: 2,
+        useCORS: true,
+        allowTaint: true,
+        backgroundColor: bg,
+        logging: false,
+        scrollX: 0,
+        scrollY: 0,
+      });
+    }
 
-    dimTag.innerText = `${canvas.width} × ${canvas.height} px`;
+    if (dimTag) {
+      dimTag.innerText = `${canvas.width} × ${canvas.height} px`;
+    }
 
+    // Convert canvas to blob with multiple fallbacks
     return new Promise((resolve, reject) => {
-      canvas.toBlob((blob) => {
-        if (blob) resolve({ blob, canvas });
-        else reject(new Error('Failed to generate PNG blob'));
-      }, 'image/png');
+      try {
+        canvas.toBlob((blob) => {
+          if (blob) {
+            resolve({ blob, canvas });
+          } else {
+            // Fallback via toDataURL
+            try {
+              const dataUrl = canvas.toDataURL('image/png');
+              fetch(dataUrl)
+                .then((r) => r.blob())
+                .then((b) => resolve({ blob: b, canvas }))
+                .catch(reject);
+            } catch (errData) {
+              reject(errData);
+            }
+          }
+        }, 'image/png');
+      } catch (errBlob) {
+        try {
+          const dataUrl = canvas.toDataURL('image/png');
+          fetch(dataUrl)
+            .then((r) => r.blob())
+            .then((b) => resolve({ blob: b, canvas }))
+            .catch(reject);
+        } catch (errData2) {
+          reject(errBlob);
+        }
+      }
     });
   }
 
@@ -328,15 +417,18 @@ document.addEventListener('DOMContentLoaded', () => {
       const { blob } = await generatePngBlob();
       const blobUrl = URL.createObjectURL(blob);
       const a = document.createElement('a');
+      a.style.display = 'none';
       a.href = blobUrl;
       a.download = `PostSnap-${activeTweetId || 'post'}.png`;
       document.body.appendChild(a);
       a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(blobUrl);
+      setTimeout(() => {
+        if (document.body.contains(a)) document.body.removeChild(a);
+        URL.revokeObjectURL(blobUrl);
+      }, 1500);
     } catch (err) {
       console.error('PNG Export error:', err);
-      alert('Could not export PNG. Please try again.');
+      alert('Could not export PNG: ' + (err.message || 'Please try again.'));
     } finally {
       downloadPngBtn.disabled = false;
       downloadPngBtn.innerHTML = originalText;
@@ -361,10 +453,11 @@ document.addEventListener('DOMContentLoaded', () => {
           copyLabel.innerText = 'Copy Image';
         }, 2200);
       } else {
-        alert('Clipboard image copy is not supported in this browser.');
+        alert('Clipboard image copy is not supported in this browser. Please use Download PNG.');
       }
     } catch (err) {
       console.error('Copy error:', err);
+      alert('Could not copy image: ' + (err.message || 'Please use Download PNG instead.'));
       copyLabel.innerText = 'Copy Image';
     } finally {
       copyPngBtn.disabled = false;
