@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const resetBtn = document.getElementById('resetBtn');
 
   // State
-  let currentTheme = 'light';
+  let currentTheme = 'dark';
   let activeTweetData = null;
   let activeTweetId = null;
 
@@ -473,14 +473,7 @@ document.addEventListener('DOMContentLoaded', () => {
   themePicker.addEventListener('click', (e) => {
     const btn = e.target.closest('.theme-btn');
     if (!btn) return;
-    document.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    currentTheme = btn.dataset.theme;
-
-    if (activeTweetData) {
-      tweetCard.className = `tweet-card-root theme-${currentTheme}`;
-      renderOfficialEmbed(activeTweetId);
-    }
+    switchTheme(btn.dataset.theme);
   });
 
   samplePills.forEach((pill) => {
@@ -521,24 +514,14 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // -------------------------------------------------------------------------
-  // Floating Dock Theme Toggle
+  // Floating Dock Theme Toggle (Syncs directly with switchTheme)
   // -------------------------------------------------------------------------
   const dockThemeToggle = document.getElementById('dockThemeToggle');
   if (dockThemeToggle) {
-    const themes = ['light', 'dim', 'dark'];
+    const themes = ['dark', 'dim', 'light'];
     dockThemeToggle.addEventListener('click', () => {
       const nextIdx = (themes.indexOf(currentTheme) + 1) % themes.length;
-      currentTheme = themes[nextIdx];
-      
-      // Update theme buttons
-      document.querySelectorAll('.theme-btn').forEach(b => {
-        b.classList.toggle('active', b.dataset.theme === currentTheme);
-      });
-
-      if (activeTweetData) {
-        tweetCard.className = `tweet-card-root theme-${currentTheme}`;
-        renderOfficialEmbed(activeTweetId);
-      }
+      switchTheme(themes[nextIdx]);
     });
   }
 
@@ -591,13 +574,22 @@ document.addEventListener('DOMContentLoaded', () => {
   // -------------------------------------------------------------------------
   // Living Atmosphere & Real-Time Dynamic Palette Shift Engine
   // -------------------------------------------------------------------------
-  let activeAtmosphereMood = 'auto'; // 'auto' | 'aurora' | 'cyber' | 'sunset' | 'emerald'
-
-  const MOOD_PALETTES = {
-    aurora: { r: 56, g: 189, b: 248, secR: 129, secG: 140, secB: 248, label: 'Cosmic Aurora' },
-    cyber: { r: 6, g: 182, b: 212, secR: 236, secG: 72, secB: 153, label: 'Cyber Neon' },
-    sunset: { r: 245, g: 158, b: 11, secR: 244, secG: 63, secB: 94, label: 'Solar Ember' },
-    emerald: { r: 16, g: 185, b: 129, secR: 6, secG: 182, secB: 212, label: 'Neon Emerald' },
+  const THEME_ATMOSPHERES = {
+    dark: {
+      r: 56, g: 189, b: 248,          // Cosmic Electric Blue #38bdf8
+      secR: 129, secG: 140, secB: 248,  // Indigo #818cf8
+      tertR: 192, tertG: 132, tertB: 252, // Purple
+    },
+    dim: {
+      r: 0, g: 242, b: 254,           // Cyber Neon Cyan #00f2fe
+      secR: 79, secG: 172, secB: 254,   // Azure Blue #4facfe
+      tertR: 168, tertG: 85, tertB: 247,  // Violet
+    },
+    light: {
+      r: 245, g: 158, b: 11,          // Solar Amber #f59e0b
+      secR: 244, secG: 63, secB: 94,    // Rose Ember #f43f5e
+      tertR: 56, tertG: 189, tertB: 248,  // Sky Blue
+    },
   };
 
   const AUTHOR_SIGNATURES = {
@@ -683,11 +675,30 @@ document.addEventListener('DOMContentLoaded', () => {
     root.style.setProperty('--aurora-1', `rgba(${prime.r}, ${prime.g}, ${prime.b}, 0.25)`);
     root.style.setProperty('--aurora-2', `rgba(${sec.r}, ${sec.g}, ${sec.b}, 0.20)`);
     root.style.setProperty('--aurora-3', `rgba(${tert.r}, ${tert.g}, ${tert.b}, 0.16)`);
+  }
 
-    const indicator = document.getElementById('atmosphereIndicator');
-    if (indicator) {
-      indicator.style.backgroundColor = primeStr;
-      indicator.style.boxShadow = `0 0 10px ${primeStr}`;
+  // Unified Theme & Atmosphere Switcher
+  function switchTheme(newTheme) {
+    currentTheme = newTheme;
+
+    // 1. Update theme buttons active state in controls bar
+    document.querySelectorAll('.theme-btn').forEach((b) => {
+      b.classList.toggle('active', b.dataset.theme === currentTheme);
+    });
+
+    // 2. Automatically transform the atmosphere colors in real time!
+    if (activeTweetData && activeTweetData._extractedAtmosphere) {
+      const c = activeTweetData._extractedAtmosphere;
+      applyAtmospherePalette(c.r, c.g, c.b);
+    } else {
+      const atmo = THEME_ATMOSPHERES[currentTheme] || THEME_ATMOSPHERES.dark;
+      applyAtmospherePalette(atmo.r, atmo.g, atmo.b, atmo.secR, atmo.secG, atmo.secB);
+    }
+
+    // 3. Update tweet card if rendered
+    if (activeTweetData) {
+      tweetCard.className = `tweet-card-root theme-${currentTheme}`;
+      renderOfficialEmbed(activeTweetId);
     }
   }
 
@@ -750,7 +761,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   async function triggerDynamicAtmosphere(tweet) {
-    if (activeAtmosphereMood !== 'auto') return;
     if (!tweet) return;
 
     if (tweet._extractedAtmosphere) {
@@ -778,27 +788,12 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
-    applyAtmospherePalette(56, 189, 248);
+    const atmo = THEME_ATMOSPHERES[currentTheme] || THEME_ATMOSPHERES.dark;
+    applyAtmospherePalette(atmo.r, atmo.g, atmo.b, atmo.secR, atmo.secG, atmo.secB);
   }
 
-  // Atmosphere Mood Dropdown Selector
-  const atmosphereSelect = document.getElementById('atmosphereSelect');
-  if (atmosphereSelect) {
-    atmosphereSelect.addEventListener('change', (e) => {
-      activeAtmosphereMood = e.target.value;
-
-      if (activeAtmosphereMood === 'auto') {
-        if (activeTweetData) {
-          triggerDynamicAtmosphere(activeTweetData);
-        } else {
-          applyAtmospherePalette(56, 189, 248);
-        }
-      } else if (MOOD_PALETTES[activeAtmosphereMood]) {
-        const p = MOOD_PALETTES[activeAtmosphereMood];
-        applyAtmospherePalette(p.r, p.g, p.b, p.secR, p.secG, p.secB);
-      }
-    });
-  }
+  // Initialize theme atmosphere immediately
+  switchTheme('dark');
 
   // -------------------------------------------------------------------------
   // Live Visitor & Presence Metrics
