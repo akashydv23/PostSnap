@@ -269,6 +269,9 @@ document.addEventListener('DOMContentLoaded', () => {
       // Render the card
       renderTweetCard(activeTweetData, method);
 
+      // Trigger Living Real-Time Dynamic Color Shift based on post
+      triggerDynamicAtmosphere(activeTweetData);
+
       // Render comparison embed
       renderOfficialEmbed(activeTweetId);
 
@@ -869,6 +872,213 @@ document.addEventListener('DOMContentLoaded', () => {
       document.querySelectorAll('.dash-preset-btn').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.preset === preset);
       });
+    });
+  });
+
+
+  // -------------------------------------------------------------------------
+  // Living Atmosphere & Real-Time Dynamic Palette Shift Engine
+  // -------------------------------------------------------------------------
+  let activeAtmosphereMood = 'auto'; // 'auto' | 'aurora' | 'cyber' | 'sunset' | 'emerald'
+
+  const MOOD_PALETTES = {
+    aurora: { r: 56, g: 189, b: 248, secR: 129, secG: 140, secB: 248, label: 'Cosmic Aurora' },
+    cyber: { r: 6, g: 182, b: 212, secR: 236, secG: 72, secB: 153, label: 'Cyber Neon' },
+    sunset: { r: 245, g: 158, b: 11, secR: 244, secG: 63, secB: 94, label: 'Solar Ember' },
+    emerald: { r: 16, g: 185, b: 129, secR: 6, secG: 182, secB: 212, label: 'Neon Emerald' },
+  };
+
+  const AUTHOR_SIGNATURES = {
+    'jack': { r: 245, g: 158, b: 11 },        // Retro Amber
+    'elonmusk': { r: 56, g: 189, b: 248 },    // Cosmic Starship Blue
+    'barackobama': { r: 129, g: 140, b: 248 },// Royal Indigo & Violet
+    'openai': { r: 16, g: 185, b: 129 },      // Emerald Intelligence
+  };
+
+  function rgbToHsl(r, g, b) {
+    r /= 255; g /= 255; b /= 255;
+    const max = Math.max(r, g, b), min = Math.min(r, g, b);
+    let h, s, l = (max + min) / 2;
+    if (max === min) {
+      h = s = 0;
+    } else {
+      const d = max - min;
+      s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+      switch (max) {
+        case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+        case g: h = (b - r) / d + 2; break;
+        case b: h = (r - g) / d + 4; break;
+      }
+      h /= 6;
+    }
+    return { h, s, l };
+  }
+
+  function hslToRgb(h, s, l) {
+    let r, g, b;
+    if (s === 0) {
+      r = g = b = l;
+    } else {
+      const hue2rgb = (p, q, t) => {
+        if (t < 0) t += 1;
+        if (t > 1) t -= 1;
+        if (t < 1/6) return p + (q - p) * 6 * t;
+        if (t < 1/2) return q;
+        if (t < 2/3) return p + (q - p) * (2/3 - t) * 6;
+        return p;
+      };
+      const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+      const p = 2 * l - q;
+      r = hue2rgb(p, q, h + 1/3);
+      g = hue2rgb(p, q, h);
+      b = hue2rgb(p, q, h - 1/3);
+    }
+    return {
+      r: Math.round(r * 255),
+      g: Math.round(g * 255),
+      b: Math.round(b * 255)
+    };
+  }
+
+  function applyAtmospherePalette(r, g, b, secR, secG, secB) {
+    const root = document.documentElement;
+
+    const hsl = rgbToHsl(r, g, b);
+    hsl.s = Math.max(0.65, Math.min(1.0, hsl.s * 1.3));
+    hsl.l = Math.max(0.48, Math.min(0.62, hsl.l));
+
+    const prime = hslToRgb(hsl.h, hsl.s, hsl.l);
+
+    let sec;
+    if (secR != null) {
+      sec = { r: secR, g: secG, b: secB };
+    } else {
+      const secHue = (hsl.h + 0.12) % 1.0;
+      sec = hslToRgb(secHue, hsl.s, hsl.l);
+    }
+
+    const tertHue = (hsl.h - 0.12 + 1.0) % 1.0;
+    const tert = hslToRgb(tertHue, hsl.s * 0.9, hsl.l * 0.9);
+
+    const primeStr = `rgb(${prime.r}, ${prime.g}, ${prime.b})`;
+    const secStr = `rgb(${sec.r}, ${sec.g}, ${sec.b})`;
+
+    root.style.setProperty('--accent-blue', primeStr);
+    root.style.setProperty('--accent-blue-hover', secStr);
+    root.style.setProperty('--accent-glow', `rgba(${prime.r}, ${prime.g}, ${prime.b}, 0.38)`);
+    root.style.setProperty('--border-focus', primeStr);
+
+    root.style.setProperty('--aurora-1', `rgba(${prime.r}, ${prime.g}, ${prime.b}, 0.25)`);
+    root.style.setProperty('--aurora-2', `rgba(${sec.r}, ${sec.g}, ${sec.b}, 0.20)`);
+    root.style.setProperty('--aurora-3', `rgba(${tert.r}, ${tert.g}, ${tert.b}, 0.16)`);
+
+    const indicator = document.getElementById('atmosphereIndicator');
+    if (indicator) {
+      indicator.style.backgroundColor = primeStr;
+      indicator.style.boxShadow = `0 0 14px ${primeStr}`;
+    }
+  }
+
+  function extractColorFromImage(imgUrl) {
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.src = imgUrl;
+
+      img.onload = () => {
+        try {
+          const canvas = document.createElement('canvas');
+          const ctx = canvas.getContext('2d', { willReadFrequently: true });
+          canvas.width = 32;
+          canvas.height = 32;
+          ctx.drawImage(img, 0, 0, 32, 32);
+          const data = ctx.getImageData(0, 0, 32, 32).data;
+
+          let rTotal = 0, gTotal = 0, bTotal = 0, count = 0;
+          let maxSat = 0;
+          let bestColor = null;
+
+          for (let i = 0; i < data.length; i += 16) {
+            const r = data[i], g = data[i + 1], b = data[i + 2], a = data[i + 3];
+            if (a < 128) continue;
+
+            const max = Math.max(r, g, b), min = Math.min(r, g, b);
+            const sat = max === 0 ? 0 : (max - min) / max;
+            const lum = (max + min) / 2;
+
+            if (lum > 25 && lum < 235 && sat > 0.15) {
+              if (sat > maxSat) {
+                maxSat = sat;
+                bestColor = { r, g, b };
+              }
+              rTotal += r; gTotal += g; bTotal += b;
+              count++;
+            }
+          }
+
+          if (bestColor && maxSat > 0.25) {
+            return resolve(bestColor);
+          }
+          if (count > 0) {
+            return resolve({
+              r: Math.round(rTotal / count),
+              g: Math.round(gTotal / count),
+              b: Math.round(bTotal / count)
+            });
+          }
+        } catch (e) {
+          console.warn('Image color extraction error', e);
+        }
+        resolve(null);
+      };
+
+      img.onerror = () => resolve(null);
+      setTimeout(() => resolve(null), 3500);
+    });
+  }
+
+  async function triggerDynamicAtmosphere(tweet) {
+    if (activeAtmosphereMood !== 'auto') return;
+    if (!tweet) return;
+
+    const username = (tweet.author?.username || '').toLowerCase();
+    if (AUTHOR_SIGNATURES[username]) {
+      const sig = AUTHOR_SIGNATURES[username];
+      applyAtmospherePalette(sig.r, sig.g, sig.b);
+      return;
+    }
+
+    const candidateImage = tweet.media?.url || tweet.card?.imageUrl || tweet.author?.avatarUrl;
+    if (candidateImage) {
+      const proxiedUrl = `/api/proxy-image?url=${encodeURIComponent(candidateImage)}`;
+      const extracted = await extractColorFromImage(proxiedUrl);
+      if (extracted) {
+        applyAtmospherePalette(extracted.r, extracted.g, extracted.b);
+        return;
+      }
+    }
+
+    applyAtmospherePalette(56, 189, 248);
+  }
+
+  // Atmosphere Mood Selector Buttons
+  const atmoPills = document.querySelectorAll('.atmo-pill');
+  atmoPills.forEach((pill) => {
+    pill.addEventListener('click', () => {
+      atmoPills.forEach((p) => p.classList.remove('active'));
+      pill.classList.add('active');
+      activeAtmosphereMood = pill.dataset.atmo;
+
+      if (activeAtmosphereMood === 'auto') {
+        if (activeTweetData) {
+          triggerDynamicAtmosphere(activeTweetData);
+        } else {
+          applyAtmospherePalette(56, 189, 248);
+        }
+      } else if (MOOD_PALETTES[activeAtmosphereMood]) {
+        const p = MOOD_PALETTES[activeAtmosphereMood];
+        applyAtmospherePalette(p.r, p.g, p.b, p.secR, p.secG, p.secB);
+      }
     });
   });
 

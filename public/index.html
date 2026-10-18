@@ -8,10 +8,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/style.css?v=6">
+  <link rel="stylesheet" href="/style.css?v=7">
   <style>
 /* ==========================================================================
-   PostSnap — Ultra-Aesthetic Design System & Watermelon UI Dynamic Animations
+   PostSnap — Ultra-Aesthetic Design System & Living Atmospheric Mesh
    ========================================================================== */
 
 :root {
@@ -19,27 +19,33 @@
   --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-tweet: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 
-  /* App Theme Colors */
-  --bg-primary: #07080c;
-  --bg-secondary: #0d0f15;
-  --bg-card: rgba(15, 18, 26, 0.75);
-  --bg-card-hover: rgba(22, 26, 38, 0.85);
+  /* App Base Colors - Deep Luxury Obsidian Space */
+  --bg-primary: #030407;
+  --bg-secondary: #080a10;
+  --bg-card: rgba(11, 15, 26, 0.76);
+  --bg-card-hover: rgba(18, 24, 40, 0.88);
   --border-subtle: rgba(255, 255, 255, 0.08);
-  --border-focus: #1d9bf0;
+  --border-focus: var(--accent-blue);
   
   --text-white: #ffffff;
-  --text-primary: #e6edf3;
-  --text-secondary: #949daf;
-  --text-muted: #565f6c;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
 
-  --accent-blue: #1d9bf0;
-  --accent-blue-hover: #1a8cd8;
-  --accent-glow: rgba(29, 155, 240, 0.35);
-  --accent-cyan: #00d2ff;
-  --accent-purple: #7928ca;
+  /* Dynamic Accent Palette (Live-Morphed in Real-Time by Post & Mood) */
+  --accent-blue: #38bdf8;
+  --accent-blue-hover: #818cf8;
+  --accent-glow: rgba(56, 189, 248, 0.38);
+  --accent-cyan: #00f2fe;
+  --accent-purple: #c084fc;
 
-  --success: #00ba7c;
-  --danger: #f4212e;
+  /* Atmospheric Aurora Layers */
+  --aurora-1: rgba(56, 189, 248, 0.24);
+  --aurora-2: rgba(129, 140, 248, 0.20);
+  --aurora-3: rgba(192, 132, 252, 0.16);
+
+  --success: #10b981;
+  --danger: #f43f5e;
 }
 
 *, *::before, *::after {
@@ -55,6 +61,11 @@ html {
 
 body {
   background-color: var(--bg-primary);
+  background-image: 
+    radial-gradient(ellipse 100% 70% at 50% -10%, var(--aurora-1) 0%, transparent 60%),
+    radial-gradient(ellipse 80% 50% at 85% 25%, var(--aurora-2) 0%, transparent 60%),
+    radial-gradient(ellipse 70% 50% at 15% 45%, var(--aurora-3) 0%, transparent 60%);
+  background-attachment: fixed;
   color: var(--text-primary);
   font-family: var(--font-body);
   line-height: 1.5;
@@ -65,6 +76,7 @@ body {
   flex-direction: column;
   position: relative;
   overflow-x: hidden;
+  transition: background 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Background Grid Pattern (Watermelon UI style) */
@@ -2530,11 +2542,166 @@ body {
   transform: translateY(-2px);
 }
 
+/* --------------------------------------------------------------------------
+   Living Atmospheric Aurora Mesh & Dynamic Palette Shift
+   -------------------------------------------------------------------------- */
+.ambient-aurora-mesh {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.aurora-blob {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(110px);
+  -webkit-filter: blur(110px);
+  will-change: transform, background;
+  transition: background 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.aurora-blob-1 {
+  top: -15vw;
+  left: 20vw;
+  width: 55vw;
+  height: 55vw;
+  max-width: 800px;
+  max-height: 800px;
+  background: var(--aurora-1);
+  animation: auroraDrift1 22s ease-in-out infinite alternate;
+}
+
+.aurora-blob-2 {
+  top: 25vh;
+  right: -12vw;
+  width: 50vw;
+  height: 50vw;
+  max-width: 700px;
+  max-height: 700px;
+  background: var(--aurora-2);
+  animation: auroraDrift2 26s ease-in-out infinite alternate;
+}
+
+.aurora-blob-3 {
+  bottom: -5vh;
+  left: 5vw;
+  width: 45vw;
+  height: 45vw;
+  max-width: 650px;
+  max-height: 650px;
+  background: var(--aurora-3);
+  animation: auroraDrift3 24s ease-in-out infinite alternate;
+}
+
+@keyframes auroraDrift1 {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(70px, 45px) scale(1.12); }
+  100% { transform: translate(-45px, -35px) scale(0.94); }
+}
+@keyframes auroraDrift2 {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-60px, -55px) scale(1.1); }
+  100% { transform: translate(45px, 35px) scale(0.95); }
+}
+@keyframes auroraDrift3 {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(45px, -45px) scale(1.14); }
+  100% { transform: translate(-35px, 55px) scale(0.92); }
+}
+
+/* Atmosphere Mood Palette Selector */
+.atmosphere-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
+  margin: 0 auto 2.5rem auto;
+  padding: 0.45rem 1rem;
+  background: rgba(12, 16, 28, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 40px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  width: fit-content;
+  max-width: 95vw;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4), 0 0 25px var(--accent-glow);
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  z-index: 10;
+}
+
+.atmosphere-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  font-family: var(--font-display);
+  letter-spacing: 0.02em;
+}
+
+.atmosphere-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background-color: var(--accent-blue);
+  box-shadow: 0 0 12px var(--accent-blue);
+  transition: all 0.6s ease;
+}
+
+.atmosphere-pills {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.atmo-pill {
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--text-secondary);
+  font-size: 0.76rem;
+  font-weight: 600;
+  padding: 0.35rem 0.85rem;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.atmo-pill:hover {
+  color: var(--text-white);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.atmo-pill.active {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: var(--accent-blue);
+  color: var(--text-white);
+  box-shadow: 0 0 14px var(--accent-glow);
+}
+
   </style>
 </head>
 <body>
   <!-- Ambient Grid Background -->
   <div class="bg-grid-wrapper"></div>
+
+  <!-- Living Ambient Aurora Mesh (Transforms Dynamically with Post Mood) -->
+  <div class="ambient-aurora-mesh">
+    <div class="aurora-blob aurora-blob-1"></div>
+    <div class="aurora-blob aurora-blob-2"></div>
+    <div class="aurora-blob aurora-blob-3"></div>
+  </div>
 
   <!-- Navigation Header (Clean & Spaced) -->
   <header class="site-header">
@@ -2596,11 +2763,26 @@ body {
         Preserve genuine X layout, typography, verified badges, media attachments, and visible engagement metrics. No browser clutter, no cropped text, zero AI fluff.
       </p>
 
-      <div style="display: flex; align-items: center; justify-content: center; gap: 1rem; margin-bottom: 2.5rem;">
+      <div style="display: flex; align-items: center; justify-content: center; gap: 1rem; margin-bottom: 1.5rem;">
         <a href="#converter" class="btn-submit" style="padding: 0.85rem 1.85rem; font-size: 0.95rem; text-decoration: none;">
           <span>Launch Converter</span>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
         </a>
+      </div>
+
+      <!-- Living Atmosphere Mood Switcher -->
+      <div class="atmosphere-bar">
+        <div class="atmosphere-label">
+          <span class="atmosphere-dot" id="atmosphereIndicator"></span>
+          <span>Atmosphere:</span>
+        </div>
+        <div class="atmosphere-pills" id="atmospherePicker">
+          <button type="button" class="atmo-pill active" data-atmo="auto">✨ Auto Shift</button>
+          <button type="button" class="atmo-pill" data-atmo="aurora">🌌 Cosmic</button>
+          <button type="button" class="atmo-pill" data-atmo="cyber">⚡ Cyber</button>
+          <button type="button" class="atmo-pill" data-atmo="sunset">🌅 Solar</button>
+          <button type="button" class="atmo-pill" data-atmo="emerald">🍃 Emerald</button>
+        </div>
       </div>
 
       <!-- Main Converter Box with Clean Technical Accents -->
@@ -3312,7 +3494,7 @@ body {
     }
   </script>
   <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-  <script src="/app.js?v=6"></script>
+  <script src="/app.js?v=7"></script>
 
   <!-- Clean Floating Quick-Action Dock -->
   <div class="floating-dock">
