@@ -846,6 +846,48 @@ document.addEventListener('DOMContentLoaded', () => {
   updateVisitorMetrics();
   setInterval(updateVisitorMetrics, 30000);
 
+  // -------------------------------------------------------------------------
+  // Watermelon UI Top-Right Navigation Dropdown Menu
+  // -------------------------------------------------------------------------
+  const navDropdownTrigger = document.getElementById('navDropdownTrigger');
+  const navDropdownMenu = document.getElementById('navDropdownMenu');
+  const navDropdownWrapper = document.getElementById('navDropdownWrapper');
+
+  if (navDropdownTrigger && navDropdownMenu && navDropdownWrapper) {
+    function toggleNavMenu(forceState) {
+      const isOpen = forceState !== undefined ? forceState : !navDropdownMenu.classList.contains('open');
+      navDropdownMenu.classList.toggle('open', isOpen);
+      navDropdownTrigger.classList.toggle('active', isOpen);
+      navDropdownTrigger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    }
+
+    navDropdownTrigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleNavMenu();
+    });
+
+    // Close when clicking any menu item (and smooth scroll)
+    navDropdownMenu.querySelectorAll('.nav-menu-item').forEach((item) => {
+      item.addEventListener('click', () => {
+        toggleNavMenu(false);
+      });
+    });
+
+    // Close on outside click
+    document.addEventListener('click', (e) => {
+      if (!navDropdownWrapper.contains(e.target)) {
+        toggleNavMenu(false);
+      }
+    });
+
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && navDropdownMenu.classList.contains('open')) {
+        toggleNavMenu(false);
+      }
+    });
+  }
+
   function showError(msg) {
     if (msg) {
       errorMessage.innerText = msg;

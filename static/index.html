@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/style.css?v=9">
+  <link rel="stylesheet" href="/style.css?v=10">
   <style>
 /* ==========================================================================
    PostSnap — Ultra-Aesthetic Design System & Living Atmospheric Mesh
@@ -2713,6 +2713,255 @@ body {
   max-height: 700px;
   background: radial-gradient(circle, var(--aurora-3) 0%, transparent 68%);
 }
+
+
+/* --------------------------------------------------------------------------
+   Watermelon UI Sleek Dropdown Navigation Menu (Top Extreme Right)
+   -------------------------------------------------------------------------- */
+.nav-dropdown-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.nav-dropdown-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(14, 18, 30, 0.85);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+  padding: 0.42rem 0.95rem;
+  border-radius: 9px;
+  font-family: var(--font-body);
+  font-size: 0.86rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.nav-dropdown-trigger:hover {
+  background: rgba(22, 28, 46, 0.95);
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 14px var(--accent-glow);
+  color: var(--text-white);
+}
+
+.nav-dropdown-trigger.active {
+  background: rgba(26, 34, 56, 0.95);
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 16px var(--accent-glow);
+}
+
+.nav-trigger-dots {
+  display: grid;
+  grid-template-columns: repeat(2, 3.5px);
+  gap: 2.5px;
+}
+
+.nav-trigger-dots .dot {
+  width: 3.5px;
+  height: 3.5px;
+  background-color: var(--accent-blue);
+  border-radius: 50%;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.nav-dropdown-trigger:hover .nav-trigger-dots .dot {
+  transform: scale(1.2);
+  background-color: #ffffff;
+}
+
+.nav-trigger-chevron {
+  color: var(--text-secondary);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), color 0.2s ease;
+}
+
+.nav-dropdown-trigger.active .nav-trigger-chevron {
+  transform: rotate(180deg);
+  color: var(--accent-blue);
+}
+
+/* Dropdown Menu Container */
+.nav-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  width: 310px;
+  max-width: 90vw;
+  background: rgba(9, 12, 22, 0.96);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  box-shadow: 
+    0 24px 56px rgba(0, 0, 0, 0.65), 
+    0 0 28px rgba(56, 189, 248, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  padding: 0.65rem;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px) scale(0.97);
+  transform-origin: top right;
+  transition: opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              visibility 0.22s;
+  pointer-events: none;
+}
+
+.nav-dropdown-menu.open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.nav-menu-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.4rem 0.6rem 0.5rem 0.6rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  margin-bottom: 0.35rem;
+}
+
+.nav-menu-tag {
+  font-family: var(--font-display);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+
+.nav-menu-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--accent-blue);
+  box-shadow: 0 0 6px var(--accent-blue);
+}
+
+.nav-menu-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.nav-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.55rem 0.65rem;
+  border-radius: 9px;
+  text-decoration: none;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+}
+
+.nav-menu-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+  transform: translateX(2px);
+}
+
+.nav-item-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  flex-shrink: 0;
+  transition: all 0.18s ease;
+}
+
+.nav-menu-item:hover .nav-item-icon {
+  background: rgba(56, 189, 248, 0.12);
+  border-color: rgba(56, 189, 248, 0.4);
+  color: var(--accent-blue);
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.25);
+}
+
+.nav-item-text {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+.nav-item-title {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  transition: color 0.15s ease;
+}
+
+.nav-menu-item:hover .nav-item-title {
+  color: #ffffff;
+}
+
+.nav-item-sub {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 1px;
+}
+
+.nav-item-arrow {
+  color: var(--text-muted);
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: all 0.18s ease;
+}
+
+.nav-menu-item:hover .nav-item-arrow {
+  opacity: 1;
+  transform: translateX(0);
+  color: var(--accent-blue);
+}
+
+.nav-menu-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 0.6rem 0.2rem 0.6rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  margin-top: 0.35rem;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+.footer-hint kbd {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+  padding: 0.1rem 0.35rem;
+  font-size: 0.65rem;
+  font-family: monospace;
+  color: var(--text-secondary);
+}
+
+.footer-brand-hint {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  font-size: 0.65rem;
+  color: var(--text-muted);
+}
+
+@media (max-width: 640px) {
+  .btn-primary-header {
+    display: none;
+  }
+}
   </style>
 </head>
 <body>
@@ -2739,13 +2988,6 @@ body {
         <span class="brand-name">POST<span class="brand-accent">SNAP</span></span>
       </a>
 
-      <nav class="nav-menu">
-        <a href="#converter" class="nav-link">Converter</a>
-        <a href="#comparison" class="nav-link">Comparison</a>
-        <a href="#features" class="nav-link">Features</a>
-        <a href="#testimonials" class="nav-link">Community</a>
-        <a href="#about" class="nav-link">About</a>
-      </nav>
 
       <div class="header-actions">
         <!-- Akash Yadav Social Links in Navbar with Clean Spacing -->
@@ -2760,6 +3002,110 @@ body {
           </svg>
         </a>
         <a href="#converter" class="btn-primary-header">Capture Post</a>
+
+        <!-- Watermelon UI Sleek Dropdown Navigation Menu (Top Extreme Right) -->
+        <div class="nav-dropdown-wrapper" id="navDropdownWrapper">
+          <button type="button" class="nav-dropdown-trigger" id="navDropdownTrigger" aria-label="Open Navigation Menu" aria-expanded="false" aria-haspopup="true">
+            <span class="nav-trigger-dots">
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </span>
+            <span class="nav-trigger-text">Menu</span>
+            <svg class="nav-trigger-chevron" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+
+          <div class="nav-dropdown-menu" id="navDropdownMenu">
+            <div class="nav-menu-header">
+              <span class="nav-menu-tag">NAVIGATION</span>
+              <span class="nav-menu-dot"></span>
+            </div>
+
+            <div class="nav-menu-items">
+              <a href="#converter" class="nav-menu-item">
+                <div class="nav-item-icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+                    <circle cx="12" cy="13" r="4"/>
+                  </svg>
+                </div>
+                <div class="nav-item-text">
+                  <span class="nav-item-title">Converter</span>
+                  <span class="nav-item-sub">2x Retina post generation engine</span>
+                </div>
+                <svg class="nav-item-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+              </a>
+
+              <a href="#comparison" class="nav-menu-item">
+                <div class="nav-item-icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="3" width="18" height="18" rx="2"/>
+                    <line x1="12" y1="3" x2="12" y2="21"/>
+                  </svg>
+                </div>
+                <div class="nav-item-text">
+                  <span class="nav-item-title">Comparison</span>
+                  <span class="nav-item-sub">Official X iframe vs PostSnap render</span>
+                </div>
+                <svg class="nav-item-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+              </a>
+
+              <a href="#features" class="nav-menu-item">
+                <div class="nav-item-icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="12 2 2 7 12 12 22 7 12 2"/>
+                    <polyline points="2 17 12 22 22 17"/>
+                    <polyline points="2 12 12 17 22 12"/>
+                  </svg>
+                </div>
+                <div class="nav-item-text">
+                  <span class="nav-item-title">Features</span>
+                  <span class="nav-item-sub">Verified badges, media fidelity & themes</span>
+                </div>
+                <svg class="nav-item-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+              </a>
+
+              <a href="#testimonials" class="nav-menu-item">
+                <div class="nav-item-icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                    <circle cx="9" cy="7" r="4"/>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                  </svg>
+                </div>
+                <div class="nav-item-text">
+                  <span class="nav-item-title">Community</span>
+                  <span class="nav-item-sub">Impressions from creators & developers</span>
+                </div>
+                <svg class="nav-item-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+              </a>
+
+              <a href="#about" class="nav-menu-item">
+                <div class="nav-item-icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"/>
+                    <line x1="12" y1="16" x2="12" y2="12"/>
+                    <line x1="12" y1="8" x2="12.01" y2="8"/>
+                  </svg>
+                </div>
+                <div class="nav-item-text">
+                  <span class="nav-item-title">About</span>
+                  <span class="nav-item-sub">Built with passion by Akash Yadav</span>
+                </div>
+                <svg class="nav-item-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+              </a>
+            </div>
+
+            <div class="nav-menu-footer">
+              <span class="footer-hint"><kbd>ESC</kbd> to close</span>
+              <span class="footer-brand-hint">POSTSNAP</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </header>
@@ -3522,7 +3868,7 @@ body {
     }
   </script>
   <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-  <script src="/app.js?v=9"></script>
+  <script src="/app.js?v=10"></script>
 
   <!-- Clean Floating Quick-Action Dock -->
   <div class="floating-dock">
