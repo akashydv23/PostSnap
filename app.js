@@ -198,7 +198,7 @@ document.addEventListener('DOMContentLoaded', () => {
       ${metricsHtml ? `<hr class="tc-divider">${metricsHtml}` : ''}
 
       <div class="tc-disclosure">
-        ${isFallback ? 'Recreated from available post data' : 'Captured from X via PostSnap'}
+        ${isFallback ? 'Recreated from available post data by Akash Yadav ❤️' : 'Captured from X via PostSnap by Akash Yadav ❤️'}
       </div>
     `;
   }
@@ -652,7 +652,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <div class="tc-meta">${tweet.createdAt}</div>
       <hr class="tc-divider">
       ${metricsHtml}
-      <div class="tc-disclosure">Interactive Engine Preview · PostSnap</div>
+      <div class="tc-disclosure">Captured from X via PostSnap by Akash Yadav ❤️</div>
     `;
   }
 

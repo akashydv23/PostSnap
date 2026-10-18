@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PostSnap — Archival Grade X Post to PNG</title>
-  <meta name="description" content="Turn any Twitter / X post into a crisp, authentic, high-resolution PNG screenshot with exact typography, verified badges, media, and metrics. Built by Akash Yadav.">
+  <title>PostSnap — Clean 2x Retina X Post to PNG</title>
+  <meta name="description" content="Turn any Twitter / X post into a crisp, authentic, high-resolution PNG screenshot with exact typography, verified badges, media, and metrics. Created by Akash Yadav.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/style.css?v=4">
+  <link rel="stylesheet" href="/style.css?v=6">
   <style>
 /* ==========================================================================
    PostSnap — Ultra-Aesthetic Design System & Watermelon UI Dynamic Animations
@@ -2495,13 +2495,48 @@ body {
   font-weight: 600;
 }
 
+/* Header Actions & Social Icon Spacing Fix */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.social-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.social-icon-btn svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+
+.social-icon-btn:hover {
+  background: rgba(29, 155, 240, 0.18);
+  border-color: rgba(29, 155, 240, 0.5);
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
   </style>
 </head>
 <body>
-  <!-- Ambient Grid Background (Watermelon UI Style) -->
+  <!-- Ambient Grid Background -->
   <div class="bg-grid-wrapper"></div>
 
-  <!-- Navigation Header (Watermelon UI Technical Style) -->
+  <!-- Navigation Header (Clean & Spaced) -->
   <header class="site-header">
     <div class="header-inner">
       <a href="/" class="brand-logo" aria-label="PostSnap Home">
@@ -2511,23 +2546,19 @@ body {
             <circle cx="12" cy="13" r="4"/>
           </svg>
         </div>
-        <div style="display: flex; flex-direction: column;">
-          <span class="brand-name">POST<span class="brand-accent">SNAP</span></span>
-          <span style="font-family: monospace; font-size: 9px; letter-spacing: 0.12em; color: var(--accent-blue); text-transform: uppercase;">v2.4 // PROD</span>
-        </div>
+        <span class="brand-name">POST<span class="brand-accent">SNAP</span></span>
       </a>
 
       <nav class="nav-menu">
-        <a href="#converter" class="nav-link"><span class="mono-slash">//</span> Converter</a>
-        <a href="#micro-interactions" class="nav-link"><span class="mono-slash">//</span> Bento</a>
-        <a href="#dashboard" class="nav-link"><span class="mono-slash">//</span> Dashboard</a>
-        <a href="#features" class="nav-link"><span class="mono-slash">//</span> Specs</a>
-        <a href="#testimonials" class="nav-link"><span class="mono-slash">//</span> Community</a>
-        <a href="#creator" class="nav-link"><span class="mono-slash">//</span> Creator</a>
+        <a href="#converter" class="nav-link">Converter</a>
+        <a href="#comparison" class="nav-link">Comparison</a>
+        <a href="#features" class="nav-link">Features</a>
+        <a href="#testimonials" class="nav-link">Community</a>
+        <a href="#about" class="nav-link">About</a>
       </nav>
 
       <div class="header-actions">
-        <!-- Akash Yadav Social Links in Navbar -->
+        <!-- Akash Yadav Social Links in Navbar with Clean Spacing -->
         <a href="https://x.com/akashhYaadav" target="_blank" rel="noopener noreferrer" class="social-icon-btn" title="Follow Akash Yadav on X (@akashhYaadav)">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
             <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
@@ -2543,19 +2574,19 @@ body {
     </div>
   </header>
 
-  <!-- Hero Section (Watermelon UI Structure) -->
+  <!-- Hero Section -->
   <section class="hero-section">
     <div class="hero-glow"></div>
     <div class="container hero-container">
       
-      <!-- Watermelon UI Technical Announcement Badge -->
-      <a href="#micro-interactions" class="announcement-badge">
+      <!-- Clean Announcement Badge (No //) -->
+      <a href="#features" class="announcement-badge">
         <span class="pulse-dot"></span>
-        <span style="font-family: monospace; letter-spacing: 0.08em; font-size: 0.8rem;">// HIGH-FIDELITY ARCHIVAL ENGINE</span>
+        <span style="letter-spacing: 0.05em; font-size: 0.82rem; font-weight: 600;">High-Fidelity Post Archival</span>
         <span class="badge-arrow">→</span>
       </a>
 
-      <!-- Rotating Words Dynamic Headline -->
+      <!-- Dynamic Rotating Words Headline -->
       <h1 class="hero-title">
         Turn any X post into a<br>
         crisp PNG for <span id="rotatingWord" class="word-rotate">creators</span>
@@ -2565,27 +2596,23 @@ body {
         Preserve genuine X layout, typography, verified badges, media attachments, and visible engagement metrics. No browser clutter, no cropped text, zero AI fluff.
       </p>
 
-      <div style="display: flex; align-items: center; justify-content: center; gap: 1rem; margin-bottom: 2.5rem; flex-wrap: wrap;">
-        <a href="#converter" class="btn-submit" style="padding: 0.85rem 1.75rem; font-size: 0.95rem; text-decoration: none;">
+      <div style="display: flex; align-items: center; justify-content: center; gap: 1rem; margin-bottom: 2.5rem;">
+        <a href="#converter" class="btn-submit" style="padding: 0.85rem 1.85rem; font-size: 0.95rem; text-decoration: none;">
           <span>Launch Converter</span>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
         </a>
-        <a href="#micro-interactions" class="btn-paste" style="padding: 0.85rem 1.5rem; font-size: 0.9rem; text-decoration: none; border-radius: 10px;">
-          <span>// View Interactive Bento</span>
-        </a>
       </div>
 
-      <!-- Main Animated Border-Beam Converter Card with Technical Corner Accents -->
+      <!-- Main Converter Box with Clean Technical Accents -->
       <div class="converter-box-wrapper">
         <div id="converter" class="converter-box tech-card-wrapper">
-          <!-- Corner Accents -->
           <div class="corner-accent corner-tl"></div>
           <div class="corner-accent corner-tr"></div>
           <div class="corner-accent corner-bl"></div>
           <div class="corner-accent corner-br"></div>
 
           <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem;">
-            <span class="sys-label">[ STREAM // INPUT_POST_URL ]</span>
+            <span class="sys-label">[ INPUT POST URL ]</span>
             <span class="sys-label" style="color: var(--accent-blue);">● READY</span>
           </div>
 
@@ -2631,7 +2658,7 @@ body {
                 <span class="control-label">Sample Posts:</span>
                 <div class="sample-pills">
                   <button type="button" class="sample-pill" data-url="https://x.com/jack/status/20">Jack (First Tweet)</button>
-                  <button type="button" class="sample-pill" data-url="https://x.com/elonmusk/status/1683920951807971329">Elon Musk (HQ Photo)</button>
+                  <button type="button" class="sample-pill" data-url="https://x.com/elonmusk/status/1683920951807971329">Elon Musk (Photo)</button>
                   <button type="button" class="sample-pill" data-url="https://x.com/BarackObama/status/44196397">Obama (High Metrics)</button>
                   <button type="button" class="sample-pill" data-url="https://x.com/OpenAI/status/1770000000000000001">OpenAI (Long Text)</button>
                 </div>
@@ -2725,8 +2752,8 @@ body {
         </div>
       </div>
 
-      <!-- Watermelon UI Technical Stats Strip with Animated Counting Numbers -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-16" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; width: 100%; margin-top: 4rem;">
+      <!-- Stats Strip (Clean - No //) -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; width: 100%; margin-top: 4rem;">
         
         <div class="stat-card-tech">
           <div class="corner-accent corner-tl"></div>
@@ -2734,7 +2761,7 @@ body {
           <div class="corner-accent corner-bl"></div>
           <div class="corner-accent corner-br"></div>
           <div class="tech-number counting-number" data-target="100" data-suffix="%">100%</div>
-          <div class="tech-title">// LAYOUT FIDELITY</div>
+          <div class="tech-title">Layout Fidelity</div>
           <div class="tech-desc">Authentic typography, verified badges, media, and metrics directly from X syndication.</div>
         </div>
 
@@ -2744,7 +2771,7 @@ body {
           <div class="corner-accent corner-bl"></div>
           <div class="corner-accent corner-br"></div>
           <div class="tech-number counting-number" data-target="2" data-suffix="x">2x</div>
-          <div class="tech-title">// RETINA RESOLUTION</div>
+          <div class="tech-title">Retina Resolution</div>
           <div class="tech-desc">Subpixel antialiased 300 DPI canvas rendering. Sharp on high-DPI displays and keynote decks.</div>
         </div>
 
@@ -2754,7 +2781,7 @@ body {
           <div class="corner-accent corner-bl"></div>
           <div class="corner-accent corner-br"></div>
           <div class="tech-number counting-number" data-target="142" data-suffix="ms">142ms</div>
-          <div class="tech-title">// EDGE LATENCY</div>
+          <div class="tech-title">Edge Retrieval</div>
           <div class="tech-desc">V8 serverless edge distribution across 310+ Cloudflare PoPs for near-instant retrieval.</div>
         </div>
 
@@ -2764,7 +2791,7 @@ body {
           <div class="corner-accent corner-bl"></div>
           <div class="corner-accent corner-br"></div>
           <div class="tech-number counting-number" data-target="0" data-prefix="">0</div>
-          <div class="tech-title">// LOGINS REQUIRED</div>
+          <div class="tech-title">Logins Required</div>
           <div class="tech-desc">100% privacy-first. No user accounts, zero cookies, and zero server storage of screenshots.</div>
         </div>
 
@@ -2773,7 +2800,7 @@ body {
     </div>
   </section>
 
-  <!-- Watermelon UI Infinite Marquee Ticker -->
+  <!-- Marquee Ticker -->
   <div class="marquee-section">
     <div class="marquee-track">
       <div class="marquee-item"><span class="marquee-dot"></span>Official X Layout Reproduction</div>
@@ -2792,312 +2819,12 @@ body {
     </div>
   </div>
 
-  <!-- Watermelon UI Animated Bento & Micro-Interactions Section (from animated-bento.tsx) -->
-  <section id="micro-interactions" class="section dark-section">
-    <div class="container">
-      <div class="section-heading text-center">
-        <div class="mono-tag" style="margin-bottom: 0.75rem;">
-          <span class="mono-slash">//</span> MICRO-INTERACTIONS
-        </div>
-        <h2 class="section-title">Interactions that <span style="color: var(--accent-blue);">delight</span></h2>
-        <p class="section-subtitle">Tactile, interruptible, and highly optimized controls. Test each interactive component live.</p>
-      </div>
-
-      <div class="animated-bento-grid">
-        
-        <!-- Bento Card 1: Preset Post Switcher (SelectAIAgent equivalent) -->
-        <div class="bento-card tech-card-wrapper bento-span-2">
-          <div class="corner-accent corner-tl"></div>
-          <div class="corner-accent corner-tr"></div>
-          <div class="corner-accent corner-bl"></div>
-          <div class="corner-accent corner-br"></div>
-          
-          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem;">
-            <span class="sys-label">[ SELECTOR // PRESET_LIBRARY ]</span>
-            <span class="sys-label" style="color: var(--accent-blue);">LIVE SWITCHER</span>
-          </div>
-
-          <div style="display: grid; grid-template-columns: 1fr; gap: 1.5rem;">
-            <div>
-              <h3 style="font-size: 1.25rem; font-weight: 700; color: #ffffff; margin-bottom: 0.5rem;">Interactive Post Profiles</h3>
-              <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1.25rem;">Switch presets to inspect how verified badges, multi-million metrics, media attachments, and long-text posts are automatically formatted.</p>
-              
-              <div class="agent-selector-grid">
-                <button type="button" class="agent-pill active" data-preset="elon">
-                  <div class="agent-pill-info">
-                    <div class="agent-avatar-small" style="background: #1d9bf0;">EM</div>
-                    <div>
-                      <div style="font-weight: 700; font-size: 0.88rem;">Elon Musk <span style="color: #1d9bf0;">✓</span></div>
-                      <div style="font-size: 0.75rem; color: var(--text-muted);">High-Resolution Photo Post · @elonmusk</div>
-                    </div>
-                  </div>
-                  <span style="color: var(--accent-blue); font-family: monospace; font-size: 0.8rem;">[ ACTIVE ]</span>
-                </button>
-
-                <button type="button" class="agent-pill" data-preset="jack">
-                  <div class="agent-pill-info">
-                    <div class="agent-avatar-small" style="background: #00ba7c;">JD</div>
-                    <div>
-                      <div style="font-weight: 700; font-size: 0.88rem;">Jack Dorsey <span style="color: #1d9bf0;">✓</span></div>
-                      <div style="font-size: 0.75rem; color: var(--text-muted);">First Tweet Ever (2006) · @jack</div>
-                    </div>
-                  </div>
-                  <span style="color: var(--text-muted); font-family: monospace; font-size: 0.8rem;">[ SELECT ]</span>
-                </button>
-
-                <button type="button" class="agent-pill" data-preset="obama">
-                  <div class="agent-pill-info">
-                    <div class="agent-avatar-small" style="background: #7928ca;">BO</div>
-                    <div>
-                      <div style="font-weight: 700; font-size: 0.88rem;">Barack Obama <span style="color: #1d9bf0;">✓</span></div>
-                      <div style="font-size: 0.75rem; color: var(--text-muted);">870k Retweets Record · @BarackObama</div>
-                    </div>
-                  </div>
-                  <span style="color: var(--text-muted); font-family: monospace; font-size: 0.8rem;">[ SELECT ]</span>
-                </button>
-
-                <button type="button" class="agent-pill" data-preset="openai">
-                  <div class="agent-pill-info">
-                    <div class="agent-avatar-small" style="background: #10a37f;">AI</div>
-                    <div>
-                      <div style="font-weight: 700; font-size: 0.88rem;">OpenAI <span style="color: #eab308;">✓</span></div>
-                      <div style="font-size: 0.75rem; color: var(--text-muted);">Long Form Release · Auto Dynamic Height</div>
-                    </div>
-                  </div>
-                  <span style="color: var(--text-muted); font-family: monospace; font-size: 0.8rem;">[ SELECT ]</span>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Bento Card 2: Morphing Action Button (MorphingButton equivalent) -->
-        <div class="bento-card tech-card-wrapper">
-          <div class="corner-accent corner-tl"></div>
-          <div class="corner-accent corner-tr"></div>
-          <div class="corner-accent corner-bl"></div>
-          <div class="corner-accent corner-br"></div>
-
-          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
-            <span class="sys-label">[ ACTION // MORPHING_BUTTON ]</span>
-            <span class="sys-label" style="color: var(--accent-blue);">INTERACTIVE</span>
-          </div>
-
-          <div class="morph-btn-container">
-            <button type="button" id="morphBtn" class="morph-btn">
-              <span id="morphBtnIcon">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                  <polyline points="7 10 12 15 17 10"></polyline>
-                  <line x1="12" y1="15" x2="12" y2="3"></line>
-                </svg>
-              </span>
-              <span id="morphBtnLabel">Try Morphing PNG</span>
-            </button>
-            <p style="font-size: 0.75rem; color: var(--text-muted); text-align: center; font-family: monospace;">
-              Click button to test smooth state transitions (Default → Progress → Exported).
-            </p>
-          </div>
-        </div>
-
-        <!-- Bento Card 3: Interactive Knob Slider / DPI Scale (KnobSlider equivalent) -->
-        <div class="bento-card tech-card-wrapper">
-          <div class="corner-accent corner-tl"></div>
-          <div class="corner-accent corner-tr"></div>
-          <div class="corner-accent corner-bl"></div>
-          <div class="corner-accent corner-br"></div>
-
-          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
-            <span class="sys-label">[ ROTARY // KNOB_DPI_SLIDER ]</span>
-            <span class="sys-label" style="color: var(--accent-blue);">CLICK / SELECT</span>
-          </div>
-
-          <div class="knob-slider-container">
-            <div id="knobWheel" class="knob-wheel" title="Click to rotate DPI resolution scale">
-              <div id="knobIndicator" class="knob-indicator" style="transform: rotate(90deg);"></div>
-              <div class="knob-center-val">
-                <span id="knobCenterVal">300</span>
-                <span class="knob-center-unit">DPI RETINA</span>
-              </div>
-            </div>
-
-            <div class="dpi-presets">
-              <button type="button" class="dpi-btn" data-scale="1">1x (72)</button>
-              <button type="button" class="dpi-btn active" data-scale="2">2x (300)</button>
-              <button type="button" class="dpi-btn" data-scale="3">3x (450)</button>
-              <button type="button" class="dpi-btn" data-scale="4">4x (600)</button>
-            </div>
-
-            <p id="knobDpiDetails" style="font-size: 0.74rem; color: var(--text-secondary); text-align: center; font-family: monospace;">
-              2x Retina · 1120 × Auto px · Crisp Apple Retina 300 DPI
-            </p>
-          </div>
-        </div>
-
-        <!-- Bento Card 4: 100+ Cloudflare Edge Points Card -->
-        <div class="bento-card tech-card-wrapper bento-span-2 corner-primary" style="background: rgba(29, 155, 240, 0.05); border-color: rgba(29, 155, 240, 0.25);">
-          <div class="corner-accent corner-tl"></div>
-          <div class="corner-accent corner-tr"></div>
-          <div class="corner-accent corner-bl"></div>
-          <div class="corner-accent corner-br"></div>
-
-          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
-            <span class="sys-label" style="color: var(--accent-blue);">[ DEPLOYMENT // GLOBAL_EDGE_FLEET ]</span>
-            <span class="sys-label" style="color: #00ba7c;">● 100% OPERATIONAL</span>
-          </div>
-
-          <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2rem 1rem; text-align: center;">
-            <div style="font-family: monospace; font-size: 3.5rem; font-weight: 800; color: #ffffff; letter-spacing: -0.04em; line-height: 1;">310+</div>
-            <div style="font-family: monospace; font-size: 0.85rem; color: var(--accent-blue); font-weight: 700; letter-spacing: 0.15em; margin-top: 0.5rem; text-transform: uppercase;">
-              Cloudflare PoPs Worldwide
-            </div>
-            <p style="font-size: 0.85rem; color: var(--text-secondary); max-width: 520px; margin-top: 0.75rem;">
-              PostSnap edge functions execute at the nearest data center to both the user and X’s syndication clusters, reducing retrieval latency to under 150ms.
-            </p>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- Watermelon UI Interactive Dashboard Section -->
-  <section id="dashboard" class="dashboard-section">
-    <div class="container">
-      <div class="section-heading text-center">
-        <div class="mono-tag" style="margin-bottom: 0.75rem;">
-          <span class="mono-slash">//</span> TELEMETRY ENGINE
-        </div>
-        <h2 class="section-title">Engine Intelligence Dashboard</h2>
-        <p class="section-subtitle">Real-time edge performance telemetry, active preset library, and live rendering laboratory.</p>
-      </div>
-
-      <!-- Top Telemetry Bar -->
-      <div class="dash-header-bar">
-        <div class="dash-status-pill">
-          <span class="pulse-dot"></span>
-          <span>Global Edge Fleet: 310+ Cloudflare PoPs Active</span>
-        </div>
-        <div class="dash-meta-pills">
-          <span class="dash-pill">Median Latency: 142ms</span>
-          <span class="dash-pill">Capture Fidelity: 99.8%</span>
-          <span class="dash-pill">CORS Proxy: Zero Taint</span>
-        </div>
-      </div>
-
-      <!-- Dashboard Grid -->
-      <div class="dash-grid">
-        <!-- Left Sidebar: Presets & Edge Telemetry -->
-        <div class="dash-sidebar">
-          <div class="dash-card tech-card-wrapper">
-            <div class="corner-accent corner-tl"></div>
-            <div class="corner-accent corner-tr"></div>
-            <div class="corner-accent corner-bl"></div>
-            <div class="corner-accent corner-br"></div>
-            
-            <div class="dash-card-title">
-              <span>Preset Library</span>
-              <span style="font-size: 11px; color: var(--text-muted); font-family: monospace;">[ INTERACTIVE ]</span>
-            </div>
-            <div class="dash-preset-list">
-              <button type="button" class="dash-preset-btn active" data-preset="elon">
-                <div>
-                  <div style="font-weight: 700;">Elon Musk</div>
-                  <div class="dash-preset-meta">HQ Media Post</div>
-                </div>
-                <span style="color: var(--accent-blue);">→</span>
-              </button>
-              <button type="button" class="dash-preset-btn" data-preset="jack">
-                <div>
-                  <div style="font-weight: 700;">Jack Dorsey</div>
-                  <div class="dash-preset-meta">First Tweet (2006)</div>
-                </div>
-                <span style="color: var(--accent-blue);">→</span>
-              </button>
-              <button type="button" class="dash-preset-btn" data-preset="obama">
-                <div>
-                  <div style="font-weight: 700;">Barack Obama</div>
-                  <div class="dash-preset-meta">High Metrics (870k RTs)</div>
-                </div>
-                <span style="color: var(--accent-blue);">→</span>
-              </button>
-              <button type="button" class="dash-preset-btn" data-preset="openai">
-                <div>
-                  <div style="font-weight: 700;">OpenAI</div>
-                  <div class="dash-preset-meta">Long-Form Model Release</div>
-                </div>
-                <span style="color: var(--accent-blue);">→</span>
-              </button>
-            </div>
-          </div>
-
-          <div class="dash-card tech-card-wrapper">
-            <div class="corner-accent corner-tl"></div>
-            <div class="corner-accent corner-tr"></div>
-            <div class="corner-accent corner-bl"></div>
-            <div class="corner-accent corner-br"></div>
-
-            <div class="dash-card-title">
-              <span>Edge Telemetry</span>
-              <span class="badge-dot" style="width: 6px; height: 6px;"></span>
-            </div>
-            <div class="dash-telemetry-item">
-              <span class="dash-telemetry-label">Runtime Engine</span>
-              <span class="dash-telemetry-val">Cloudflare V8 Edge</span>
-            </div>
-            <div class="dash-telemetry-item">
-              <span class="dash-telemetry-label">Syndication Token</span>
-              <span class="dash-telemetry-val">SHA-256 Verified</span>
-            </div>
-            <div class="dash-telemetry-item">
-              <span class="dash-telemetry-label">Canvas Anti-Aliasing</span>
-              <span class="dash-telemetry-val">Subpixel Retina</span>
-            </div>
-            <div class="dash-telemetry-item">
-              <span class="dash-telemetry-label">Privacy Architecture</span>
-              <span class="dash-telemetry-val">Zero Server Storage</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Right Playground: Interactive Real-Time Lab -->
-        <div class="dash-playground-card tech-card-wrapper">
-          <div class="corner-accent corner-tl"></div>
-          <div class="corner-accent corner-tr"></div>
-          <div class="corner-accent corner-bl"></div>
-          <div class="corner-accent corner-br"></div>
-
-          <div class="dash-toolbar">
-            <div class="dash-toggles">
-              <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; font-family: monospace;">Theme:</span>
-              <button type="button" class="toggle-chip active" id="labThemeLight">Light</button>
-              <button type="button" class="toggle-chip" id="labThemeDim">Dim</button>
-              <button type="button" class="toggle-chip" id="labThemeDark">Dark</button>
-            </div>
-            <div class="dash-toggles">
-              <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; font-family: monospace;">Scale:</span>
-              <button type="button" class="toggle-chip active" id="labScale2x">2x Retina</button>
-              <button type="button" class="toggle-chip" id="labScale3x">3x Ultra</button>
-            </div>
-          </div>
-
-          <!-- Live Interactive Card Display -->
-          <div class="dash-live-render">
-            <div id="labTweetCard" class="tweet-card-root theme-light">
-              <!-- Dynamically populated by app.js -->
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Watermelon UI Interactive Before & After Showcase -->
+  <!-- Interactive Before & After Showcase (Clean - No //) -->
   <section id="comparison" class="comparison-section">
     <div class="container">
       <div class="section-heading text-center">
         <div class="mono-tag" style="margin-bottom: 0.75rem;">
-          <span class="mono-slash">//</span> FIDELITY AUDIT
+          FIDELITY COMPARISON
         </div>
         <h2 class="section-title">Manual Screenshots vs PostSnap</h2>
         <p class="section-subtitle">See why manual screen captures look messy, while PostSnap delivers clean publication-ready assets.</p>
@@ -3167,27 +2894,26 @@ body {
     </div>
   </section>
 
-  <!-- Watermelon UI Technical Features Bento with SVG Schematics (from features.tsx & feature-visuals.tsx) -->
+  <!-- Technical Features Section (Clean - No //) -->
   <section id="features" class="section light-section">
     <div class="container">
       <div class="section-heading text-center">
         <div class="mono-tag" style="margin-bottom: 0.75rem;">
-          <span class="mono-slash">//</span> ARCHIVAL SPECIFICATION
+          ARCHIVAL SPECIFICATION
         </div>
         <h2 class="section-title">Built for Precision & Fidelity</h2>
-        <p class="section-subtitle">Engineered specifically for researchers, creators, journalists, and keynote presenters.</p>
+        <p class="section-subtitle">Engineered specifically for creators, researchers, journalists, and keynote presenters.</p>
       </div>
 
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem;">
         
-        <!-- Feature 1: Coordinate Axis SVG Schematic (from PremiumComponent) -->
+        <!-- Feature 1: Verified Marks -->
         <div class="feature-card-tech tech-card-wrapper">
           <div class="corner-accent corner-tl"></div>
           <div class="corner-accent corner-tr"></div>
           <div class="corner-accent corner-bl"></div>
           <div class="corner-accent corner-br"></div>
 
-          <!-- SVG Visual Schematic -->
           <div class="feature-tech-svg-wrapper">
             <svg viewBox="0 0 240 240" width="240" height="240">
               <line x1="40" y1="0" x2="40" y2="240" stroke="rgba(255,255,255,0.15)" stroke-width="1" />
@@ -3195,13 +2921,12 @@ body {
               <circle cx="40" cy="120" r="4" fill="#1d9bf0" />
               <circle cx="40" cy="120" r="28" fill="none" stroke="rgba(29, 155, 240, 0.25)" stroke-dasharray="3 3" />
               <circle cx="40" cy="120" r="56" fill="none" stroke="rgba(29, 155, 240, 0.15)" />
-              <text x="46" y="24" fill="rgba(255,255,255,0.3)" font-size="9" font-family="monospace">SYS.01</text>
-              <text x="180" y="115" fill="rgba(255,255,255,0.3)" font-size="9" font-family="monospace">X-AXIS</text>
+              <text x="46" y="24" fill="rgba(255,255,255,0.3)" font-size="9" font-family="monospace">AUTHENTIC</text>
             </svg>
           </div>
 
-          <div style="position: relative; z-index: 2; max-width: 60%;">
-            <span class="sys-label">[ SYS.01 // VERIFIED_MARKS ]</span>
+          <div style="position: relative; z-index: 2; max-width: 65%;">
+            <span class="sys-label">VERIFIED MARKS</span>
             <h4 style="font-size: 1.25rem; font-weight: 700; color: #ffffff; margin: 0.75rem 0 0.5rem 0;">Verified Badges & Official Marks</h4>
             <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.55;">
               Preserves authentic verified checkmarks (blue for subscribers, organization gold) alongside the official 𝕏 brand mark.
@@ -3209,14 +2934,13 @@ body {
           </div>
         </div>
 
-        <!-- Feature 2: Bar Array Visual (from ThemingComponent) -->
+        <!-- Feature 2: Dynamic Height -->
         <div class="feature-card-tech tech-card-wrapper">
           <div class="corner-accent corner-tl"></div>
           <div class="corner-accent corner-tr"></div>
           <div class="corner-accent corner-bl"></div>
           <div class="corner-accent corner-br"></div>
 
-          <!-- SVG Visual Schematic -->
           <div class="feature-tech-svg-wrapper">
             <svg viewBox="0 0 240 240" width="240" height="240">
               <g transform="translate(30, 70)">
@@ -3226,16 +2950,14 @@ body {
                 <rect x="36" y="20" width="6" height="30" rx="2" fill="rgba(255,255,255,0.15)" />
                 <rect x="48" y="15" width="6" height="35" rx="2" fill="rgba(255,255,255,0.15)" />
                 <rect x="60" y="25" width="6" height="25" rx="2" fill="rgba(255,255,255,0.1)" />
-                <rect x="72" y="18" width="6" height="32" rx="2" fill="rgba(255,255,255,0.1)" />
-                <rect x="84" y="8" width="6" height="42" rx="2" fill="rgba(255,255,255,0.1)" />
-                <line x1="0" y1="60" x2="110" y2="60" stroke="rgba(255,255,255,0.2)" stroke-width="1" />
-                <text x="0" y="75" fill="rgba(255,255,255,0.3)" font-size="9" font-family="monospace">AUTO_SCALE: 100%</text>
+                <line x1="0" y1="60" x2="90" y2="60" stroke="rgba(255,255,255,0.2)" stroke-width="1" />
+                <text x="0" y="75" fill="rgba(255,255,255,0.3)" font-size="9" font-family="monospace">AUTO_SCALE</text>
               </g>
             </svg>
           </div>
 
-          <div style="position: relative; z-index: 2; max-width: 60%;">
-            <span class="sys-label">[ SYS.02 // DYNAMIC_HEIGHT ]</span>
+          <div style="position: relative; z-index: 2; max-width: 65%;">
+            <span class="sys-label">DYNAMIC HEIGHT</span>
             <h4 style="font-size: 1.25rem; font-weight: 700; color: #ffffff; margin: 0.75rem 0 0.5rem 0;">Dynamic Height for Long Posts</h4>
             <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.55;">
               Never clips or truncates extended-length posts with ugly [Read more] links. The canvas dynamically expands to render full content.
@@ -3243,14 +2965,13 @@ body {
           </div>
         </div>
 
-        <!-- Feature 3: Branching Node Visual (from OpenSourceComponent) -->
+        <!-- Feature 3: Retina 2x -->
         <div class="feature-card-tech tech-card-wrapper">
           <div class="corner-accent corner-tl"></div>
           <div class="corner-accent corner-tr"></div>
           <div class="corner-accent corner-bl"></div>
           <div class="corner-accent corner-br"></div>
 
-          <!-- SVG Visual Schematic -->
           <div class="feature-tech-svg-wrapper">
             <svg viewBox="0 0 240 240" width="240" height="240">
               <path d="M 120,40 L 120,200" stroke="rgba(255,255,255,0.1)" stroke-width="1" stroke-dasharray="4 4" />
@@ -3263,8 +2984,8 @@ body {
             </svg>
           </div>
 
-          <div style="position: relative; z-index: 2; max-width: 60%;">
-            <span class="sys-label">[ SYS.03 // RETINA_RENDER ]</span>
+          <div style="position: relative; z-index: 2; max-width: 65%;">
+            <span class="sys-label">RETINA CANVAS</span>
             <h4 style="font-size: 1.25rem; font-weight: 700; color: #ffffff; margin: 0.75rem 0 0.5rem 0;">2x Retina PNG Canvas</h4>
             <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.55;">
               Renders with exact typography scaling and antialiasing at 300 DPI. Ready for instant download or 1-click clipboard paste.
@@ -3272,27 +2993,26 @@ body {
           </div>
         </div>
 
-        <!-- Feature 4: Status Indicator Visual (from ProductionReadyComponent) -->
+        <!-- Feature 4: Edge Proxy -->
         <div class="feature-card-tech tech-card-wrapper">
           <div class="corner-accent corner-tl"></div>
           <div class="corner-accent corner-tr"></div>
           <div class="corner-accent corner-bl"></div>
           <div class="corner-accent corner-br"></div>
 
-          <!-- SVG Visual Schematic -->
           <div class="feature-tech-svg-wrapper">
             <svg viewBox="0 0 240 240" width="240" height="240">
               <g transform="translate(60, 60)">
                 <circle cx="50" cy="50" r="45" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1" />
                 <circle cx="50" cy="50" r="30" fill="none" stroke="rgba(0, 186, 124, 0.25)" stroke-width="1" stroke-dasharray="2 3" />
                 <circle cx="50" cy="50" r="8" fill="#00ba7c" />
-                <text x="15" y="115" fill="#00ba7c" font-size="9" font-family="monospace">ZERO_TAINT: OK</text>
+                <text x="15" y="115" fill="#00ba7c" font-size="9" font-family="monospace">ZERO_TAINT</text>
               </g>
             </svg>
           </div>
 
-          <div style="position: relative; z-index: 2; max-width: 60%;">
-            <span class="sys-label">[ SYS.04 // EDGE_PROXY ]</span>
+          <div style="position: relative; z-index: 2; max-width: 65%;">
+            <span class="sys-label">EDGE PROXY</span>
             <h4 style="font-size: 1.25rem; font-weight: 700; color: #ffffff; margin: 0.75rem 0 0.5rem 0;">Zero-Taint CORS Edge Proxy</h4>
             <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.55;">
               Proxies external twimg images via edge gateway with strict CORS headers, preventing canvas security tainting during client export.
@@ -3304,19 +3024,18 @@ body {
     </div>
   </section>
 
-  <!-- Watermelon UI Community Testimonials Section (from testimonial.tsx) -->
+  <!-- Community Testimonials Section (Clean - No //) -->
   <section id="testimonials" class="testimonials-section">
-    <!-- Edge Crosshairs -->
     <div class="crosshair-corner crosshair-tl"><div class="crosshair-v"></div><div class="crosshair-h"></div></div>
     <div class="crosshair-corner crosshair-tr"><div class="crosshair-v"></div><div class="crosshair-h"></div></div>
 
     <div class="container">
       <div class="section-heading text-center">
         <div class="mono-tag" style="margin-bottom: 0.75rem;">
-          <span class="mono-slash">//</span> COMMUNITY FEEDBACK
+          COMMUNITY FEEDBACK
         </div>
         <h2 class="section-title">Loved by <span style="color: var(--accent-blue);">builders</span></h2>
-        <p class="section-subtitle">Real feedback from builders, engineers, and creators using PostSnap.</p>
+        <p class="section-subtitle">Real feedback from builders and creators using PostSnap.</p>
       </div>
     </div>
 
@@ -3327,7 +3046,7 @@ body {
 
       <div class="testimonial-marquee-track">
         
-        <!-- Card 1: Akash Yadav (Creator Highlight) -->
+        <!-- Card 1: Akash Yadav (Creator) -->
         <div class="testimonial-card-tech tech-card-wrapper" style="border-color: rgba(29, 155, 240, 0.4); background: rgba(29, 155, 240, 0.05);">
           <div class="corner-accent corner-tl" style="border-color: var(--accent-blue);"></div>
           <div class="corner-accent corner-tr" style="border-color: var(--accent-blue);"></div>
@@ -3345,10 +3064,10 @@ body {
             <span class="testimonial-platform-tag tag-dm">CREATOR</span>
           </div>
           <p class="testimonial-quote">
-            "Looks good, especially Hero and Footer sections. Crisp 2x Retina captures, dynamic auto-height, and clean architecture without AI bloat."
+            "Clean 2x Retina captures, dynamic auto-height, and authentic layout without any fluff. Built to be fast and genuinely useful."
           </p>
           <div style="font-family: monospace; font-size: 0.75rem; color: var(--accent-blue);">
-            → Creator & Lead Engineer
+            → Creator of PostSnap
           </div>
         </div>
 
@@ -3425,7 +3144,7 @@ body {
             <span class="testimonial-platform-tag tag-dm">DM</span>
           </div>
           <p class="testimonial-quote">
-            "Just had a look and it looks awesome bro 🔥. Big congrats on the new update 🍉."
+            "Just had a look and it looks awesome bro 🔥. Big congrats on the update 🍉."
           </p>
           <div style="font-family: monospace; font-size: 0.75rem; color: var(--text-muted);">
             via Product Design
@@ -3465,7 +3184,7 @@ body {
             <span class="testimonial-platform-tag tag-dm">DM</span>
           </div>
           <p class="testimonial-quote">
-            "Man, it's awesome!!! I've just been obsessed with footers and hero sections, and this is gorgeous."
+            "Man, it's awesome! Obsessed with footers and hero sections, and this is gorgeous."
           </p>
           <div style="font-family: monospace; font-size: 0.75rem; color: var(--text-muted);">
             via Twitter/X DM
@@ -3496,16 +3215,15 @@ body {
     </div>
   </section>
 
-  <!-- Watermelon UI Technical Footer with Akash Yadav Profile Showcase (from footer.tsx) -->
-  <footer id="creator" class="tech-footer">
-    <!-- Technical Corner Crosshairs -->
+  <!-- Creator & Clean Footer (User's Exact Vision & Voice) -->
+  <footer id="about" class="tech-footer">
     <div class="crosshair-corner crosshair-tl"><div class="crosshair-v"></div><div class="crosshair-h"></div></div>
     <div class="crosshair-corner crosshair-tr"><div class="crosshair-v"></div><div class="crosshair-h"></div></div>
 
     <div class="container">
-      <div class="footer-top-grid">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2.5rem; padding-bottom: 3rem; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
         
-        <!-- Creator Showcase Card: Akash Yadav -->
+        <!-- Creator Showcase Card: Akash Yadav (Authentic Maker Mindset) -->
         <div class="creator-profile-card">
           <div class="corner-accent corner-tl" style="border-color: var(--accent-blue);"></div>
           <div class="corner-accent corner-tr" style="border-color: var(--accent-blue);"></div>
@@ -3514,12 +3232,12 @@ body {
 
           <div class="creator-badge">
             <span>●</span>
-            <span>CREATOR & LEAD ENGINEER</span>
+            <span>BUILDER & MAKER</span>
           </div>
           <div class="creator-name">Akash Yadav</div>
-          <div class="creator-role">Software Engineer & Open Source Builder</div>
-          <p style="font-size: 0.82rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 1.25rem;">
-            Building ultra-fast, privacy-first developer utilities and archival engines on the global edge. Connect with me or contribute to PostSnap.
+          <div class="creator-role" style="color: var(--accent-blue); font-weight: 600;">Maker & Builder</div>
+          <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.55; margin-bottom: 1.25rem;">
+            I build things that I think need attention to be built. More interested in creating useful tools, solving real problems, and making an impact.
           </p>
 
           <div class="creator-links-group">
@@ -3543,44 +3261,25 @@ body {
           </div>
         </div>
 
-        <!-- Column 1: Archival Engine -->
+        <!-- Clean Navigation Column -->
         <div>
-          <div class="footer-col-title">
-            <span class="mono-slash">//</span> ARCHIVAL ENGINE
-          </div>
+          <div class="footer-col-title">Navigation</div>
           <ul class="footer-col-links">
             <li><a href="#converter">Post Converter</a></li>
-            <li><a href="#micro-interactions">Interactive Bento</a></li>
-            <li><a href="#dashboard">Edge Telemetry</a></li>
             <li><a href="#comparison">Screenshot Comparison</a></li>
-            <li><a href="#features">Retina Engine Specs</a></li>
+            <li><a href="#features">Features & Architecture</a></li>
+            <li><a href="#testimonials">Community Feedback</a></li>
+            <li><a href="#about">About the Maker</a></li>
           </ul>
         </div>
 
-        <!-- Column 2: System Architecture -->
+        <!-- Clean Connect & Project Column -->
         <div>
-          <div class="footer-col-title">
-            <span class="mono-slash">//</span> SPECIFICATION
-          </div>
-          <ul class="footer-col-links">
-            <li><a href="#dashboard">Cloudflare V8 Edge</a></li>
-            <li><a href="#features">300 DPI Subpixel Canvas</a></li>
-            <li><a href="#features">Dynamic Auto-Height</a></li>
-            <li><a href="#features">Zero-Taint CORS Proxy</a></li>
-            <li><a href="#faq">Privacy & Zero Storage</a></li>
-          </ul>
-        </div>
-
-        <!-- Column 3: Connect & Resources -->
-        <div>
-          <div class="footer-col-title">
-            <span class="mono-slash">//</span> CONNECT & SOURCE
-          </div>
+          <div class="footer-col-title">Connect & Project</div>
           <ul class="footer-col-links">
             <li><a href="https://x.com/akashhYaadav" target="_blank" rel="noopener noreferrer">Twitter/X: @akashhYaadav</a></li>
             <li><a href="https://github.com/akashydv23" target="_blank" rel="noopener noreferrer">GitHub: @akashydv23</a></li>
             <li><a href="https://github.com/akashydv23/PostSnap" target="_blank" rel="noopener noreferrer">Repository: PostSnap</a></li>
-            <li><a href="https://ui.watermelon.sh/home" target="_blank" rel="noopener noreferrer">Watermelon UI Design</a></li>
             <li><a href="https://postxsnap.pages.dev/" target="_blank" rel="noopener noreferrer">Live Production App</a></li>
           </ul>
         </div>
@@ -3591,21 +3290,21 @@ body {
       <div class="footer-bottom-bar">
         <div class="sys-status-live">
           <span class="pulse-dot"></span>
-          <span>100% OPERATIONAL // 310+ GLOBAL EDGE PoPs</span>
+          <span>100% OPERATIONAL · CLOUDFLARE EDGE</span>
         </div>
 
         <div>
-          Designed & Engineered with ❤️ by <a href="https://x.com/akashhYaadav" target="_blank" rel="noopener noreferrer" style="color: var(--accent-blue); text-decoration: none; font-weight: 700;">Akash Yadav</a>
+          Created with ❤️ by <a href="https://x.com/akashhYaadav" target="_blank" rel="noopener noreferrer" style="color: var(--accent-blue); text-decoration: none; font-weight: 700;">Akash Yadav</a>
         </div>
 
         <div>
-          Twitter & X are registered trademarks of X Corp. MIT Open Architecture.
+          Twitter & X are registered trademarks of X Corp. MIT Open Source.
         </div>
       </div>
     </div>
   </footer>
 
-  <!-- Core Canvas Export Engine & Twitter Widgets -->
+  <!-- Core Canvas Export Engine, Twitter Widgets & Client Logic -->
   <script src="/html2canvas.min.js"></script>
   <script>
     if (typeof html2canvas === 'undefined') {
@@ -3613,21 +3312,13 @@ body {
     }
   </script>
   <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-  <script src="/app.js?v=5"></script>
+  <script src="/app.js?v=6"></script>
 
-  <!-- Watermelon UI Floating Quick-Action Dock -->
+  <!-- Clean Floating Quick-Action Dock -->
   <div class="floating-dock">
     <a href="#converter" class="dock-btn primary">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
       <span>Capture</span>
-    </a>
-    <a href="#micro-interactions" class="dock-btn">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
-      <span>Bento</span>
-    </a>
-    <a href="#dashboard" class="dock-btn">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-      <span>Dashboard</span>
     </a>
     <div class="dock-divider"></div>
     <button type="button" class="dock-btn" id="dockThemeToggle" title="Toggle Theme">
