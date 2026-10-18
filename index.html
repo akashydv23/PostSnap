@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/style.css?v=8">
+  <link rel="stylesheet" href="/style.css?v=9">
   <style>
 /* ==========================================================================
    PostSnap — Ultra-Aesthetic Design System & Living Atmospheric Mesh
@@ -2583,8 +2583,49 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  color: #00ba7c;
-  font-weight: 600;
+  font-size: 0.76rem;
+  font-family: var(--font-body);
+  color: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid var(--border-subtle);
+  padding: 0.32rem 0.8rem;
+  border-radius: 20px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.sys-status-live:hover {
+  border-color: rgba(16, 185, 129, 0.4);
+  background: rgba(16, 185, 129, 0.06);
+  color: var(--text-primary);
+}
+
+.live-pulse-dot {
+  width: 7px;
+  height: 7px;
+  background-color: #10b981;
+  border-radius: 50%;
+  position: relative;
+  display: inline-block;
+  box-shadow: 0 0 8px #10b981;
+  flex-shrink: 0;
+}
+
+.live-pulse-dot::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  background: #10b981;
+  opacity: 0.6;
+  animation: ping 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+.visitor-dot-sep {
+  opacity: 0.4;
+  margin: 0 0.1rem;
 }
 
 /* Header Actions & Social Icon Spacing Fix */
@@ -3455,9 +3496,11 @@ body {
 
       <!-- Bottom Bar -->
       <div class="footer-bottom-bar">
-        <div class="sys-status-live">
-          <span class="pulse-dot"></span>
-          <span>100% OPERATIONAL · CLOUDFLARE EDGE</span>
+        <div class="sys-status-live" id="liveVisitorBadge" title="Live Traffic & Presence">
+          <span class="live-pulse-dot"></span>
+          <span id="liveActiveCount">8 online now</span>
+          <span class="visitor-dot-sep">·</span>
+          <span id="totalVisitsCount">1,420+ visits</span>
         </div>
 
         <div>
@@ -3479,7 +3522,7 @@ body {
     }
   </script>
   <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-  <script src="/app.js?v=8"></script>
+  <script src="/app.js?v=9"></script>
 
   <!-- Clean Floating Quick-Action Dock -->
   <div class="floating-dock">
