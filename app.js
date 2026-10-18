@@ -520,188 +520,9 @@ document.addEventListener('DOMContentLoaded', () => {
     urlInput.focus();
   });
 
-  // Watermelon UI: Dynamic Spotlight Mouse Cursor Tracking
-  document.querySelectorAll('.spotlight-card').forEach((card) => {
-    card.addEventListener('mousemove', (e) => {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      card.style.setProperty('--mouse-x', `${x}px`);
-      card.style.setProperty('--mouse-y', `${y}px`);
-    });
-  });
-
   // -------------------------------------------------------------------------
-  // Watermelon UI: Smooth Glowing Cursor Follower
-  // -------------------------------------------------------------------------
-  const cursorDot = document.getElementById('cursorDot');
-  const cursorRing = document.getElementById('cursorRing');
-
-  if (cursorDot && cursorRing && window.matchMedia('(hover: hover)').matches) {
-    let mouseX = -100, mouseY = -100;
-    let ringX = -100, ringY = -100;
-
-    window.addEventListener('mousemove', (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-      cursorDot.style.opacity = '1';
-      cursorRing.style.opacity = '1';
-      cursorDot.style.left = `${mouseX}px`;
-      cursorDot.style.top = `${mouseY}px`;
-    });
-
-    document.addEventListener('mouseleave', () => {
-      cursorDot.style.opacity = '0';
-      cursorRing.style.opacity = '0';
-    });
-
-    function animateCursor() {
-      ringX += (mouseX - ringX) * 0.18;
-      ringY += (mouseY - ringY) * 0.18;
-      cursorRing.style.left = `${ringX}px`;
-      cursorRing.style.top = `${ringY}px`;
-      requestAnimationFrame(animateCursor);
-    }
-    requestAnimationFrame(animateCursor);
-
-    // Expand cursor ring on interactive elements
-    const interactiveSelectors = 'a, button, input, .spotlight-card, .sample-pill, .dash-preset-btn, .toggle-chip, .dock-btn';
-    document.querySelectorAll(interactiveSelectors).forEach((el) => {
-      el.addEventListener('mouseenter', () => cursorRing.classList.add('active'));
-      el.addEventListener('mouseleave', () => cursorRing.classList.remove('active'));
-    });
-  }
-
-  // -------------------------------------------------------------------------
-  // Watermelon UI: Interactive Engine Intelligence Dashboard
-  // -------------------------------------------------------------------------
-  const labTweetCard = document.getElementById('labTweetCard');
-  let labCurrentTheme = 'light';
-  let labCurrentPreset = 'elon';
-
-  const PRESET_DATA = {
-    elon: {
-      name: 'Elon Musk',
-      username: 'elonmusk',
-      verified: true,
-      text: 'Our headquarters in San Francisco tonight',
-      avatarUrl: 'https://pbs.twimg.com/profile_images/1892429462215286784/uA6mR7b9_400x400.jpg',
-      createdAt: 'Jul 29, 2023 · 5:48 AM UTC',
-      media: { url: 'https://pbs.twimg.com/media/F2NDiA9WwAAyH3_.jpg' },
-      metrics: { likes: 420000, retweets: 45000, replies: 22000 },
-    },
-    jack: {
-      name: 'jack',
-      username: 'jack',
-      verified: true,
-      text: 'just setting up my twttr',
-      avatarUrl: 'https://abs.twimg.com/sticky/default_profile_images/default_profile_bigger.png',
-      createdAt: 'Mar 21, 2006 · 8:50 PM UTC',
-      metrics: { likes: 185000, retweets: 120000, replies: 8500 },
-    },
-    obama: {
-      name: 'Barack Obama',
-      username: 'BarackObama',
-      verified: true,
-      text: 'Four more years.',
-      avatarUrl: 'https://pbs.twimg.com/profile_images/1329647526807543809/2DzsAfd__400x400.jpg',
-      createdAt: 'Nov 7, 2012 · 4:16 AM UTC',
-      metrics: { likes: 640000, retweets: 870000, replies: 45000 },
-    },
-    openai: {
-      name: 'OpenAI',
-      username: 'OpenAI',
-      verified: true,
-      text: 'We are introducing a series of updates to our frontier models designed to dramatically improve reasoning, coding comprehension, and multi-modal alignment across standard benchmarks.',
-      avatarUrl: 'https://pbs.twimg.com/profile_images/1634097683261685761/th-bQ_XU_400x400.jpg',
-      createdAt: 'Mar 19, 2024 · 5:00 PM UTC',
-      metrics: { likes: 89000, retweets: 12000, replies: 3400 },
-      isLongText: true,
-    },
-  };
-
-  function renderLabCard(presetKey) {
-    if (!labTweetCard) return;
-    const tweet = PRESET_DATA[presetKey] || PRESET_DATA.elon;
-    const author = tweet;
-
-    let avatarHtml = `<div class="tc-avatar"><img src="/api/proxy-image?url=${encodeURIComponent(author.avatarUrl)}" alt="${author.name}" crossorigin="anonymous" onerror="this.parentElement.innerHTML='${author.name.charAt(0)}'"></div>`;
-    
-    let metricsHtml = `
-      <div class="tc-metrics-row">
-        <div class="tc-metric-item"><span class="tc-metric-icon">${ICONS.reply}</span><span class="tc-metric-val">${formatMetric(tweet.metrics.replies)}</span></div>
-        <div class="tc-metric-item"><span class="tc-metric-icon">${ICONS.retweet}</span><span class="tc-metric-val">${formatMetric(tweet.metrics.retweets)}</span></div>
-        <div class="tc-metric-item"><span class="tc-metric-icon">${ICONS.heart}</span><span class="tc-metric-val">${formatMetric(tweet.metrics.likes)}</span></div>
-        <div class="tc-metric-item"><span class="tc-metric-icon">${ICONS.bookmark}</span></div>
-      </div>
-    `;
-
-    labTweetCard.className = `tweet-card-root theme-${labCurrentTheme}`;
-    labTweetCard.innerHTML = `
-      <div class="tc-header">
-        <div class="tc-author-row">
-          ${avatarHtml}
-          <div class="tc-author-info">
-            <div class="tc-name-line">
-              <span class="tc-author-name">${author.name}</span>
-              ${author.verified ? ICONS.verifiedBlue : ''}
-            </div>
-            <span class="tc-author-handle">@${author.username}</span>
-          </div>
-        </div>
-        ${ICONS.xLogo}
-      </div>
-      <div class="tc-text ${tweet.isLongText ? 'long-text' : ''}">${formatTweetText(tweet.text)}</div>
-      <div class="tc-meta">${tweet.createdAt}</div>
-      <hr class="tc-divider">
-      ${metricsHtml}
-      <div class="tc-disclosure">Captured from X via PostSnap by Akash Yadav ❤️</div>
-    `;
-  }
-
-  // Preset Buttons in Dashboard
-  document.querySelectorAll('.dash-preset-btn').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.dash-preset-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      labCurrentPreset = btn.dataset.preset;
-      renderLabCard(labCurrentPreset);
-    });
-  });
-
-  // Theme Toggles in Dashboard
-  const themeMap = {
-    labThemeLight: 'light',
-    labThemeDim: 'dim',
-    labThemeDark: 'dark',
-  };
-  Object.keys(themeMap).forEach((id) => {
-    const el = document.getElementById(id);
-    if (el) {
-      el.addEventListener('click', () => {
-        ['labThemeLight', 'labThemeDim', 'labThemeDark'].forEach(k => {
-          const btn = document.getElementById(k);
-          if (btn) btn.classList.remove('active');
-        });
-        el.classList.add('active');
-        labCurrentTheme = themeMap[id];
-        renderLabCard(labCurrentPreset);
-      });
-    }
-  });
-
-  // Scale Toggles in Dashboard
-  ['labScale2x', 'labScale3x'].forEach((id) => {
-    const el = document.getElementById(id);
-    if (el) {
-      el.addEventListener('click', () => {
-        ['labScale2x', 'labScale3x'].forEach(k => document.getElementById(k)?.classList.remove('active'));
-        el.classList.add('active');
-      });
-    }
-  });
-
   // Floating Dock Theme Toggle
+  // -------------------------------------------------------------------------
   const dockThemeToggle = document.getElementById('dockThemeToggle');
   if (dockThemeToggle) {
     const themes = ['light', 'dim', 'dark'];
@@ -721,160 +542,51 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Initial Lab Render
-  renderLabCard('elon');
-
   // -------------------------------------------------------------------------
-  // Watermelon UI: Rotating Words Headline
+  // Ultra-Smooth, Zero-Latency Custom Cursor Follower (Hardware-Accelerated)
   // -------------------------------------------------------------------------
-  const rotatingWords = ['creators', 'researchers', 'developers', 'archivists', 'journalists', 'designers'];
-  let currentWordIdx = 0;
-  const wordEl = document.getElementById('rotatingWord');
-  if (wordEl) {
-    setInterval(() => {
-      wordEl.classList.add('fade-out');
-      setTimeout(() => {
-        currentWordIdx = (currentWordIdx + 1) % rotatingWords.length;
-        wordEl.textContent = rotatingWords[currentWordIdx];
-        wordEl.classList.remove('fade-out');
-        wordEl.classList.add('fade-in');
-        setTimeout(() => wordEl.classList.remove('fade-in'), 300);
-      }, 300);
-    }, 2500);
-  }
+  const cursorDot = document.getElementById('cursorDot');
+  const cursorRing = document.getElementById('cursorRing');
 
-  // -------------------------------------------------------------------------
-  // Watermelon UI: Counting Numbers Animation
-  // -------------------------------------------------------------------------
-  const countingElements = document.querySelectorAll('.counting-number');
-  if ('IntersectionObserver' in window && countingElements.length > 0) {
-    const counterObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const el = entry.target;
-          const target = parseFloat(el.dataset.target);
-          const prefix = el.dataset.prefix || '';
-          const suffix = el.dataset.suffix || '';
-          const isFloat = el.dataset.target.includes('.');
-          const duration = 1200;
-          const startTime = performance.now();
+  if (cursorDot && cursorRing && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    let mouseX = -100, mouseY = -100;
+    let ringX = -100, ringY = -100;
+    let isVisible = false;
 
-          function updateCounter(now) {
-            const elapsed = now - startTime;
-            const progress = Math.min(elapsed / duration, 1);
-            const ease = 1 - (1 - progress) * (1 - progress);
-            const currentVal = isFloat ? (ease * target).toFixed(1) : Math.floor(ease * target);
-            el.textContent = `${prefix}${currentVal}${suffix}`;
-            if (progress < 1) {
-              requestAnimationFrame(updateCounter);
-            } else {
-              el.textContent = `${prefix}${target}${suffix}`;
-            }
-          }
-          requestAnimationFrame(updateCounter);
-          counterObserver.unobserve(el);
-        }
-      });
-    }, { threshold: 0.2 });
-
-    countingElements.forEach(el => counterObserver.observe(el));
-  }
-
-  // -------------------------------------------------------------------------
-  // Watermelon UI: Micro-Interaction 1 - Knob Slider / Scale Selector
-  // -------------------------------------------------------------------------
-  const knobWheel = document.getElementById('knobWheel');
-  const knobIndicator = document.getElementById('knobIndicator');
-  const knobCenterVal = document.getElementById('knobCenterVal');
-  const dpiBtns = document.querySelectorAll('.dpi-btn');
-  const knobDpiDetails = document.getElementById('knobDpiDetails');
-
-  const DPI_MODES = {
-    '1': { dpi: 72, label: '1x Web', deg: 0, res: '560 × Auto px', note: 'Standard web screen density' },
-    '2': { dpi: 300, label: '2x Retina', deg: 90, res: '1120 × Auto px', note: 'Crisp Apple Retina 300 DPI' },
-    '3': { dpi: 450, label: '3x Ultra', deg: 180, res: '1680 × Auto px', note: 'Ultra HD presentation scale' },
-    '4': { dpi: 600, label: '4x Print', deg: 270, res: '2240 × Auto px', note: 'Maximum vector print fidelity' },
-  };
-
-  function setKnobMode(scaleKey) {
-    const mode = DPI_MODES[scaleKey] || DPI_MODES['2'];
-    if (knobIndicator) knobIndicator.style.transform = `rotate(${mode.deg}deg)`;
-    if (knobCenterVal) knobCenterVal.textContent = `${mode.dpi}`;
-    if (knobDpiDetails) {
-      knobDpiDetails.textContent = `${mode.label} · ${mode.res} · ${mode.note}`;
-    }
-    dpiBtns.forEach(btn => {
-      btn.classList.toggle('active', btn.dataset.scale === scaleKey);
-    });
-  }
-
-  dpiBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      setKnobMode(btn.dataset.scale);
-    });
-  });
-
-  if (knobWheel) {
-    let currentScaleKeys = ['1', '2', '3', '4'];
-    let currentScaleIdx = 1;
-    knobWheel.addEventListener('click', () => {
-      currentScaleIdx = (currentScaleIdx + 1) % currentScaleKeys.length;
-      setKnobMode(currentScaleKeys[currentScaleIdx]);
-    });
-  }
-
-  // -------------------------------------------------------------------------
-  // Watermelon UI: Micro-Interaction 2 - Morphing Action Button
-  // -------------------------------------------------------------------------
-  const morphBtn = document.getElementById('morphBtn');
-  const morphBtnLabel = document.getElementById('morphBtnLabel');
-  const morphBtnIcon = document.getElementById('morphBtnIcon');
-
-  if (morphBtn) {
-    morphBtn.addEventListener('click', () => {
-      if (morphBtn.classList.contains('loading') || morphBtn.classList.contains('success')) return;
-
-      morphBtn.classList.add('loading');
-      if (morphBtnLabel) morphBtnLabel.textContent = 'Rendering 2x...';
-      if (morphBtnIcon) {
-        morphBtnIcon.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>`;
+    window.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      if (!isVisible) {
+        isVisible = true;
+        cursorDot.style.opacity = '1';
+        cursorRing.style.opacity = '1';
       }
+      cursorDot.style.transform = `translate3d(${mouseX - 3}px, ${mouseY - 3}px, 0)`;
+    }, { passive: true });
 
-      setTimeout(() => {
-        morphBtn.classList.remove('loading');
-        morphBtn.classList.add('success');
-        if (morphBtnLabel) morphBtnLabel.textContent = 'Exported PNG!';
-        if (morphBtnIcon) {
-          morphBtnIcon.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
-        }
+    document.addEventListener('mouseleave', () => {
+      isVisible = false;
+      cursorDot.style.opacity = '0';
+      cursorRing.style.opacity = '0';
+    });
 
-        setTimeout(() => {
-          morphBtn.classList.remove('success');
-          if (morphBtnLabel) morphBtnLabel.textContent = 'Try Morphing PNG';
-          if (morphBtnIcon) {
-            morphBtnIcon.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>`;
-          }
-        }, 2200);
-      }, 1000);
+    function animateCursorRing() {
+      if (isVisible) {
+        ringX += (mouseX - ringX) * 0.22;
+        ringY += (mouseY - ringY) * 0.22;
+        cursorRing.style.transform = `translate3d(${ringX - 18}px, ${ringY - 18}px, 0)`;
+      }
+      requestAnimationFrame(animateCursorRing);
+    }
+    requestAnimationFrame(animateCursorRing);
+
+    // Subtle scale feedback on interactive targets
+    const interactiveSelectors = 'a, button, input, select, .sample-pill, .theme-btn, .clean-dropdown';
+    document.querySelectorAll(interactiveSelectors).forEach((el) => {
+      el.addEventListener('mouseenter', () => cursorRing.classList.add('active'), { passive: true });
+      el.addEventListener('mouseleave', () => cursorRing.classList.remove('active'), { passive: true });
     });
   }
-
-  // -------------------------------------------------------------------------
-  // Watermelon UI: Micro-Interaction 3 - Preset Agent Selector in Bento
-  // -------------------------------------------------------------------------
-  const bentoAgentPills = document.querySelectorAll('.agent-pill');
-  bentoAgentPills.forEach(pill => {
-    pill.addEventListener('click', () => {
-      bentoAgentPills.forEach(p => p.classList.remove('active'));
-      pill.classList.add('active');
-      const preset = pill.dataset.preset;
-      renderLabCard(preset);
-      document.querySelectorAll('.dash-preset-btn').forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.preset === preset);
-      });
-    });
-  });
-
 
   // -------------------------------------------------------------------------
   // Living Atmosphere & Real-Time Dynamic Palette Shift Engine
@@ -889,10 +601,10 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const AUTHOR_SIGNATURES = {
-    'jack': { r: 245, g: 158, b: 11 },        // Retro Amber
-    'elonmusk': { r: 56, g: 189, b: 248 },    // Cosmic Starship Blue
-    'barackobama': { r: 129, g: 140, b: 248 },// Royal Indigo & Violet
-    'openai': { r: 16, g: 185, b: 129 },      // Emerald Intelligence
+    'jack': { r: 245, g: 158, b: 11 },         // Retro Amber
+    'elonmusk': { r: 56, g: 189, b: 248 },     // Cosmic Starship Blue
+    'barackobama': { r: 129, g: 140, b: 248 }, // Royal Indigo & Violet
+    'openai': { r: 16, g: 185, b: 129 },       // Emerald Intelligence
   };
 
   function rgbToHsl(r, g, b) {
@@ -975,7 +687,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const indicator = document.getElementById('atmosphereIndicator');
     if (indicator) {
       indicator.style.backgroundColor = primeStr;
-      indicator.style.boxShadow = `0 0 14px ${primeStr}`;
+      indicator.style.boxShadow = `0 0 10px ${primeStr}`;
     }
   }
 
@@ -1033,7 +745,7 @@ document.addEventListener('DOMContentLoaded', () => {
       };
 
       img.onerror = () => resolve(null);
-      setTimeout(() => resolve(null), 3500);
+      setTimeout(() => resolve(null), 2500);
     });
   }
 
@@ -1041,9 +753,16 @@ document.addEventListener('DOMContentLoaded', () => {
     if (activeAtmosphereMood !== 'auto') return;
     if (!tweet) return;
 
+    if (tweet._extractedAtmosphere) {
+      const c = tweet._extractedAtmosphere;
+      applyAtmospherePalette(c.r, c.g, c.b);
+      return;
+    }
+
     const username = (tweet.author?.username || '').toLowerCase();
     if (AUTHOR_SIGNATURES[username]) {
       const sig = AUTHOR_SIGNATURES[username];
+      tweet._extractedAtmosphere = sig;
       applyAtmospherePalette(sig.r, sig.g, sig.b);
       return;
     }
@@ -1053,6 +772,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const proxiedUrl = `/api/proxy-image?url=${encodeURIComponent(candidateImage)}`;
       const extracted = await extractColorFromImage(proxiedUrl);
       if (extracted) {
+        tweet._extractedAtmosphere = extracted;
         applyAtmospherePalette(extracted.r, extracted.g, extracted.b);
         return;
       }
@@ -1061,13 +781,11 @@ document.addEventListener('DOMContentLoaded', () => {
     applyAtmospherePalette(56, 189, 248);
   }
 
-  // Atmosphere Mood Selector Buttons
-  const atmoPills = document.querySelectorAll('.atmo-pill');
-  atmoPills.forEach((pill) => {
-    pill.addEventListener('click', () => {
-      atmoPills.forEach((p) => p.classList.remove('active'));
-      pill.classList.add('active');
-      activeAtmosphereMood = pill.dataset.atmo;
+  // Atmosphere Mood Dropdown Selector
+  const atmosphereSelect = document.getElementById('atmosphereSelect');
+  if (atmosphereSelect) {
+    atmosphereSelect.addEventListener('change', (e) => {
+      activeAtmosphereMood = e.target.value;
 
       if (activeAtmosphereMood === 'auto') {
         if (activeTweetData) {
@@ -1080,7 +798,7 @@ document.addEventListener('DOMContentLoaded', () => {
         applyAtmospherePalette(p.r, p.g, p.b, p.secR, p.secG, p.secB);
       }
     });
-  });
+  }
 
   function showError(msg) {
     if (msg) {
@@ -1091,4 +809,3 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 });
-

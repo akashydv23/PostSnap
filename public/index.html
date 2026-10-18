@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/style.css?v=7">
+  <link rel="stylesheet" href="/style.css?v=8">
   <style>
 /* ==========================================================================
    PostSnap — Ultra-Aesthetic Design System & Living Atmospheric Mesh
@@ -61,11 +61,6 @@ html {
 
 body {
   background-color: var(--bg-primary);
-  background-image: 
-    radial-gradient(ellipse 100% 70% at 50% -10%, var(--aurora-1) 0%, transparent 60%),
-    radial-gradient(ellipse 80% 50% at 85% 25%, var(--aurora-2) 0%, transparent 60%),
-    radial-gradient(ellipse 70% 50% at 15% 45%, var(--aurora-3) 0%, transparent 60%);
-  background-attachment: fixed;
   color: var(--text-primary);
   font-family: var(--font-body);
   line-height: 1.5;
@@ -76,7 +71,6 @@ body {
   flex-direction: column;
   position: relative;
   overflow-x: hidden;
-  transition: background 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Background Grid Pattern (Watermelon UI style) */
@@ -454,9 +448,9 @@ body {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
-  gap: 1.25rem;
-  padding-top: 0.75rem;
+  justify-content: flex-start;
+  gap: 1.25rem 2rem;
+  padding-top: 1rem;
   border-top: 1px solid var(--border-subtle);
 }
 
@@ -469,9 +463,11 @@ body {
   margin-right: 0.6rem;
 }
 
-.theme-selector {
+.theme-selector,
+.atmosphere-selector {
   display: flex;
   align-items: center;
+  gap: 0.6rem;
 }
 
 .segmented-control {
@@ -492,11 +488,88 @@ body {
   border-radius: 6px;
   cursor: pointer;
   transition: all 0.15s ease;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.theme-btn:hover {
+  color: var(--text-white);
 }
 
 .theme-btn.active {
   background: rgba(255, 255, 255, 0.14);
   color: var(--text-white);
+}
+
+.theme-btn:active {
+  transform: scale(0.97);
+}
+
+/* Atmosphere Dropdown Selector */
+.clean-dropdown-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(7, 8, 12, 0.9);
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  padding: 0 0.75rem 0 0.85rem;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.clean-dropdown-wrap:hover,
+.clean-dropdown-wrap:focus-within {
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 12px var(--accent-glow);
+}
+
+.clean-dropdown {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.42rem 1.45rem 0.42rem 0.2rem;
+  cursor: pointer;
+  outline: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.clean-dropdown option {
+  background-color: #0b0f1a;
+  color: #f8fafc;
+  padding: 8px 12px;
+}
+
+.clean-dropdown-wrap .dropdown-chevron {
+  position: absolute;
+  right: 0.65rem;
+  pointer-events: none;
+  color: var(--text-secondary);
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.clean-dropdown-wrap:focus-within .dropdown-chevron {
+  color: var(--accent-blue);
+  transform: rotate(180deg);
+}
+
+.atmosphere-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--accent-blue);
+  box-shadow: 0 0 8px var(--accent-blue);
+  flex-shrink: 0;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .test-corpus {
@@ -522,13 +595,20 @@ body {
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
 }
 
 .sample-pill:hover {
-  background: rgba(29, 155, 240, 0.14);
-  border-color: rgba(29, 155, 240, 0.45);
+  background: rgba(56, 189, 248, 0.14);
+  border-color: rgba(56, 189, 248, 0.45);
   color: var(--accent-blue);
   transform: translateY(-1px);
+}
+
+.sample-pill:active {
+  transform: scale(0.97);
 }
 
 /* Alert Error */
@@ -1506,22 +1586,22 @@ body {
 }
 
 /* --------------------------------------------------------------------------
-   Watermelon UI Dynamic Cursor
+   Watermelon UI Dynamic Cursor (Hardware-Accelerated 120 FPS)
    -------------------------------------------------------------------------- */
 .custom-cursor-dot {
   position: fixed;
   top: 0;
   left: 0;
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
   background: var(--accent-blue);
   border-radius: 50%;
-  pointer-events: none;
+  pointer-events: none !important;
   z-index: 9999;
-  transform: translate(-50%, -50%);
   box-shadow: 0 0 10px var(--accent-blue);
   opacity: 0;
   transition: opacity 0.2s ease;
+  will-change: transform;
 }
 
 .custom-cursor-ring {
@@ -1530,21 +1610,21 @@ body {
   left: 0;
   width: 36px;
   height: 36px;
-  border: 1.5px solid rgba(29, 155, 240, 0.6);
+  border: 1.5px solid var(--accent-blue);
   border-radius: 50%;
-  pointer-events: none;
+  pointer-events: none !important;
   z-index: 9998;
-  transform: translate(-50%, -50%);
-  box-shadow: 0 0 16px rgba(29, 155, 240, 0.2);
+  box-shadow: 0 0 16px var(--accent-glow);
   opacity: 0;
-  transition: width 0.22s ease, height 0.22s ease, border-color 0.22s ease, background-color 0.22s ease, opacity 0.2s ease;
+  transition: width 0.2s ease, height 0.2s ease, border-color 0.2s ease, background-color 0.2s ease, opacity 0.2s ease;
+  will-change: transform;
 }
 
 .custom-cursor-ring.active {
-  width: 56px;
-  height: 56px;
-  border-color: rgba(29, 155, 240, 0.9);
-  background-color: rgba(29, 155, 240, 0.08);
+  width: 52px;
+  height: 52px;
+  border-color: var(--accent-blue);
+  background-color: rgba(56, 189, 248, 0.12);
 }
 
 @media (hover: none) or (max-width: 768px) {
@@ -2543,7 +2623,7 @@ body {
 }
 
 /* --------------------------------------------------------------------------
-   Living Atmospheric Aurora Mesh & Dynamic Palette Shift
+   Living Atmospheric Aurora Mesh (Zero-Blur Radial Glow for 120 FPS Performance)
    -------------------------------------------------------------------------- */
 .ambient-aurora-mesh {
   position: fixed;
@@ -2560,136 +2640,38 @@ body {
   position: absolute;
   border-radius: 50%;
   pointer-events: none;
-  filter: blur(110px);
-  -webkit-filter: blur(110px);
-  will-change: transform, background;
-  transition: background 1s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.6s ease;
 }
 
 .aurora-blob-1 {
   top: -15vw;
   left: 20vw;
-  width: 55vw;
-  height: 55vw;
-  max-width: 800px;
-  max-height: 800px;
-  background: var(--aurora-1);
-  animation: auroraDrift1 22s ease-in-out infinite alternate;
+  width: 60vw;
+  height: 60vw;
+  max-width: 850px;
+  max-height: 850px;
+  background: radial-gradient(circle, var(--aurora-1) 0%, transparent 68%);
 }
 
 .aurora-blob-2 {
   top: 25vh;
-  right: -12vw;
+  right: -10vw;
+  width: 55vw;
+  height: 55vw;
+  max-width: 750px;
+  max-height: 750px;
+  background: radial-gradient(circle, var(--aurora-2) 0%, transparent 68%);
+}
+
+.aurora-blob-3 {
+  bottom: -10vh;
+  left: 5vw;
   width: 50vw;
   height: 50vw;
   max-width: 700px;
   max-height: 700px;
-  background: var(--aurora-2);
-  animation: auroraDrift2 26s ease-in-out infinite alternate;
+  background: radial-gradient(circle, var(--aurora-3) 0%, transparent 68%);
 }
-
-.aurora-blob-3 {
-  bottom: -5vh;
-  left: 5vw;
-  width: 45vw;
-  height: 45vw;
-  max-width: 650px;
-  max-height: 650px;
-  background: var(--aurora-3);
-  animation: auroraDrift3 24s ease-in-out infinite alternate;
-}
-
-@keyframes auroraDrift1 {
-  0% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(70px, 45px) scale(1.12); }
-  100% { transform: translate(-45px, -35px) scale(0.94); }
-}
-@keyframes auroraDrift2 {
-  0% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(-60px, -55px) scale(1.1); }
-  100% { transform: translate(45px, 35px) scale(0.95); }
-}
-@keyframes auroraDrift3 {
-  0% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(45px, -45px) scale(1.14); }
-  100% { transform: translate(-35px, 55px) scale(0.92); }
-}
-
-/* Atmosphere Mood Palette Selector */
-.atmosphere-bar {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.85rem;
-  margin: 0 auto 2.5rem auto;
-  padding: 0.45rem 1rem;
-  background: rgba(12, 16, 28, 0.72);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 40px;
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  width: fit-content;
-  max-width: 95vw;
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4), 0 0 25px var(--accent-glow);
-  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-  position: relative;
-  z-index: 10;
-}
-
-.atmosphere-label {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.78rem;
-  font-weight: 700;
-  color: var(--text-secondary);
-  font-family: var(--font-display);
-  letter-spacing: 0.02em;
-}
-
-.atmosphere-dot {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background-color: var(--accent-blue);
-  box-shadow: 0 0 12px var(--accent-blue);
-  transition: all 0.6s ease;
-}
-
-.atmosphere-pills {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  flex-wrap: wrap;
-}
-
-.atmo-pill {
-  background: transparent;
-  border: 1px solid transparent;
-  color: var(--text-secondary);
-  font-size: 0.76rem;
-  font-weight: 600;
-  padding: 0.35rem 0.85rem;
-  border-radius: 20px;
-  cursor: pointer;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-}
-
-.atmo-pill:hover {
-  color: var(--text-white);
-  background: rgba(255, 255, 255, 0.08);
-}
-
-.atmo-pill.active {
-  background: rgba(255, 255, 255, 0.12);
-  border-color: var(--accent-blue);
-  color: var(--text-white);
-  box-shadow: 0 0 14px var(--accent-glow);
-}
-
   </style>
 </head>
 <body>
@@ -2770,20 +2752,6 @@ body {
         </a>
       </div>
 
-      <!-- Living Atmosphere Mood Switcher -->
-      <div class="atmosphere-bar">
-        <div class="atmosphere-label">
-          <span class="atmosphere-dot" id="atmosphereIndicator"></span>
-          <span>Atmosphere:</span>
-        </div>
-        <div class="atmosphere-pills" id="atmospherePicker">
-          <button type="button" class="atmo-pill active" data-atmo="auto">✨ Auto Shift</button>
-          <button type="button" class="atmo-pill" data-atmo="aurora">🌌 Cosmic</button>
-          <button type="button" class="atmo-pill" data-atmo="cyber">⚡ Cyber</button>
-          <button type="button" class="atmo-pill" data-atmo="sunset">🌅 Solar</button>
-          <button type="button" class="atmo-pill" data-atmo="emerald">🍃 Emerald</button>
-        </div>
-      </div>
 
       <!-- Main Converter Box with Clean Technical Accents -->
       <div class="converter-box-wrapper">
@@ -2833,6 +2801,23 @@ body {
                   <button type="button" class="theme-btn active" data-theme="light">Light</button>
                   <button type="button" class="theme-btn" data-theme="dim">Dim</button>
                   <button type="button" class="theme-btn" data-theme="dark">Dark</button>
+                </div>
+              </div>
+
+              <div class="atmosphere-selector">
+                <label for="atmosphereSelect" class="control-label">Atmosphere:</label>
+                <div class="clean-dropdown-wrap">
+                  <span class="atmosphere-dot" id="atmosphereIndicator"></span>
+                  <select id="atmosphereSelect" class="clean-dropdown" aria-label="Select Atmosphere">
+                    <option value="auto" selected>Auto Dynamic</option>
+                    <option value="aurora">Cosmic Aurora</option>
+                    <option value="cyber">Cyber Neon</option>
+                    <option value="sunset">Solar Ember</option>
+                    <option value="emerald">Neon Emerald</option>
+                  </select>
+                  <svg class="dropdown-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
                 </div>
               </div>
 
@@ -3494,7 +3479,7 @@ body {
     }
   </script>
   <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-  <script src="/app.js?v=7"></script>
+  <script src="/app.js?v=8"></script>
 
   <!-- Clean Floating Quick-Action Dock -->
   <div class="floating-dock">
