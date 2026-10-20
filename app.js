@@ -409,7 +409,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // -------------------------------------------------------------------------
-  // Download PNG Action
+  // Download PNG Action (Native Mobile Share Sheet on iOS/Android + Fallback)
   // -------------------------------------------------------------------------
   downloadPngBtn.addEventListener('click', async () => {
     downloadPngBtn.disabled = true;
@@ -418,11 +418,38 @@ document.addEventListener('DOMContentLoaded', () => {
 
     try {
       const { blob } = await generatePngBlob();
+      const fileName = `PostSnap-${activeTweetId || 'post'}.png`;
+
+      // On iOS and Android: Trigger native share sheet if supported (direct 'Save Image' to Photos)
+      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+      if (isMobile && navigator.canShare && window.File) {
+        try {
+          const file = new File([blob], fileName, { type: 'image/png' });
+          if (navigator.canShare({ files: [file] })) {
+            await navigator.share({
+              files: [file],
+              title: 'PostSnap Screenshot',
+              text: 'Captured via PostSnap',
+            });
+            downloadPngBtn.disabled = false;
+            downloadPngBtn.innerHTML = originalText;
+            return;
+          }
+        } catch (shareErr) {
+          if (shareErr.name === 'AbortError') {
+            downloadPngBtn.disabled = false;
+            downloadPngBtn.innerHTML = originalText;
+            return;
+          }
+        }
+      }
+
+      // Standard browser download trigger
       const blobUrl = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.style.display = 'none';
       a.href = blobUrl;
-      a.download = `PostSnap-${activeTweetId || 'post'}.png`;
+      a.download = fileName;
       document.body.appendChild(a);
       a.click();
       setTimeout(() => {
