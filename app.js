@@ -679,26 +679,26 @@ document.addEventListener('DOMContentLoaded', () => {
   // -------------------------------------------------------------------------
   const THEME_ATMOSPHERES = {
     dark: {
-      r: 56, g: 189, b: 248,          // Cosmic Electric Blue #38bdf8
-      secR: 129, secG: 140, secB: 248,  // Indigo #818cf8
-      tertR: 192, tertG: 132, tertB: 252, // Purple
+      r: 255, g: 42, b: 85,           // Aesthetic Crimson Flame #ff2a55 (Default)
+      secR: 225, secG: 29, secB: 72,   // Rose Ruby #e11d48
+      tertR: 159, tertG: 18, tertB: 57, // Deep Velvet Wine
     },
     dim: {
-      r: 0, g: 242, b: 254,           // Cyber Neon Cyan #00f2fe
-      secR: 79, secG: 172, secB: 254,   // Azure Blue #4facfe
-      tertR: 168, tertG: 85, tertB: 247,  // Violet
+      r: 244, g: 63, b: 94,           // Coral Rose #f43f5e
+      secR: 251, secG: 113, secB: 133, // Blush Crimson #fb7185
+      tertR: 190, tertG: 18, tertB: 60, // Carmine
     },
     light: {
-      r: 245, g: 158, b: 11,          // Solar Amber #f59e0b
-      secR: 244, secG: 63, secB: 94,    // Rose Ember #f43f5e
-      tertR: 56, tertG: 189, tertB: 248,  // Sky Blue
+      r: 225, g: 29, b: 72,           // Vivid Crimson
+      secR: 244, secG: 63, secB: 94,   // Rose Ember
+      tertR: 251, tertG: 146, tertB: 60, // Warm Coral
     },
   };
 
   const AUTHOR_SIGNATURES = {
     'jack': { r: 245, g: 158, b: 11 },         // Retro Amber
-    'elonmusk': { r: 56, g: 189, b: 248 },     // Cosmic Starship Blue
-    'barackobama': { r: 129, g: 140, b: 248 }, // Royal Indigo & Violet
+    'elonmusk': { r: 235, g: 30, b: 70 },      // Tesla Velocity Red
+    'barackobama': { r: 225, g: 29, b: 72 },   // Presidential Crimson
     'openai': { r: 16, g: 185, b: 129 },       // Emerald Intelligence
   };
 

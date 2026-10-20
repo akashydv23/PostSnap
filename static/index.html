@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/style.css?v=13">
+  <link rel="stylesheet" href="/style.css?v=14">
   <style>
 /* ==========================================================================
    PostSnap — Ultra-Aesthetic Design System & Living Atmospheric Mesh
@@ -37,16 +37,16 @@
   --text-muted: #64748b;
 
   /* Dynamic Accent Palette (Live-Morphed in Real-Time by Post & Mood) */
-  --accent-blue: #38bdf8;
-  --accent-blue-hover: #818cf8;
-  --accent-glow: rgba(56, 189, 248, 0.38);
-  --accent-cyan: #00f2fe;
-  --accent-purple: #c084fc;
+  --accent-blue: #ff2a55;
+  --accent-blue-hover: #ff476d;
+  --accent-glow: rgba(255, 42, 85, 0.38);
+  --accent-cyan: #ff3366;
+  --accent-purple: #e11d48;
 
   /* Atmospheric Aurora Layers */
-  --aurora-1: rgba(56, 189, 248, 0.24);
-  --aurora-2: rgba(129, 140, 248, 0.20);
-  --aurora-3: rgba(192, 132, 252, 0.16);
+  --aurora-1: rgba(255, 42, 85, 0.24);
+  --aurora-2: rgba(225, 29, 72, 0.20);
+  --aurora-3: rgba(159, 18, 57, 0.16);
 
   --success: #10b981;
   --danger: #f43f5e;
@@ -151,13 +151,13 @@ body {
 .logo-icon {
   width: 36px;
   height: 36px;
-  background: linear-gradient(135deg, #1d9bf0, #0052cc);
+  background: linear-gradient(135deg, #ff2a55, #c0003a);
   border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: #ffffff;
-  box-shadow: 0 0 18px rgba(29, 155, 240, 0.45);
+  box-shadow: 0 0 18px rgba(255, 42, 85, 0.45);
 }
 
 .brand-name {
@@ -169,8 +169,9 @@ body {
 }
 
 .brand-accent {
-  color: var(--accent-blue);
+  color: #ff2a55;
   font-weight: 800;
+  text-shadow: 0 0 14px rgba(255, 42, 85, 0.4);
 }
 
 .nav-menu {
@@ -196,9 +197,9 @@ body {
   display: inline-flex;
   align-items: center;
   padding: 0.45rem 1.15rem;
-  background: rgba(29, 155, 240, 0.12);
+  background: rgba(255, 42, 85, 0.12);
   color: var(--accent-blue);
-  border: 1px solid rgba(29, 155, 240, 0.3);
+  border: 1px solid rgba(255, 42, 85, 0.3);
   border-radius: 9px;
   font-size: 0.88rem;
   font-weight: 600;
@@ -210,7 +211,7 @@ body {
   background: var(--accent-blue);
   color: #ffffff;
   border-color: var(--accent-blue);
-  box-shadow: 0 0 20px rgba(29, 155, 240, 0.5);
+  box-shadow: 0 0 20px rgba(255, 42, 85, 0.5);
   transform: translateY(-1px);
 }
 
@@ -230,7 +231,7 @@ body {
   transform: translateX(-50%);
   width: 800px;
   height: 500px;
-  background: radial-gradient(circle, rgba(29, 155, 240, 0.18) 0%, rgba(7, 8, 12, 0) 70%);
+  background: radial-gradient(circle, rgba(255, 42, 85, 0.18) 0%, rgba(7, 8, 12, 0) 70%);
   pointer-events: none;
   z-index: 0;
   animation: pulseGlow 6s ease-in-out infinite alternate;
@@ -322,7 +323,7 @@ body {
 }
 
 .text-gradient {
-  background: linear-gradient(135deg, #ffffff 30%, #1d9bf0 80%, #00d2ff 100%);
+  background: linear-gradient(135deg, #ffffff 30%, #ff2a55 80%, #ff6b8b 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -344,10 +345,10 @@ body {
   margin: 0 auto;
   border-radius: 20px;
   padding: 1.5px;
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0.08), rgba(29, 155, 240, 0.4), rgba(255, 255, 255, 0.08));
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.08), rgba(255, 42, 85, 0.4), rgba(255, 255, 255, 0.08));
   background-size: 200% 200%;
   animation: borderBeam 8s linear infinite;
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55), 0 0 35px rgba(29, 155, 240, 0.15);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55), 0 0 35px rgba(255, 42, 85, 0.15);
 }
 
 @keyframes borderBeam {
@@ -429,7 +430,7 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  background: linear-gradient(135deg, #1d9bf0, #157dc2);
+  background: linear-gradient(135deg, #ff2a55, #c0003a);
   color: #ffffff;
   border: none;
   border-radius: 9px;
@@ -439,13 +440,13 @@ body {
   font-weight: 700;
   cursor: pointer;
   transition: all 0.2s ease;
-  box-shadow: 0 4px 14px rgba(29, 155, 240, 0.4);
+  box-shadow: 0 4px 14px rgba(255, 42, 85, 0.4);
 }
 
 .btn-submit:hover {
-  background: linear-gradient(135deg, #24a4fa, #1d9bf0);
+  background: linear-gradient(135deg, #ff476d, #d91b42);
   transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(29, 155, 240, 0.55);
+  box-shadow: 0 6px 20px rgba(255, 42, 85, 0.55);
 }
 
 .btn-submit:disabled {
@@ -541,13 +542,13 @@ body {
 }
 
 .theme-btn[data-theme="dim"] .theme-dot {
-  background-color: #00f2fe;
-  box-shadow: 0 0 6px rgba(0, 242, 254, 0.7);
+  background-color: #fb7185;
+  box-shadow: 0 0 6px rgba(251, 113, 133, 0.7);
 }
 
 .theme-btn[data-theme="dark"] .theme-dot {
-  background-color: #38bdf8;
-  box-shadow: 0 0 6px rgba(56, 189, 248, 0.7);
+  background-color: #ff2a55;
+  box-shadow: 0 0 6px rgba(255, 42, 85, 0.7);
 }
 
 .theme-btn.active .theme-dot {
@@ -628,7 +629,7 @@ body {
 .spinner {
   width: 34px;
   height: 34px;
-  border: 3px solid rgba(29, 155, 240, 0.2);
+  border: 3px solid rgba(255, 42, 85, 0.2);
   border-top-color: var(--accent-blue);
   border-radius: 50%;
   animation: spin 0.75s linear infinite;
@@ -796,7 +797,7 @@ body {
   font-weight: 700;
   cursor: pointer;
   transition: all 0.2s ease;
-  box-shadow: 0 4px 14px rgba(29, 155, 240, 0.4);
+  box-shadow: 0 4px 14px rgba(255, 42, 85, 0.4);
 }
 
 .btn-action-primary:hover {
@@ -963,7 +964,7 @@ body {
   height: 44px;
   border-radius: 50%;
   object-fit: cover;
-  background-color: #1d9bf0;
+  background-color: #2f3336;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1197,7 +1198,7 @@ body {
 
 .stat-item:hover {
   background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(29, 155, 240, 0.35);
+  border-color: rgba(255, 42, 85, 0.35);
   transform: translateY(-2px);
 }
 
@@ -1299,7 +1300,7 @@ body {
 }
 
 .comp-preview.crisp {
-  border: 1px solid rgba(29, 155, 240, 0.3);
+  border: 1px solid rgba(255, 42, 85, 0.3);
   background: #000000;
   box-shadow: 0 4px 16px rgba(0,0,0,0.5);
 }
@@ -1385,7 +1386,7 @@ body {
 }
 
 .step-card:hover {
-  border-color: rgba(29, 155, 240, 0.4);
+  border-color: rgba(255, 42, 85, 0.4);
   transform: translateY(-4px);
   box-shadow: 0 16px 30px rgba(0, 0, 0, 0.4);
 }
@@ -1395,7 +1396,7 @@ body {
   font-size: 1.25rem;
   font-weight: 800;
   color: var(--accent-blue);
-  background: rgba(29, 155, 240, 0.12);
+  background: rgba(255, 42, 85, 0.12);
   display: inline-block;
   padding: 0.25rem 0.75rem;
   border-radius: 8px;
@@ -1443,7 +1444,7 @@ body {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(400px circle at var(--mouse-x, -500px) var(--mouse-y, -500px), rgba(29, 155, 240, 0.14), transparent 50%);
+  background: radial-gradient(400px circle at var(--mouse-x, -500px) var(--mouse-y, -500px), rgba(255, 42, 85, 0.14), transparent 50%);
   pointer-events: none;
   opacity: 0;
   transition: opacity 0.3s ease;
@@ -1455,7 +1456,7 @@ body {
 }
 
 .spotlight-card:hover {
-  border-color: rgba(29, 155, 240, 0.4);
+  border-color: rgba(255, 42, 85, 0.4);
   transform: translateY(-2px);
 }
 
@@ -1467,14 +1468,14 @@ body {
 .feature-icon {
   width: 46px;
   height: 46px;
-  background: rgba(29, 155, 240, 0.12);
+  background: rgba(255, 42, 85, 0.12);
   border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--accent-blue);
   margin-bottom: 1.25rem;
-  box-shadow: 0 0 16px rgba(29, 155, 240, 0.2);
+  box-shadow: 0 0 16px rgba(255, 42, 85, 0.2);
 }
 
 .feature-title {
@@ -1511,7 +1512,7 @@ body {
 }
 
 .faq-item[open] {
-  border-color: rgba(29, 155, 240, 0.4);
+  border-color: rgba(255, 42, 85, 0.4);
 }
 
 .faq-question {
@@ -1815,8 +1816,8 @@ body {
 }
 
 .dash-preset-btn:hover, .dash-preset-btn.active {
-  background: rgba(29, 155, 240, 0.12);
-  border-color: rgba(29, 155, 240, 0.4);
+  background: rgba(255, 42, 85, 0.12);
+  border-color: rgba(255, 42, 85, 0.4);
   color: var(--text-white);
 }
 
@@ -1889,8 +1890,8 @@ body {
 }
 
 .toggle-chip.active {
-  background: rgba(29, 155, 240, 0.15);
-  border-color: rgba(29, 155, 240, 0.5);
+  background: rgba(255, 42, 85, 0.15);
+  border-color: rgba(255, 42, 85, 0.5);
   color: var(--accent-blue);
 }
 
@@ -1924,7 +1925,7 @@ body {
   display: flex;
   align-items: center;
   gap: 8px;
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5), 0 0 20px rgba(29, 155, 240, 0.2);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 42, 85, 0.2);
   transition: all 0.25s ease;
 }
 
@@ -1953,7 +1954,7 @@ body {
 .dock-btn.primary {
   background: var(--accent-blue);
   color: #ffffff;
-  box-shadow: 0 2px 10px rgba(29, 155, 240, 0.4);
+  box-shadow: 0 2px 10px rgba(255, 42, 85, 0.4);
 }
 
 .dock-btn.primary:hover {
@@ -2070,7 +2071,7 @@ body {
   position: relative;
   transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   text-decoration: underline;
-  text-decoration-color: rgba(29, 155, 240, 0.4);
+  text-decoration-color: rgba(255, 42, 85, 0.4);
   text-underline-offset: 6px;
 }
 .word-rotate.fade-out {
@@ -2096,7 +2097,7 @@ body {
 }
 .stat-card-tech:hover {
   transform: translateY(-2px);
-  border-color: rgba(29, 155, 240, 0.3);
+  border-color: rgba(255, 42, 85, 0.3);
 }
 .stat-card-tech .tech-number {
   font-family: monospace;
@@ -2172,13 +2173,13 @@ body {
   align-items: center;
   justify-content: center;
   position: relative;
-  background: radial-gradient(circle, rgba(29, 155, 240, 0.1) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(255, 42, 85, 0.1) 0%, transparent 70%);
   cursor: pointer;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 .knob-wheel:hover {
   border-color: var(--accent-blue);
-  box-shadow: 0 0 24px rgba(29, 155, 240, 0.25);
+  box-shadow: 0 0 24px rgba(255, 42, 85, 0.25);
 }
 .knob-indicator {
   position: absolute;
@@ -2223,7 +2224,7 @@ body {
   transition: all 0.15s ease;
 }
 .dpi-btn:hover, .dpi-btn.active {
-  background: rgba(29, 155, 240, 0.18);
+  background: rgba(255, 42, 85, 0.18);
   border-color: var(--accent-blue);
   color: #ffffff;
 }
@@ -2239,7 +2240,7 @@ body {
   padding: 1.5rem 0;
 }
 .morph-btn {
-  background: linear-gradient(135deg, #1d9bf0, #0052cc);
+  background: linear-gradient(135deg, #ff2a55, #c0003a);
   border: 1px solid rgba(255, 255, 255, 0.2);
   color: #ffffff;
   border-radius: 12px;
@@ -2252,14 +2253,14 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
-  box-shadow: 0 4px 20px rgba(29, 155, 240, 0.35);
+  box-shadow: 0 4px 20px rgba(255, 42, 85, 0.35);
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   min-width: 175px;
   justify-content: center;
 }
 .morph-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 28px rgba(29, 155, 240, 0.5);
+  box-shadow: 0 8px 28px rgba(255, 42, 85, 0.5);
 }
 .morph-btn.loading {
   background: rgba(255, 255, 255, 0.08);
@@ -2293,8 +2294,8 @@ body {
   text-decoration: none;
 }
 .agent-pill:hover, .agent-pill.active {
-  background: rgba(29, 155, 240, 0.12);
-  border-color: rgba(29, 155, 240, 0.4);
+  background: rgba(255, 42, 85, 0.12);
+  border-color: rgba(255, 42, 85, 0.4);
   transform: translateX(4px);
 }
 .agent-pill-info {
@@ -2418,7 +2419,7 @@ body {
   color: inherit;
 }
 .testimonial-card-tech:hover {
-  border-color: rgba(29, 155, 240, 0.4);
+  border-color: rgba(255, 42, 85, 0.4);
   transform: translateY(-3px);
   background: rgba(22, 26, 38, 0.9);
 }
@@ -2461,9 +2462,9 @@ body {
   font-weight: 700;
 }
 .tag-dm {
-  background: rgba(29, 155, 240, 0.12);
-  color: #1d9bf0;
-  border: 1px solid rgba(29, 155, 240, 0.25);
+  background: rgba(255, 42, 85, 0.12);
+  color: #ff2a55;
+  border: 1px solid rgba(255, 42, 85, 0.25);
 }
 .tag-tweet {
   background: rgba(0, 210, 255, 0.12);
@@ -2500,8 +2501,8 @@ body {
   }
 }
 .creator-profile-card {
-  border: 1px solid rgba(29, 155, 240, 0.3);
-  background: rgba(29, 155, 240, 0.04);
+  border: 1px solid rgba(255, 42, 85, 0.3);
+  background: rgba(255, 42, 85, 0.04);
   padding: 1.5rem;
   border-radius: 12px;
   position: relative;
@@ -2550,7 +2551,7 @@ body {
   transition: all 0.2s ease;
 }
 .creator-btn:hover {
-  background: rgba(29, 155, 240, 0.2);
+  background: rgba(255, 42, 85, 0.2);
   border-color: var(--accent-blue);
   color: #ffffff;
   transform: translateY(-2px);
@@ -2668,8 +2669,8 @@ body {
 }
 
 .social-icon-btn:hover {
-  background: rgba(29, 155, 240, 0.18);
-  border-color: rgba(29, 155, 240, 0.5);
+  background: rgba(255, 42, 85, 0.18);
+  border-color: rgba(255, 42, 85, 0.5);
   color: #ffffff;
   transform: translateY(-2px);
 }
@@ -3067,7 +3068,7 @@ body {
     margin: 0 auto;
     border-radius: 16px;
     padding: 1px;
-    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.55), 0 0 20px rgba(29, 155, 240, 0.1);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.55), 0 0 20px rgba(255, 42, 85, 0.1);
   }
   .converter-box {
     padding: 1.25rem 0.95rem;
@@ -3117,7 +3118,7 @@ body {
     font-size: 0.96rem;
     border-radius: 9px;
     margin-top: 0.25rem;
-    box-shadow: 0 4px 16px rgba(29, 155, 240, 0.45);
+    box-shadow: 0 4px 16px rgba(255, 42, 85, 0.45);
   }
 
   /* Controls Bar on Mobile */
@@ -3369,7 +3370,7 @@ body {
     gap: 6px;
     border-radius: 30px;
     max-width: 92vw;
-    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.65), 0 0 16px rgba(29, 155, 240, 0.25);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.65), 0 0 16px rgba(255, 42, 85, 0.25);
   }
   .dock-btn {
     padding: 6px 10px;
@@ -3884,9 +3885,9 @@ body {
             <svg viewBox="0 0 240 240" width="240" height="240">
               <line x1="40" y1="0" x2="40" y2="240" stroke="rgba(255,255,255,0.15)" stroke-width="1" />
               <line x1="0" y1="120" x2="240" y2="120" stroke="rgba(255,255,255,0.1)" stroke-width="1" />
-              <circle cx="40" cy="120" r="4" fill="#1d9bf0" />
-              <circle cx="40" cy="120" r="28" fill="none" stroke="rgba(29, 155, 240, 0.25)" stroke-dasharray="3 3" />
-              <circle cx="40" cy="120" r="56" fill="none" stroke="rgba(29, 155, 240, 0.15)" />
+              <circle cx="40" cy="120" r="4" fill="#ff2a55" />
+              <circle cx="40" cy="120" r="28" fill="none" stroke="rgba(255, 42, 85, 0.25)" stroke-dasharray="3 3" />
+              <circle cx="40" cy="120" r="56" fill="none" stroke="rgba(255, 42, 85, 0.15)" />
               <text x="46" y="24" fill="rgba(255,255,255,0.3)" font-size="9" font-family="monospace">AUTHENTIC</text>
             </svg>
           </div>
@@ -3910,9 +3911,9 @@ body {
           <div class="feature-tech-svg-wrapper">
             <svg viewBox="0 0 240 240" width="240" height="240">
               <g transform="translate(30, 70)">
-                <rect x="0" y="0" width="6" height="50" rx="2" fill="#1d9bf0" opacity="0.9" />
-                <rect x="12" y="10" width="6" height="40" rx="2" fill="#1d9bf0" opacity="0.8" />
-                <rect x="24" y="5" width="6" height="45" rx="2" fill="#1d9bf0" opacity="0.9" />
+                <rect x="0" y="0" width="6" height="50" rx="2" fill="#ff2a55" opacity="0.9" />
+                <rect x="12" y="10" width="6" height="40" rx="2" fill="#ff2a55" opacity="0.8" />
+                <rect x="24" y="5" width="6" height="45" rx="2" fill="#ff2a55" opacity="0.9" />
                 <rect x="36" y="20" width="6" height="30" rx="2" fill="rgba(255,255,255,0.15)" />
                 <rect x="48" y="15" width="6" height="35" rx="2" fill="rgba(255,255,255,0.15)" />
                 <rect x="60" y="25" width="6" height="25" rx="2" fill="rgba(255,255,255,0.1)" />
@@ -3941,12 +3942,12 @@ body {
           <div class="feature-tech-svg-wrapper">
             <svg viewBox="0 0 240 240" width="240" height="240">
               <path d="M 120,40 L 120,200" stroke="rgba(255,255,255,0.1)" stroke-width="1" stroke-dasharray="4 4" />
-              <path d="M 120,70 L 60,110 L 60,150 L 120,180" stroke="#1d9bf0" stroke-width="1.8" fill="none" />
-              <circle cx="60" cy="110" r="4" fill="#1d9bf0" />
+              <path d="M 120,70 L 60,110 L 60,150 L 120,180" stroke="#ff2a55" stroke-width="1.8" fill="none" />
+              <circle cx="60" cy="110" r="4" fill="#ff2a55" />
               <circle cx="60" cy="150" r="4" fill="#00d2ff" />
               <circle cx="120" cy="70" r="3" fill="rgba(255,255,255,0.4)" />
               <circle cx="120" cy="180" r="3" fill="rgba(255,255,255,0.4)" />
-              <text x="65" y="105" fill="#1d9bf0" font-size="9" font-family="monospace">RETINA_2X</text>
+              <text x="65" y="105" fill="#ff2a55" font-size="9" font-family="monospace">RETINA_3X</text>
             </svg>
           </div>
 
@@ -4013,7 +4014,7 @@ body {
       <div class="testimonial-marquee-track">
         
         <!-- Card 1: Akash Yadav (Creator) -->
-        <div class="testimonial-card-tech tech-card-wrapper" style="border-color: rgba(29, 155, 240, 0.4); background: rgba(29, 155, 240, 0.05);">
+        <div class="testimonial-card-tech tech-card-wrapper" style="border-color: rgba(255, 42, 85, 0.4); background: rgba(255, 42, 85, 0.05);">
           <div class="corner-accent corner-tl" style="border-color: var(--accent-blue);"></div>
           <div class="corner-accent corner-tr" style="border-color: var(--accent-blue);"></div>
           <div class="corner-accent corner-bl" style="border-color: var(--accent-blue);"></div>
@@ -4021,9 +4022,9 @@ body {
           
           <div class="testimonial-card-header">
             <div class="testimonial-author-box">
-              <div class="testimonial-avatar" style="display: flex; align-items: center; justify-content: center; background: #1d9bf0; color: #fff; font-weight: 800; font-size: 0.85rem;">AY</div>
+              <div class="testimonial-avatar" style="display: flex; align-items: center; justify-content: center; background: #ff2a55; color: #fff; font-weight: 800; font-size: 0.85rem;">AY</div>
               <div>
-                <div class="testimonial-author-name">Akash Yadav <span style="color: #1d9bf0;">✓</span></div>
+                <div class="testimonial-author-name">Akash Yadav <span style="color: #ff2a55;">✓</span></div>
                 <div class="testimonial-handle">@akashhYaadav</div>
               </div>
             </div>
@@ -4280,7 +4281,7 @@ body {
     }
   </script>
   <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-  <script src="/app.js?v=13"></script>
+  <script src="/app.js?v=14"></script>
 
   <!-- Clean Floating Quick-Action Dock -->
   <div class="floating-dock">
