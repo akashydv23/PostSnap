@@ -38,15 +38,15 @@ document.addEventListener('DOMContentLoaded', () => {
   let activeTweetId = null;
 
   // -------------------------------------------------------------------------
-  // SVGs (Verified Badge, X Logo, Engagement Icons)
+  // SVGs (Verified Badge, X Logo, Official X Embed Action Icons)
   // -------------------------------------------------------------------------
   const ICONS = {
     xLogo: `<svg class="tc-logo" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>`,
     verifiedBlue: `<svg class="tc-verified-badge" width="18" height="18" viewBox="0 0 22 22" fill="#1d9bf0"><g><path d="M20.396 11c-.018-.646-.215-1.275-.57-1.816-.354-.54-.852-.972-1.438-1.246.223-.607.27-1.264.14-1.897-.131-.634-.437-1.218-.882-1.687-.47-.445-1.053-.75-1.687-.882-.633-.13-1.29-.083-1.897.14-.273-.587-.704-1.086-1.245-1.44S11.647 1.62 11 1.604c-.646.017-1.273.213-1.813.568s-.969.854-1.24 1.44c-.608-.223-1.267-.272-1.902-.14-.635.13-1.22.436-1.69.882-.445.47-.749 1.055-.878 1.688-.13.633-.08 1.29.144 1.896-.587.274-1.087.705-1.443 1.245-.356.54-.555 1.17-.574 1.817.02.647.218 1.276.574 1.817.356.54.856.972 1.443 1.245-.224.606-.274 1.263-.144 1.896.13.634.433 1.218.877 1.688.47.443 1.054.747 1.687.878.633.132 1.29.084 1.897-.136.274.586.705 1.084 1.246 1.439.54.354 1.17.551 1.816.569.647-.016 1.276-.213 1.817-.567s.972-.854 1.245-1.44c.604.239 1.266.296 1.903.164.636-.132 1.22-.447 1.68-.907.46-.46.776-1.044.908-1.681s.075-1.299-.165-1.903c.586-.274 1.084-.705 1.439-1.246.354-.54.551-1.17.569-1.816zM9.662 14.85l-3.429-3.428 1.293-1.302 2.136 2.136 5.378-5.378 1.293 1.302-6.671 6.67z"/></g></svg>`,
-    reply: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>`,
-    retweet: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 1l4 4-4 4"></path><path d="M3 11V9a4 4 0 0 1 4-4h14"></path><path d="M7 23l-4-4 4-4"></path><path d="M21 13v2a4 4 0 0 1-4 4H3"></path></svg>`,
-    heart: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>`,
-    bookmark: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>`,
+    heartFilled: `<svg class="tc-metric-icon" width="18" height="18" viewBox="0 0 24 24" fill="#f91880"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>`,
+    replyFilled: `<svg class="tc-metric-icon" width="18" height="18" viewBox="0 0 24 24" fill="#1d9bf0"><path d="M1.998 5.5c0-1.381 1.119-2.5 2.5-2.5h15c1.381 0 2.5 1.119 2.5 2.5v9c0 1.381-1.119 2.5-2.5 2.5H6.414l-3.707 3.707c-.63.63-1.707.184-1.707-.707V5.5z"/></svg>`,
+    retweetFilled: `<svg class="tc-metric-icon" width="18" height="18" viewBox="0 0 24 24" fill="#00ba7c"><path d="M4.5 3.88l4.432 4.14-1.364 1.46L5.5 7.55V16c0 1.1.9 2 2 2H12v2H7.5c-2.21 0-4-1.79-4-4V7.55L1.432 9.48.068 8.02 4.5 3.88zM16.5 6H12V4h4.5c2.21 0 4 1.79 4 4v8.45l2.068-1.93 1.364 1.46-4.432 4.14-4.432-4.14 1.364-1.46 2.068 1.93V8c0-1.1-.9-2-2-2z"/></svg>`,
+    link: `<svg class="tc-metric-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>`,
   };
 
   // -------------------------------------------------------------------------
@@ -160,27 +160,36 @@ document.addEventListener('DOMContentLoaded', () => {
       `;
     }
 
-    // Metrics HTML
+    // Metrics HTML (Official X Embed Style with Filled Pink Heart, Blue Reply Bubble, Link & Replies Pill)
     let metricsHtml = '';
     if (metrics && (metrics.likes != null || metrics.retweets != null || metrics.replies != null)) {
+      const hasReplies = metrics.replies != null && Number(metrics.replies) > 0;
+      const hasRetweets = metrics.retweets != null && Number(metrics.retweets) > 0;
+
       metricsHtml = `
         <div class="tc-metrics-row">
           <div class="tc-metric-item">
-            <span class="tc-metric-icon">${ICONS.reply}</span>
-            <span class="tc-metric-val">${formatMetric(metrics.replies) || '0'}</span>
-          </div>
-          <div class="tc-metric-item">
-            <span class="tc-metric-icon">${ICONS.retweet}</span>
-            <span class="tc-metric-val">${formatMetric(metrics.retweets) || '0'}</span>
-          </div>
-          <div class="tc-metric-item">
-            <span class="tc-metric-icon">${ICONS.heart}</span>
+            ${ICONS.heartFilled}
             <span class="tc-metric-val">${formatMetric(metrics.likes) || '0'}</span>
           </div>
           <div class="tc-metric-item">
-            <span class="tc-metric-icon">${ICONS.bookmark}</span>
+            ${ICONS.replyFilled}
+            <span class="tc-metric-label">Reply</span>
+          </div>
+          ${hasRetweets ? `
+          <div class="tc-metric-item">
+            ${ICONS.retweetFilled}
+            <span class="tc-metric-val">${formatMetric(metrics.retweets)}</span>
+          </div>
+          ` : ''}
+          <div class="tc-metric-item">
+            ${ICONS.link}
+            <span class="tc-metric-label">Copy link</span>
           </div>
         </div>
+        ${hasReplies ? `
+        <div class="tc-replies-pill-btn">Read ${formatMetric(metrics.replies)} ${Number(metrics.replies) === 1 ? 'reply' : 'replies'}</div>
+        ` : ''}
       `;
     }
 
