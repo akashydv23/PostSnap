@@ -271,7 +271,9 @@ def parse_syndication_tweet(raw: Dict[str, Any]) -> Dict[str, Any]:
     replies = raw.get("conversation_count")
     retweets = raw.get("retweet_count")
     quotes = raw.get("quote_count")
-    if any(v is not None for v in [likes, replies, retweets, quotes]):
+    raw_views = raw.get("views") or {}
+    views = raw_views.get("count") if isinstance(raw_views, dict) else raw.get("views_count")
+    if any(v is not None for v in [likes, replies, retweets, quotes, views]):
         metrics = {}
         if likes is not None:
             metrics["likes"] = likes
@@ -281,6 +283,8 @@ def parse_syndication_tweet(raw: Dict[str, Any]) -> Dict[str, Any]:
             metrics["retweets"] = retweets
         if quotes is not None:
             metrics["quotes"] = quotes
+        if views is not None:
+            metrics["views"] = views
 
     # Format createdAt date
     created_at = raw.get("created_at", "")

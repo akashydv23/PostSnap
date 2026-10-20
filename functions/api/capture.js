@@ -175,12 +175,14 @@ export async function onRequestPost(context) {
 
         // Metrics
         let metrics = null;
-        if (raw.favorite_count != null || raw.conversation_count != null || raw.retweet_count != null) {
+        if (raw.favorite_count != null || raw.conversation_count != null || raw.retweet_count != null || raw.views != null) {
+          const viewsCount = raw.views?.count ? Number(raw.views.count) : (raw.views_count ? Number(raw.views_count) : null);
           metrics = {
             likes: raw.favorite_count,
             replies: raw.conversation_count,
             retweets: raw.retweet_count,
             quotes: raw.quote_count,
+            views: viewsCount,
           };
         }
 

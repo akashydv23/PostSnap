@@ -876,10 +876,8 @@ body {
 .tweet-card-root.theme-light .tc-text { color: #0f1419; }
 .tweet-card-root.theme-light .tc-meta { color: #536471; }
 .tweet-card-root.theme-light .tc-divider { border-color: #eff3f4; }
-.tweet-card-root.theme-light .tc-metric-label { color: #536471; font-weight: 700; }
-.tweet-card-root.theme-light .tc-metric-val { color: #0f1419; font-weight: 700; }
-.tweet-card-root.theme-light .tc-replies-pill-btn { border-color: #cfd9de; color: #1d9bf0; background: transparent; }
-.tweet-card-root.theme-light .tc-replies-pill-btn:hover { background: rgba(29, 155, 240, 0.05); }
+.tweet-card-root.theme-light .tc-metric-item { color: #536471; }
+.tweet-card-root.theme-light .tc-metric-val { color: #536471; }
 .tweet-card-root.theme-light .tc-logo { color: #0f1419; }
 .tweet-card-root.theme-light .tc-disclosure { color: #8899a6; }
 .tweet-card-root.theme-light .tc-link-card { border-color: #cfd9de; background-color: #ffffff; }
@@ -900,10 +898,8 @@ body {
 .tweet-card-root.theme-dim .tc-text { color: #f7f9f9; }
 .tweet-card-root.theme-dim .tc-meta { color: #8b98a5; }
 .tweet-card-root.theme-dim .tc-divider { border-color: #38444d; }
-.tweet-card-root.theme-dim .tc-metric-label { color: #8b98a5; font-weight: 700; }
-.tweet-card-root.theme-dim .tc-metric-val { color: #f7f9f9; font-weight: 700; }
-.tweet-card-root.theme-dim .tc-replies-pill-btn { border-color: #38444d; color: #1d9bf0; background: transparent; }
-.tweet-card-root.theme-dim .tc-replies-pill-btn:hover { background: rgba(29, 155, 240, 0.08); }
+.tweet-card-root.theme-dim .tc-metric-item { color: #8b98a5; }
+.tweet-card-root.theme-dim .tc-metric-val { color: #8b98a5; }
 .tweet-card-root.theme-dim .tc-logo { color: #f7f9f9; }
 .tweet-card-root.theme-dim .tc-disclosure { color: #8b98a5; }
 .tweet-card-root.theme-dim .tc-link-card { border-color: #38444d; background-color: #192734; }
@@ -924,10 +920,8 @@ body {
 .tweet-card-root.theme-dark .tc-text { color: #e7e9ea; }
 .tweet-card-root.theme-dark .tc-meta { color: #71767b; }
 .tweet-card-root.theme-dark .tc-divider { border-color: #2f3336; }
-.tweet-card-root.theme-dark .tc-metric-label { color: #71767b; font-weight: 700; }
-.tweet-card-root.theme-dark .tc-metric-val { color: #e7e9ea; font-weight: 700; }
-.tweet-card-root.theme-dark .tc-replies-pill-btn { border-color: #2f3336; color: #1d9bf0; background: transparent; }
-.tweet-card-root.theme-dark .tc-replies-pill-btn:hover { background: rgba(29, 155, 240, 0.1); }
+.tweet-card-root.theme-dark .tc-metric-item { color: #71767b; }
+.tweet-card-root.theme-dark .tc-metric-val { color: #71767b; }
 .tweet-card-root.theme-dark .tc-logo { color: #e7e9ea; }
 .tweet-card-root.theme-dark .tc-disclosure { color: #71767b; }
 .tweet-card-root.theme-dark .tc-link-card { border-color: #2f3336; background-color: #16181c; }
@@ -1097,21 +1091,19 @@ body {
   margin: 10px 0;
 }
 
-/* Engagement Metrics & Official X Embed Action Bar */
+/* Engagement Metrics Row (Exact Photo 2 X Layout) */
 .tc-metrics-row {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  gap: 1.35rem;
-  padding: 8px 2px 4px;
-  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 8px 4px 4px;
 }
 
 .tc-metric-item {
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  font-size: 14px;
+  font-size: 13.5px;
   cursor: default;
 }
 
@@ -1122,36 +1114,18 @@ body {
 }
 
 .tc-metric-val {
-  font-weight: 700;
-  font-size: 14px;
+  font-weight: 500;
+  font-size: 13.5px;
   letter-spacing: 0;
 }
 
-.tc-metric-label {
+.tc-metric-val-pink {
+  color: #f91880 !important;
   font-weight: 700;
-  font-size: 14px;
-  letter-spacing: 0;
 }
 
-/* "Read X replies" Pill Button (Official X Embed Style) */
-.tc-replies-pill-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  border-width: 1px;
-  border-style: solid;
-  border-radius: 9999px;
-  padding: 8px 16px;
-  font-weight: 700;
-  font-size: 14px;
-  margin-top: 10px;
-  margin-bottom: 2px;
-  box-sizing: border-box;
-  letter-spacing: normal;
-  text-decoration: none;
-  cursor: pointer;
-  transition: background-color 0.15s ease;
+.tc-metric-item.tc-metric-bookmark {
+  margin-left: auto;
 }
 
 /* Card Disclosure Footer / Watermark */
@@ -3242,7 +3216,6 @@ body {
     margin-top: 10px;
   }
   .tc-metrics-row {
-    gap: 1.1rem;
     padding: 6px 0 2px;
   }
   .tc-metric-item {
@@ -3252,11 +3225,6 @@ body {
   .tc-metric-icon svg {
     width: 17px;
     height: 17px;
-  }
-  .tc-replies-pill-btn {
-    font-size: 13px;
-    padding: 7px 14px;
-    margin-top: 8px;
   }
   .tc-disclosure {
     font-size: 11px;
