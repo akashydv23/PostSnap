@@ -141,12 +141,20 @@ export async function onRequestPost(context) {
           avatarUrl = avatarUrl.replace("_normal", "_400x400");
         }
 
-        // Photos
+        // Photos (Upgrade to high-resolution name=large)
         let media = null;
         if (raw.photos && raw.photos.length > 0) {
+          let photoUrl = raw.photos[0].url || "";
+          if (photoUrl.includes("pbs.twimg.com/media/")) {
+            if (photoUrl.includes("name=")) {
+              photoUrl = photoUrl.replace(/name=[a-zA-Z0-9_]+/, "name=large");
+            } else if (!photoUrl.includes("?")) {
+              photoUrl += "?name=large";
+            }
+          }
           media = {
             type: "photo",
-            url: raw.photos[0].url || "",
+            url: photoUrl,
             width: raw.photos[0].width || 0,
             height: raw.photos[0].height || 0,
           };

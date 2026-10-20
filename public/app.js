@@ -116,19 +116,31 @@ document.addEventListener('DOMContentLoaded', () => {
     const metrics = tweet.metrics;
     const createdAt = formatTweetDate(tweet.createdAt);
 
-    // Build Avatar HTML (Proxy avatar to prevent canvas tainting)
+    // Build Avatar HTML (Proxy avatar to prevent canvas tainting, upgrade to high-res 400x400)
     let avatarHtml = '';
     if (avatarUrl) {
-      const proxiedAvatar = `/api/proxy-image?url=${encodeURIComponent(avatarUrl)}`;
+      let highResAvatar = avatarUrl;
+      if (highResAvatar.includes('_normal.')) {
+        highResAvatar = highResAvatar.replace('_normal.', '_400x400.');
+      }
+      const proxiedAvatar = `/api/proxy-image?url=${encodeURIComponent(highResAvatar)}`;
       avatarHtml = `<div class="tc-avatar"><img src="${proxiedAvatar}" alt="${name}" crossorigin="anonymous" onerror="this.parentElement.innerHTML='${name.charAt(0).toUpperCase()}'"></div>`;
     } else {
       avatarHtml = `<div class="tc-avatar">${name.charAt(0).toUpperCase()}</div>`;
     }
 
-    // Media HTML (Proxy media image to prevent canvas tainting)
+    // Media HTML (Proxy media image to prevent canvas tainting, upgrade to high-res large/orig)
     let mediaHtml = '';
     if (media && media.url) {
-      const proxiedMedia = `/api/proxy-image?url=${encodeURIComponent(media.url)}`;
+      let highResMediaUrl = media.url;
+      if (highResMediaUrl.includes('pbs.twimg.com/media/')) {
+        if (highResMediaUrl.includes('name=')) {
+          highResMediaUrl = highResMediaUrl.replace(/name=[a-zA-Z0-9_]+/, 'name=large');
+        } else if (!highResMediaUrl.includes('?')) {
+          highResMediaUrl += '?name=large';
+        }
+      }
+      const proxiedMedia = `/api/proxy-image?url=${encodeURIComponent(highResMediaUrl)}`;
       mediaHtml = `
         <div class="tc-media-container">
           <img src="${proxiedMedia}" alt="Post media" class="tc-media-photo" crossorigin="anonymous" onerror="this.parentElement.style.display='none'">
@@ -198,7 +210,9 @@ document.addEventListener('DOMContentLoaded', () => {
       ${metricsHtml ? `<hr class="tc-divider">${metricsHtml}` : ''}
 
       <div class="tc-disclosure">
-        ${isFallback ? 'Recreated from available post data by Akash Yadav ❤️' : 'Captured from X via PostSnap by Akash Yadav ❤️'}
+        ${isFallback
+          ? 'Recreated from available post data by <span class="tc-author-credit">Akash Yadav</span> <svg class="tc-heart-icon" viewBox="0 0 24 24" width="12" height="12" aria-label="love"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>'
+          : 'Captured from X via PostSnap by <span class="tc-author-credit">Akash Yadav</span> <svg class="tc-heart-icon" viewBox="0 0 24 24" width="12" height="12" aria-label="love"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>'}
       </div>
     `;
   }
@@ -328,46 +342,108 @@ document.addEventListener('DOMContentLoaded', () => {
     if (images.length === 0) return;
 
     await Promise.all(images.map((img) => {
-      if (img.complete && img.naturalWidth !== 0) return Promise.resolve();
+      if (img.complete && img.naturalWidth !== 0) {
+        if ('decode' in img) {
+          return img.decode().catch(() => {});
+        }
+        return Promise.resolve();
+      }
       return new Promise((res) => {
-        img.addEventListener('load', res, { once: true });
+        img.addEventListener('load', async () => {
+          if ('decode' in img) {
+            try { await img.decode(); } catch (e) {}
+          }
+          res();
+        }, { once: true });
         img.addEventListener('error', res, { once: true });
-        setTimeout(res, 2500); // 2.5s safety timeout
+        setTimeout(res, 3500); // 3.5s safety timeout
       });
     }));
   }
 
   // -------------------------------------------------------------------------
-  // Capture Card to High-Res 2x PNG
+  // Capture Card to Ultra-Crisp 3x Retina PNG (Non-Pixelated, High Fidelity)
   // -------------------------------------------------------------------------
   async function generatePngBlob() {
     const h2c = await ensureHtml2Canvas();
+
+    // Ensure all web fonts are loaded and ready before canvas rasterization
+    if (document.fonts && document.fonts.ready) {
+      try {
+        await document.fonts.ready;
+      } catch (fErr) {
+        console.warn('Font readiness wait skipped:', fErr);
+      }
+    }
+
+    // Wait for all avatars and attached photos to load & decode
     await waitForImages(tweetCard);
 
     const bg = currentTheme === 'dark' ? '#000000' : (currentTheme === 'dim' ? '#15202b' : '#ffffff');
 
+    // 3x Retina export scale: yields razor-sharp 1650px wide PNG for standard 550px card
+    const exportScale = 3;
+
+    const h2cOptions = {
+      scale: exportScale,
+      useCORS: true,
+      allowTaint: false,
+      backgroundColor: bg,
+      logging: false,
+      scrollX: 0,
+      scrollY: 0,
+      windowWidth: 1200,
+      windowHeight: 1200,
+      imageTimeout: 15000,
+      onclone: (clonedDoc, clonedEl) => {
+        const card = clonedEl || clonedDoc.getElementById('tweetCard');
+        if (card) {
+          // Standardize card width to canonical desktop 550px (never squeezed on mobile)
+          card.style.width = '550px';
+          card.style.maxWidth = '550px';
+          card.style.minWidth = '550px';
+          card.style.margin = '0 auto';
+          card.style.boxSizing = 'border-box';
+          card.style.transform = 'none';
+
+          // Ensure zero letter-spacing on text runs to prevent html2canvas kerning splits
+          card.style.letterSpacing = '0px';
+          card.style.fontKerning = 'normal';
+          card.style.textRendering = 'geometricPrecision';
+          card.style.webkitFontSmoothing = 'antialiased';
+
+          if (card.parentElement) {
+            card.parentElement.style.width = 'auto';
+            card.parentElement.style.maxWidth = 'none';
+            card.parentElement.style.overflow = 'visible';
+            card.parentElement.style.display = 'block';
+          }
+
+          // Force watermark kerning in clone
+          const disc = card.querySelector('.tc-disclosure');
+          if (disc) {
+            disc.style.letterSpacing = '0px';
+            disc.style.fontKerning = 'normal';
+            disc.style.webkitFontSmoothing = 'antialiased';
+          }
+
+          const authorCredit = card.querySelector('.tc-author-credit');
+          if (authorCredit) {
+            authorCredit.style.letterSpacing = '0px';
+            authorCredit.style.fontKerning = 'normal';
+          }
+        }
+      }
+    };
+
     let canvas;
     try {
-      canvas = await h2c(tweetCard, {
-        scale: 2, // 2x Retina Resolution
-        useCORS: true,
-        allowTaint: false,
-        backgroundColor: bg,
-        logging: false,
-        scrollX: 0,
-        scrollY: 0,
-        imageTimeout: 10000,
-      });
+      canvas = await h2c(tweetCard, h2cOptions);
     } catch (firstErr) {
       console.warn('html2canvas first attempt failed, retrying with allowTaint: true', firstErr);
       canvas = await h2c(tweetCard, {
-        scale: 2,
-        useCORS: true,
+        ...h2cOptions,
         allowTaint: true,
-        backgroundColor: bg,
-        logging: false,
-        scrollX: 0,
-        scrollY: 0,
       });
     }
 
@@ -414,7 +490,7 @@ document.addEventListener('DOMContentLoaded', () => {
   downloadPngBtn.addEventListener('click', async () => {
     downloadPngBtn.disabled = true;
     const originalText = downloadPngBtn.innerHTML;
-    downloadPngBtn.innerHTML = `<span>Exporting PNG...</span>`;
+    downloadPngBtn.innerHTML = `<span>Exporting Ultra-HD PNG...</span>`;
 
     try {
       const { blob } = await generatePngBlob();

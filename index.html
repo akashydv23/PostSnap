@@ -7,12 +7,12 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="format-detection" content="telephone=no">
-  <title>PostSnap — Clean 2x Retina X Post to PNG</title>
+  <title>PostSnap — Clean Ultra-HD Retina X Post to PNG</title>
   <meta name="description" content="Turn any Twitter / X post into a crisp, authentic, high-resolution PNG screenshot with exact typography, verified badges, media, and metrics. Created by Akash Yadav.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/style.css?v=12">
+  <link rel="stylesheet" href="/style.css?v=13">
   <style>
 /* ==========================================================================
    PostSnap — Ultra-Aesthetic Design System & Living Atmospheric Mesh
@@ -995,7 +995,7 @@ body {
 .tc-author-name {
   font-size: 15px;
   font-weight: 700;
-  letter-spacing: -0.01em;
+  letter-spacing: normal;
 }
 
 .tc-verified-badge {
@@ -1135,11 +1135,36 @@ body {
   font-weight: 400;
 }
 
-/* Card Disclosure Footer */
+/* Card Disclosure Footer / Watermark */
 .tc-disclosure {
-  font-size: 11px;
-  margin-top: 8px;
-  letter-spacing: 0.02em;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
+  font-size: 11.5px;
+  line-height: 1.4;
+  margin-top: 10px;
+  letter-spacing: 0 !important;
+  font-kerning: normal !important;
+  text-rendering: geometricPrecision;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 3px;
+}
+
+.tc-author-credit {
+  font-weight: 600;
+  letter-spacing: 0 !important;
+  display: inline;
+  color: inherit;
+}
+
+.tc-heart-icon {
+  display: inline-block;
+  vertical-align: -1px;
+  margin-left: 2px;
+  fill: #f91880;
+  flex-shrink: 0;
 }
 
 /* --------------------------------------------------------------------------
@@ -3212,6 +3237,7 @@ body {
   .tc-disclosure {
     font-size: 11px;
     padding-top: 6px;
+    letter-spacing: 0 !important;
   }
 
   /* Action Buttons Group on Mobile */
@@ -3355,6 +3381,7 @@ body {
     height: 13px;
   }
 }
+
   </style>
 </head>
 <body>
@@ -3641,7 +3668,7 @@ body {
             <div class="preview-stage">
               <div class="preview-column">
                 <div class="column-header">
-                  <h3>Export-Ready Card (Rendered)</h3>
+                  <h3>Export-Ready Card (Rendered — Ultra-HD 3x)</h3>
                   <span class="column-hint">This exact card is exported to PNG</span>
                 </div>
                 
@@ -4253,7 +4280,7 @@ body {
     }
   </script>
   <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-  <script src="/app.js?v=12"></script>
+  <script src="/app.js?v=13"></script>
 
   <!-- Clean Floating Quick-Action Dock -->
   <div class="floating-dock">

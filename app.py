@@ -226,14 +226,21 @@ def parse_syndication_tweet(raw: Dict[str, Any]) -> Dict[str, Any]:
         "verified": bool(user.get("is_blue_verified") or user.get("verified")),
     }
 
-    # Photos
+    # Photos (Upgrade to high-resolution name=large)
     media = None
     photos = raw.get("photos") or []
     if photos:
         p0 = photos[0]
+        photo_url = p0.get("url", "")
+        if "pbs.twimg.com/media/" in photo_url:
+            import re
+            if "name=" in photo_url:
+                photo_url = re.sub(r"name=[a-zA-Z0-9_]+", "name=large", photo_url)
+            elif "?" not in photo_url:
+                photo_url += "?name=large"
         media = {
             "type": "photo",
-            "url": p0.get("url", ""),
+            "url": photo_url,
             "width": p0.get("width", 0),
             "height": p0.get("height", 0),
         }
