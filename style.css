@@ -1091,12 +1091,14 @@ body {
   margin: 10px 0;
 }
 
-/* Engagement Metrics Row (Exact Photo 2 X Layout) */
+/* Engagement Metrics Row (Exact Photo 2 X Layout — Perfectly Even Spacing) */
 .tc-metrics-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 4px 4px;
+  padding: 10px 4px 6px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .tc-metric-item {
@@ -1105,6 +1107,7 @@ body {
   gap: 7px;
   font-size: 13.5px;
   cursor: default;
+  flex: 0 0 auto;
 }
 
 .tc-metric-icon {
@@ -1122,10 +1125,6 @@ body {
 .tc-metric-val-pink {
   color: #f91880 !important;
   font-weight: 700;
-}
-
-.tc-metric-item.tc-metric-bookmark {
-  margin-left: auto;
 }
 
 /* Card Disclosure Footer / Watermark */
